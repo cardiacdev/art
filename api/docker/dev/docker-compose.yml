@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: bart.app
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
+    volumes:
+      - ../..:/var/www/app
+      - ${SSH_KEY_PATH:-~/.ssh}:/root/.ssh:ro
+
+  postgres:
+    image: docker.boewa-software.de/boewa-software/gitlab-ci/mirror/postgres:15
+    container_name: bart.db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:rw
+volumes:
+  postgres_data:
