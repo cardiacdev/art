@@ -39,7 +39,6 @@ class UserResourceTest extends ApiTestCase
             ->actingAs($user)
             ->get('/api/users')
             ->assertStatus(200)
-            ->dump()
             ->assertJsonMatches('"hydra:totalItems"', 6)
             ->assertJsonMatches('length("hydra:member")', 6);
     }
