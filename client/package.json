@@ -11,7 +11,8 @@
     "lint:fix": "next lint --fix",
     "prettier:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "fix:all": "npm run prettier:write && npm run lint:fix"
+    "fix:all": "npm run prettier:write && npm run lint:fix",
+    "lint:all": "npm run prettier:check && npm run lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
