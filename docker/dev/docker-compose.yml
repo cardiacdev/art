@@ -1,16 +1,32 @@
 version: '3'
 
 services:
-  app:
-    build: .
-    container_name: bart.app
-    ports:
-      - 80:80
+  client:
+    build: ./client
+    container_name: bart.client
+    volumes:
+      - ../../client:/var/www/app
+
+  api:
+    build: ./api
+    container_name: bart.api
     depends_on:
       - postgres
     volumes:
-      - ../..:/var/www/app
+      - ../../api:/var/www/app
       - ${SSH_KEY_PATH:-~/.ssh}:/root/.ssh:ro
+
+  reverse_proxy:
+    image: caddy:2.7-alpine
+    container_name: bart.caddy
+    restart: unless-stopped
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
 
   postgres:
     image: docker.boewa-software.de/boewa-software/gitlab-ci/mirror/postgres:15
@@ -23,5 +39,8 @@ services:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data:rw
+
 volumes:
   postgres_data:
+  caddy_data:
+  caddy_config:

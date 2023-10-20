@@ -1,0 +1,4 @@
+:80 {
+	reverse_proxy /api/* bart.api:80
+	reverse_proxy bart.client:3000
+}

@@ -10,5 +10,14 @@ down:
 rm-volumes:
 	docker compose -f docker/dev/docker-compose.yml down -v
 
-bash:
-	docker exec -it bart.app bash
+api-bash:
+	docker exec -it bart.api bash
+
+client-bash:
+	docker exec -it bart.client bash
+
+caddy-reload:
+	docker exec -w /etc/caddy bart.caddy caddy reload
+
+caddy-fmt:
+	docker exec -w /etc/caddy bart.caddy caddy fmt --overwrite
