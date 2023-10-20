@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'app_login', methods: ['POST'])]
+    #[Route('/api/login', name: 'app_login', methods: ['POST'])]
     public function login(IriConverterInterface $iriConverter, #[CurrentUser] $user = null): Response
     {
         if (!$user) {
@@ -27,9 +27,16 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'app_logout')]
+    #[Route('/api/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
         throw new Exception('This should never be reached!');
+    }
+
+    // Just a dummy route to redirect to after logout, see security.yaml
+    #[Route('/api/logout-success', name: 'app_logout_success', methods: ['GET'])]
+    public function logoutSuccess(): Response
+    {
+        return new Response(null, 204);
     }
 }
