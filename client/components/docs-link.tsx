@@ -2,14 +2,14 @@ import Link from "next/link";
 
 import { Icons } from "./icons";
 
-export const ProfilerLink = () => {
+export const DocsLink = () => {
   return (
     <Link
       href={"/_profiler"}
       target="_blank"
       rel="noreferrer"
-      className={"fixed bottom-3 left-16 z-50 h-12 w-12"}>
-      <Icons.symfony />
+      className={"fixed bottom-3 left-3 z-50 h-12 w-12"}>
+      <Icons.apiPlatform />
     </Link>
   );
 };

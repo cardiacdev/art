@@ -8,6 +8,7 @@ import { env } from "@/env.mjs";
 
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { DocsLink } from "@/components/docs-link";
 import { SiteHeader } from "@/components/header/site-header";
 import { ProfilerLink } from "@/components/profiler-link";
 import { Providers } from "@/components/providers";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteHeader appName={siteConfig.name} />
           {children}
           {env.NODE_ENV !== "production" && <ProfilerLink />}
+          {env.NODE_ENV !== "production" && <DocsLink />}
         </Providers>
       </body>
     </html>
