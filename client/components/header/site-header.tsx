@@ -8,8 +8,11 @@ import { MainNav } from "@/components/header/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 import { Icons } from "../icons";
+import { Login } from "./login";
+import { Logout } from "./logout";
 
 export function SiteHeader({ appName }: { appName: string }) {
+  const isAuthenticated = true;
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <Toaster richColors={true} closeButton={true} />
@@ -17,6 +20,7 @@ export function SiteHeader({ appName }: { appName: string }) {
         <MainNav items={siteConfig.mainNav} appName={appName} />
         <div className="flex flex-1 items-center justify-end space-x-4 ">
           <nav className="flex items-center space-x-1">
+            {false ? <Logout /> : <Login />}
             <Link
               href={siteConfig.links.gitlab}
               target="_blank"
