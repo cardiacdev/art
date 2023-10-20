@@ -4,9 +4,12 @@ import { siteConfig } from "@/config/site";
 
 import "@/styles/globals.css";
 
+import { env } from "@/env.mjs";
+
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/header/site-header";
+import { ProfilerLink } from "@/components/profiler-link";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
@@ -30,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <SiteHeader appName={siteConfig.name} />
           {children}
+          {env.NODE_ENV !== "production" && <ProfilerLink />}
         </Providers>
       </body>
     </html>
