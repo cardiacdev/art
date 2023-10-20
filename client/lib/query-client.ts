@@ -5,7 +5,6 @@ export const createQueryClient = () => {
     defaultOptions: {
       queries: {
         staleTime: 1000 * 7,
-        refetchInterval: 1000 * 7,
       },
     },
   });
