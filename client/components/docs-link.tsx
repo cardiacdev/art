@@ -5,7 +5,7 @@ import { Icons } from "./icons";
 export const DocsLink = () => {
   return (
     <Link
-      href={"/_profiler"}
+      href={"/api/docs"}
       target="_blank"
       rel="noreferrer"
       title="Open API Docs in new tab"
