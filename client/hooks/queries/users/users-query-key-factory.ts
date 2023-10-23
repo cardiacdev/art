@@ -1,4 +1,4 @@
 export const usersKeys = {
-  all: ["users"] as const,
+  all: (page: string) => ["users", { page }] as const,
   me: ["me"] as const,
 };

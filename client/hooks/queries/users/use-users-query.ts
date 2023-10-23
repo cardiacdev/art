@@ -6,9 +6,9 @@ import { fetchUsers } from "@/lib/fetch/users/fetch-users";
 
 import { usersKeys } from "./users-query-key-factory";
 
-export const useUsersQuery = () => {
+export const useUsersQuery = ({ page = "1" }: { page?: string }) => {
   return useQuery({
-    queryKey: usersKeys.all,
-    queryFn: fetchUsers,
+    queryKey: usersKeys.all(page),
+    queryFn: () => fetchUsers(page),
   });
 };
