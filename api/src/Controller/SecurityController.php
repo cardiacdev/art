@@ -39,4 +39,21 @@ class SecurityController extends AbstractController
     {
         return new Response(null, 204);
     }
+
+    #[Route('/api/me', name: 'app_me', methods: ['GET'])]
+    public function me(#[CurrentUser] $user = null): Response
+    {
+        if (!$user) {
+            return $this->json([
+                'error' => 'You are currently not logged in.',
+            ], 401);
+        }
+
+        return $this->json([
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles(),
+        ]);
+    }
 }
