@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useUsersQuery } from "@/hooks/queries/users/use-users-query";
 import { PaginationState } from "@tanstack/react-table";
 
+import { UserTableSkeleton } from "../skeleton/user-table-skeleton";
 import { DataTable } from "../ui/data-table";
 import { columns } from "./user-columns";
 
@@ -17,15 +18,17 @@ export const UserTable = () => {
     page: `${pagination.pageIndex + 1}`,
   });
 
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <UserTableSkeleton />;
 
   return (
-    <DataTable
-      columns={columns}
-      data={data["hydra:member"]}
-      onPaginationChange={setPagination}
-      pagination={pagination}
-      pageCount={Math.ceil(data["hydra:totalItems"] / pagination.pageSize)}
-    />
+    <>
+      <DataTable
+        columns={columns}
+        data={data["hydra:member"]}
+        onPaginationChange={setPagination}
+        pagination={pagination}
+        pageCount={Math.ceil(data["hydra:totalItems"] / pagination.pageSize)}
+      />
+    </>
   );
 };
