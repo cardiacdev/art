@@ -19,13 +19,13 @@ export interface HydraCollection<T> extends JsonLdMeta {
   "@context": string;
   "hydra:totalItems": number;
   "hydra:member": Array<T & JsonLdMeta>;
-  "hydra:view": HydraView;
+  "hydra:view"?: HydraView;
 }
 
 export function createHydraCollectionSchema<T extends AnyZodObject>(schema: T) {
   return jsonLdMetaSchema.extend({
     "hydra:totalItems": z.number(),
     "hydra:member": z.array(jsonLdMetaSchema.merge(schema)),
-    "hydra:view": hydraViewSchema,
+    "hydra:view": hydraViewSchema.optional(),
   });
 }
