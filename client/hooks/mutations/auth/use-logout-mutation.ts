@@ -20,6 +20,6 @@ export const useLogoutMutation = () => {
 
   return useMutation({
     mutationFn: logout,
-    onSuccess: () => queryClient.invalidateQueries(),
+    onSuccess: () => queryClient.resetQueries(),
   });
 };

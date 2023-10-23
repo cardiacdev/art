@@ -27,7 +27,7 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: login,
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.resetQueries();
     },
   });
 };
