@@ -20,7 +20,7 @@ interface LoginFormProps {
 
 export const LoginForm = ({ closeDialog }: LoginFormProps) => {
   const form = useZodForm({ schema, defaultValues: { email: "", password: "" } });
-  const { mutate } = useLoginMutation();
+  const { mutate, isPending } = useLoginMutation();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     mutate(data, {
@@ -64,7 +64,9 @@ export const LoginForm = ({ closeDialog }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isPending}>
+          Submit
+        </Button>
       </form>
     </Form>
   );
