@@ -65,7 +65,7 @@ export const LoginForm = ({ closeDialog }: LoginFormProps) => {
           )}
         />
         <Button type="submit" disabled={isPending}>
-          Submit
+          Login
         </Button>
       </form>
     </Form>

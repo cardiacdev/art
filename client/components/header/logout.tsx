@@ -27,10 +27,10 @@ export const Logout = () => {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure you want to log out?</AlertDialogTitle>
+          <AlertDialogTitle>Sind Sie Sicher dass Sie sich abmelden wollen?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>Abbrechen</AlertDialogCancel>
           <AlertDialogAction
             onClick={() =>
               mutate(undefined, {
@@ -38,7 +38,7 @@ export const Logout = () => {
                 onError: () => toast.error("Fehler beim Abmelden"),
               })
             }>
-            Continue
+            Abmelden
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
