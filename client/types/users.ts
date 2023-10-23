@@ -22,3 +22,22 @@ export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionRes
   }
   return true;
 };
+
+export const meResponseSchema = z.object({
+  id: z.number(),
+  email: z.string(),
+  username: z.string(),
+  roles: z.array(z.string()),
+});
+
+export type MeResponse = z.infer<typeof meResponseSchema>;
+
+export const isMeResponse = (obj: unknown): obj is MeResponse => {
+  const isSuccess = meResponseSchema.safeParse(obj).success;
+
+  if (!isSuccess) {
+    console.trace("Invalid response", obj);
+    return false;
+  }
+  return true;
+};
