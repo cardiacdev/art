@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useDeleteUserMutation } from "@/hooks/mutations/users/use-delete-user-mutation";
-import { usePrevious } from "@/hooks/use-previous";
-import { TrashIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
 import { UserMember } from "@/types/users";
@@ -14,45 +12,40 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { buttonVariants } from "../ui/button";
 
 interface DeleteUserDialogWithButtonProps {
   user: UserMember;
-  closeMenu: () => void;
+  reset: () => void;
 }
 
-export const DeleteUserDialogWithButton = ({ user, closeMenu }: DeleteUserDialogWithButtonProps) => {
+export const DeleteUserDialog = ({ user, reset }: DeleteUserDialogWithButtonProps) => {
   const { mutate } = useDeleteUserMutation(user["@id"]);
+  const [isOpen, setIsOpen] = useState(true);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const previous = usePrevious(isOpen);
-
-  // Sync with parent menu
-  useEffect(() => {
-    if (!!previous && !isOpen) {
-      closeMenu();
-    }
-  }, [isOpen, previous, closeMenu]);
-
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(!open);
+    reset();
+  };
   return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogTrigger>
-        <div className="flex items-center" title="Benutzer löschen">
-          <TrashIcon className="mr-1 h-4 w-4" />
-          Löschen
-        </div>
-      </AlertDialogTrigger>
+    <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Sind Sie Sicher dass Sie diesen Benutzer löschen wollen?</AlertDialogTitle>
+          <AlertDialogDescription>
+            <span className="mb-2 block">Diese Aktion kann nicht rückgängig gemacht werden.</span>
+            <span>
+              Benutzer <strong>{user.username}</strong> wird unwiderruflich gelöscht.
+            </span>
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={closeMenu}>Abbrechen</AlertDialogCancel>
+          <AlertDialogCancel>Abbrechen</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: "destructive" })}
             onClick={() => {
@@ -60,7 +53,6 @@ export const DeleteUserDialogWithButton = ({ user, closeMenu }: DeleteUserDialog
                 onSuccess: () => toast.success(`Benutzer ${user.username} erfolgreich gelöscht`),
                 onError: () => toast.error("Fehler beim Löschen des Benutzers"),
               });
-              closeMenu();
             }}>
             Löschen
           </AlertDialogAction>
