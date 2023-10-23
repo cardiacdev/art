@@ -17,6 +17,6 @@ class AppFixtures extends Fixture
             'password' => '123456',
         ]);
 
-        UserFactory::createMany(10);
+        UserFactory::createMany(25);
     }
 }
