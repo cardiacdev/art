@@ -16,6 +16,6 @@ export const siteConfig = {
     },
   ],
   links: {
-    gitlab: "https://gitlab.boewa-software.de/",
+    gitlab: "https://gitlab.boewa-software.de/m.loose/bart",
   },
 };
