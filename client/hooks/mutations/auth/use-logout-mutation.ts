@@ -4,7 +4,7 @@ import { env } from "@/env.mjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 async function logout() {
-  const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/logout`, {
+  const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/logout`, {
     headers: {
       Credentials: "include",
     },

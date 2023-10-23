@@ -7,10 +7,11 @@ import { UserTable } from "@/components/user/user-table";
 
 export default async function Page() {
   const queryClient = createQueryClient();
+  const defaultPageParam = "1";
 
   await queryClient.prefetchQuery({
-    queryKey: usersKeys.all,
-    queryFn: fetchUsers,
+    queryKey: usersKeys.allWithPage(defaultPageParam),
+    queryFn: () => fetchUsers(defaultPageParam),
   });
 
   return (

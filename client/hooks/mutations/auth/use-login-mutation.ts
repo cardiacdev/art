@@ -9,7 +9,7 @@ interface LoginInput {
 }
 
 async function login(data: LoginInput) {
-  const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/login`, {
+  const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/login`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
