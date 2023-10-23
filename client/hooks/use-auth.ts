@@ -3,7 +3,7 @@
 import { useMeQuery } from "./queries/users/use-me-query";
 
 export const useAuth = () => {
-  const { data } = useMeQuery();
+  const { data, isPending } = useMeQuery();
 
   return {
     isAuthenticated: !!data,
@@ -17,5 +17,6 @@ export const useAuth = () => {
 
       return data.roles.includes(role);
     },
+    isPending,
   };
 };

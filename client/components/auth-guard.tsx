@@ -10,15 +10,15 @@ interface AuthGuardProps {
 }
 
 export const AuthGuard = ({ children }: AuthGuardProps) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isPending } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isAuthenticated && pathname !== "/") {
+    if (!isAuthenticated && !isPending && pathname !== "/") {
       router.replace("/");
     }
-  }, [pathname, router, isAuthenticated]);
+  }, [pathname, router, isAuthenticated, isPending]);
 
   return <>{children}</>;
 };
