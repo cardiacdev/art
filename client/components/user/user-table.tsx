@@ -1,18 +1,31 @@
 "use client";
 
+import { useState } from "react";
+
 import { useUsersQuery } from "@/hooks/queries/users/use-users-query";
+import { PaginationState } from "@tanstack/react-table";
+
+import { DataTable } from "../ui/data-table";
+import { columns } from "./user-columns";
 
 export const UserTable = () => {
-  const { data } = useUsersQuery();
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const { data } = useUsersQuery({
+    page: `${pagination.pageIndex + 1}`,
+  });
 
   if (!data) return <div>Loading...</div>;
 
-  return data["hydra:member"]?.map((user: any) => {
-    return (
-      <div key={user["@id"]} className="border">
-        <p className="whitespace-nowrap px-6 py-4 text-sm font-medium">{user.username}</p>
-        <p className="whitespace-nowrap px-6 py-4 text-sm font-medium">{user.email}</p>
-      </div>
-    );
-  });
+  return (
+    <DataTable
+      columns={columns}
+      data={data["hydra:member"]}
+      onPaginationChange={setPagination}
+      pagination={pagination}
+      pageCount={Math.ceil(data["hydra:totalItems"] / pagination.pageSize)}
+    />
+  );
 };
