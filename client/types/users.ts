@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createHydraCollectionSchema } from "./hydra";
+import { createHydraCollectionSchema, createHydraMemberSchema } from "./hydra";
 
 export const userResponseSchema = z.object({
   username: z.string(),
@@ -22,6 +22,10 @@ export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionRes
   }
   return true;
 };
+
+export const userMemberSchema = createHydraMemberSchema(userResponseSchema);
+
+export type UserMember = z.infer<typeof userMemberSchema>;
 
 export const meResponseSchema = z.object({
   id: z.number(),

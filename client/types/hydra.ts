@@ -22,6 +22,10 @@ export interface HydraCollection<T> extends JsonLdMeta {
   "hydra:view"?: HydraView;
 }
 
+export function createHydraMemberSchema<T extends AnyZodObject>(schema: T) {
+  return jsonLdMetaSchema.merge(schema);
+}
+
 export function createHydraCollectionSchema<T extends AnyZodObject>(schema: T) {
   return jsonLdMetaSchema.extend({
     "hydra:totalItems": z.number(),
