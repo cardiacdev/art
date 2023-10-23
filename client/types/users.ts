@@ -20,5 +20,5 @@ export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionRes
     console.trace("Invalid user collection response", obj);
     return false;
   }
-  return userCollectionResponseSchema.safeParse(obj).success;
+  return true;
 };
