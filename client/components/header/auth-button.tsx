@@ -1,12 +1,12 @@
 "use client";
 
-import { useMeQuery } from "@/hooks/queries/users/use-me-query";
+import { useAuth } from "@/hooks/use-auth";
 
 import { Login } from "./login";
 import { Logout } from "./logout";
 
 export const AuthButton = () => {
-  const { data } = useMeQuery();
+  const { isAuthenticated } = useAuth();
 
-  return data ? <Logout /> : <Login />;
+  return isAuthenticated ? <Logout /> : <Login />;
 };

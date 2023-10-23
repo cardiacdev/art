@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { useAuth } from "@/hooks/use-auth";
 import { Cross1Icon, HamburgerMenuIcon, HomeIcon } from "@radix-ui/react-icons";
 
 import { NavItem } from "@/types/nav";
@@ -28,7 +29,8 @@ interface MainNavProps {
 export const MainNav = ({ appName, items }: MainNavProps) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const pathname = usePathname();
-  const isAuthenticated = true;
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
