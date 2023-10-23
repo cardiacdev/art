@@ -1,3 +1,4 @@
+import { usersKeys } from "@/hooks/queries/users/users-query-key-factory";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { fetchUsers } from "@/lib/fetch/users/fetch-users";
@@ -8,7 +9,7 @@ export default async function Page() {
   const queryClient = createQueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["users"],
+    queryKey: usersKeys.all,
     queryFn: fetchUsers,
   });
 

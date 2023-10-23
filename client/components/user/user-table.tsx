@@ -1,14 +1,9 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-
-import { fetchUsers } from "@/lib/fetch/users/fetch-users";
+import { useUsersQuery } from "@/hooks/queries/users/use-users-query";
 
 export const UserTable = () => {
-  const { data } = useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
-  });
+  const { data } = useUsersQuery();
 
   if (!data) return <div>Loading...</div>;
 
