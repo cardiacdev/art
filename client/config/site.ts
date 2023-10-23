@@ -11,7 +11,7 @@ export const siteConfig = {
       href: "/dashboard",
     },
     {
-      title: "Users",
+      title: "Benutzer",
       href: "/users",
     },
   ],
