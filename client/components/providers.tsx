@@ -1,5 +1,6 @@
 "use client";
 
+import NiceModal from "@ebay/nice-modal-react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -18,7 +19,9 @@ export const Providers = ({ children }: ProvidersProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-        <AuthGuard>{children}</AuthGuard>
+        <NiceModal.Provider>
+          <AuthGuard>{children}</AuthGuard>
+        </NiceModal.Provider>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useModal } from "@ebay/nice-modal-react";
 import { DotsHorizontalIcon, Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 
 import { UserMember } from "@/types/users";
@@ -21,7 +20,8 @@ interface UserActionsMenuProps {
 }
 
 export const UserActionsMenu = ({ user }: UserActionsMenuProps) => {
-  const [action, setAction] = useState<"edit" | "delete" | null>(null);
+  const editModal = useModal(EditUserDialog, { user });
+  const deleteModal = useModal(DeleteUserDialog, { user });
 
   return (
     <>
@@ -35,18 +35,16 @@ export const UserActionsMenu = ({ user }: UserActionsMenuProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Aktionen</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer" onSelect={() => setAction("edit")}>
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => editModal.show()}>
             <Pencil1Icon className="mr-1 h-4 w-4" />
             Bearbeiten
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer text-red-600" onSelect={() => setAction("delete")}>
+          <DropdownMenuItem className="cursor-pointer text-red-600" onSelect={() => deleteModal.show()}>
             <TrashIcon className="mr-1 h-4 w-4" />
             Löschen
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {action === "edit" && <EditUserDialog user={user} reset={() => setAction(null)} />}
-      {action === "delete" && <DeleteUserDialog user={user} reset={() => setAction(null)} />}
     </>
   );
 };

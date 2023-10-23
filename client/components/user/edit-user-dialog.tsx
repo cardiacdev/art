@@ -1,4 +1,4 @@
-import { useState } from "react";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 
 import { UserMember } from "@/types/users";
 import { Button } from "@/components/ui/button";
@@ -15,19 +15,13 @@ import { Label } from "@/components/ui/label";
 
 interface EditUserDialogWithButtonProps {
   user: UserMember;
-  reset: () => void;
 }
 
-export const EditUserDialog = ({ user, reset }: EditUserDialogWithButtonProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(!open);
-    reset();
-  };
+export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogWithButtonProps) => {
+  const { visible, show, hide } = useModal();
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Benutzer bearbeiten</DialogTitle>
@@ -53,4 +47,4 @@ export const EditUserDialog = ({ user, reset }: EditUserDialogWithButtonProps) =
       </DialogContent>
     </Dialog>
   );
-};
+});

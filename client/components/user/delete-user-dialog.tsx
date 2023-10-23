@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback } from "react";
 
 import { useDeleteUserMutation } from "@/hooks/mutations/users/use-delete-user-mutation";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { toast } from "sonner";
 
 import { UserMember } from "@/types/users";
@@ -21,19 +22,21 @@ import { buttonVariants } from "../ui/button";
 
 interface DeleteUserDialogWithButtonProps {
   user: UserMember;
-  reset: () => void;
 }
 
-export const DeleteUserDialog = ({ user, reset }: DeleteUserDialogWithButtonProps) => {
+export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogWithButtonProps) => {
+  const { visible, show, hide } = useModal();
   const { mutate } = useDeleteUserMutation(user["@id"]);
-  const [isOpen, setIsOpen] = useState(true);
 
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(!open);
-    reset();
-  };
+  const handleDeleteClick = useCallback(() => {
+    mutate(undefined, {
+      onSuccess: () => toast.success(`Benutzer ${user.username} erfolgreich gelöscht`),
+      onError: () => toast.error("Fehler beim Löschen des Benutzers"),
+    });
+  }, [user, mutate]);
+
   return (
-    <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
+    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Sind Sie Sicher dass Sie diesen Benutzer löschen wollen?</AlertDialogTitle>
@@ -48,16 +51,11 @@ export const DeleteUserDialog = ({ user, reset }: DeleteUserDialogWithButtonProp
           <AlertDialogCancel>Abbrechen</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: "destructive" })}
-            onClick={() => {
-              mutate(undefined, {
-                onSuccess: () => toast.success(`Benutzer ${user.username} erfolgreich gelöscht`),
-                onError: () => toast.error("Fehler beim Löschen des Benutzers"),
-              });
-            }}>
+            onClick={handleDeleteClick}>
             Löschen
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
-};
+});
