@@ -7,8 +7,12 @@ export const siteConfig = {
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   mainNav: [
     {
-      title: "Dashboard",
-      href: "/dashboard",
+      title: "Projekte",
+      href: "/projects",
+    },
+    {
+      title: "Kunden",
+      href: "/clients",
     },
     {
       title: "Benutzer",
