@@ -16,7 +16,7 @@ export const columns: ColumnDef<UserMember>[] = [
     header: "Email",
   },
   {
-    id: "actions",
+    id: "Aktionen",
     cell: ({ row }) => {
       return <UserActionsMenu user={row.original} />;
     },

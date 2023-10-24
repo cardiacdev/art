@@ -7,6 +7,7 @@ import {
   CaretRightIcon,
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
+  MixerHorizontalIcon,
 } from "@radix-ui/react-icons";
 import {
   ColumnDef,
@@ -59,7 +60,8 @@ export function DataTable<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="mr-auto">
-            Spalten
+            <MixerHorizontalIcon className="mr-2 h-4 w-4" />
+            Anzeige
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
