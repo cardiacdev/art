@@ -27,9 +27,9 @@ export const UserTable = () => {
 
   return (
     <>
-        <Button variant="default" className="ml-auto" onClick={() => createModal.show()}>
-          Benutzer anlegen
-        </Button>
+      <Button variant="default" className="ml-auto" onClick={() => createModal.show()}>
+        Benutzer anlegen
+      </Button>
       <DataTable
         columns={columns}
         data={data["hydra:member"]}
