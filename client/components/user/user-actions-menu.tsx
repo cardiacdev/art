@@ -35,11 +35,13 @@ export const UserActionsMenu = ({ user }: UserActionsMenuProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Aktionen</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer" onSelect={() => editModal.show()}>
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => editModal.show({ user })}>
             <Pencil1Icon className="mr-1 h-4 w-4" />
             Bearbeiten
           </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer text-red-600" onSelect={() => deleteModal.show()}>
+          <DropdownMenuItem
+            className="cursor-pointer text-red-600"
+            onSelect={() => deleteModal.show({ user })}>
             <TrashIcon className="mr-1 h-4 w-4" />
             Löschen
           </DropdownMenuItem>
