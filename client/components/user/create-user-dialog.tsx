@@ -22,28 +22,33 @@ export const CreateUserDialog = NiceModal.create(() => {
   const form = useZodForm({
     schema: createUserFormSchema,
     defaultValues: { email: "", username: "", password: "" },
-    mode: "onSubmit",
+    mode: "onTouched",
   });
   const { isValid } = form.formState;
 
   const { mutate, isPending } = useCreateUserMutation();
   const { visible, show, hide } = useModal();
 
+  const hideAndReset = () => {
+    hide();
+    form.reset({ email: "", username: "", password: "" });
+  };
+
   const onSubmit = (data: CreateUserFormValues) => {
     mutate(data, {
       onSuccess: (returnData) => {
-        hide();
+        hideAndReset();
         toast.success(`Benutzer ${returnData.username} erfolgreich erstellt!`);
       },
       onError: () => {
-        hide();
+        hideAndReset();
         toast.error(`Benutzer ${data} konnte nicht erstellt werden!`);
       },
     });
   };
 
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hideAndReset())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Benutzer anlegen</DialogTitle>
