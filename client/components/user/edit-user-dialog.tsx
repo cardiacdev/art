@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 const editUserFormSchema = z.object({
   email: z.string().email("Ungültige Email-Adresse"),
-  username: z.string().min(6, "Der Username muss mindestens 6 Zeichen lang sein"),
+  username: z.string().min(3, "Der Username muss mindestens 3 Zeichen lang sein"),
 });
 
 export type EditUserFormValues = z.infer<typeof editUserFormSchema>;
