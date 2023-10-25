@@ -35,7 +35,7 @@ export const Logout = () => {
             onClick={() =>
               mutate(undefined, {
                 onSuccess: () => toast.success("Erfolgreich abgemeldet"),
-                onError: () => toast.error("Fehler beim Abmelden"),
+                onError: (error) => toast.error(error.message, { duration: 7000 }),
               })
             }>
             Abmelden

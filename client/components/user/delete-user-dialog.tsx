@@ -31,7 +31,9 @@ export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogWith
   const handleDeleteClick = useCallback(() => {
     mutate(undefined, {
       onSuccess: () => toast.success(`Benutzer ${user.username} erfolgreich gelöscht`),
-      onError: () => toast.error("Fehler beim Löschen des Benutzers"),
+      onError: (error) => {
+        toast.error(error.message, { duration: 7000 });
+      },
     });
   }, [user, mutate]);
 

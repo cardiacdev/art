@@ -28,9 +28,9 @@ export const LoginForm = ({ closeDialog }: LoginFormProps) => {
         closeDialog();
         toast.success("Login erfolgreich!");
       },
-      onError: () => {
+      onError: (error) => {
         closeDialog();
-        toast.error("Login fehlgeschlagen!");
+        toast.error(error.message, { duration: 7000 });
       },
     });
   };

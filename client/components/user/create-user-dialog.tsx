@@ -40,9 +40,9 @@ export const CreateUserDialog = NiceModal.create(() => {
         hideAndReset();
         toast.success(`Benutzer ${returnData.username} erfolgreich erstellt!`);
       },
-      onError: () => {
+      onError: (error) => {
         hideAndReset();
-        toast.error(`Benutzer ${data} konnte nicht erstellt werden!`);
+        toast.error(error.message, { duration: 7000 });
       },
     });
   };
