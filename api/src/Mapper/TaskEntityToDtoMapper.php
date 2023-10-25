@@ -44,14 +44,16 @@ class TaskEntityToDtoMapper implements MapperInterface
         $dto->euroAmount = $entity->getEuroAmount();
         $dto->externalHours = $entity->getExternalHours();
         $dto->remarks = $entity->getRemarks();
-        $dto->plannedCompletionDate = $entity->getPlannedCompletionDate();
-        $dto->firstSandboxDeploymentDate = $entity->getFirstSandboxDeploymentDate();
-        $dto->firstLiveDeploymentDate = $entity->getFirstLiveDeploymentDate();
+        $dto->plannedCompletionDate = $entity->getPlannedCompletionDate()?->format('d.m.Y');
+        $dto->firstSandboxDeploymentDate = $entity->getFirstSandboxDeploymentDate()?->format('d.m.Y');
+        $dto->firstLiveDeploymentDate = $entity->getFirstLiveDeploymentDate()?->format('d.m.Y');
         $dto->orderNumber = $entity->getOrderNumber();
-        $dto->orderConfirmationDate = $entity->getOrderConfirmationDate();
+        $dto->orderConfirmationDate = $entity->getOrderConfirmationDate()?->format('d.m.Y');
 
         $dto->invoiceItems = array_map(
-            fn ($invoiceItem) => $this->microMapper->map($invoiceItem, InvoiceItemDto::class),
+            fn ($invoiceItem) => $this->microMapper->map($invoiceItem, InvoiceItemDto::class, [
+                MicroMapperInterface::MAX_DEPTH => 0,
+            ]),
             $entity->getInvoiceItems()->toArray()
         );
 
