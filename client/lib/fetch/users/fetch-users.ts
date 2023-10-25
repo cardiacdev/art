@@ -6,10 +6,7 @@ import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 export const fetchUsers = async (page: string) => {
   const searchParams = new URLSearchParams({ page });
 
-  const res = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/users?${searchParams.toString()}`);
-  if (!res.ok) throw new Error(res.statusText);
-
-  const data = await res.json();
+  const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/users?${searchParams.toString()}`);
 
   if (!isUserCollectionResponse(data)) throw new Error("Invalid response");
 
