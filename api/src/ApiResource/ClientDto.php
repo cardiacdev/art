@@ -7,9 +7,16 @@ namespace App\ApiResource;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Symfony\Validator\Exception\ValidationException;
 use App\Entity\Client;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use App\Validator\AssertDeletable;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
@@ -17,10 +24,29 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     stateOptions: new Options(
         entityClass: Client::class,
     ),
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(),
+        new Delete(
+            validate: true,
+            validationContext: [
+                'groups' => ['deleteValidation'],
+            ],
+            exceptionToStatus: [
+                ValidationException::class => 422,
+            ],
+        ),
+    ],
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
     paginationItemsPerPage: 10,
+)]
+#[AssertDeletable(
+    fields: ['projects', 'invoices'],
+    groups: ['deleteValidation']
 )]
 class ClientDto
 {
