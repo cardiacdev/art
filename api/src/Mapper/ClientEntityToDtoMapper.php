@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mapper;
 
 use App\ApiResource\ClientDto;
+use App\ApiResource\InvoiceDto;
 use App\Entity\Client;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
@@ -45,7 +46,13 @@ class ClientEntityToDtoMapper implements MapperInterface
             ]),
             $entity->getProjects()->toArray()
         );
-        // TODO - Invoices
+
+        $dto->invoices = array_map(
+            fn (object $invoice) => $this->microMapper->map($invoice, InvoiceDto::class, [
+                MicroMapperInterface::MAX_DEPTH => 1,
+            ]),
+            $entity->getInvoices()->toArray()
+        );
 
         return $dto;
     }
