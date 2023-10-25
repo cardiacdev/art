@@ -39,8 +39,13 @@ class ClientEntityToDtoMapper implements MapperInterface
         assert($dto instanceof ClientDto);
 
         $dto->name = $entity->getName();
-
-        // TODO - Relations
+        $dto->projects = array_map(
+            fn (object $project) => $this->microMapper->map($project, ClientDto::class, [
+                MicroMapperInterface::MAX_DEPTH => 1,
+            ]),
+            $entity->getProjects()->toArray()
+        );
+        // TODO - Invoices
 
         return $dto;
     }

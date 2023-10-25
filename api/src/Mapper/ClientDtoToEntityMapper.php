@@ -42,7 +42,6 @@ class ClientDtoToEntityMapper implements MapperInterface
         assert($entity instanceof Client);
 
         $entity->setName($dto->name);
-        // TODO - Relations
 
         return $entity;
     }
