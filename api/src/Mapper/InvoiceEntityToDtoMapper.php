@@ -41,7 +41,7 @@ class InvoiceEntityToDtoMapper implements MapperInterface
         assert($dto instanceof InvoiceDto);
 
         $dto->invoiceNumber = $entity->getInvoiceNumber();
-        $dto->billingDate = $entity->getBillingDate();
+        $dto->billingDate = $entity->getBillingDate()?->format('d.m.Y');
         $dto->remarks = $entity->getRemarks();
 
         $dto->client = $this->microMapper->map($entity->getClient(), ClientDto::class);
