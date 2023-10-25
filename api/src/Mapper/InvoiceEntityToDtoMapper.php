@@ -47,7 +47,9 @@ class InvoiceEntityToDtoMapper implements MapperInterface
         $dto->client = $this->microMapper->map($entity->getClient(), ClientDto::class);
 
         $dto->invoiceItems = array_map(
-            fn ($invoiceItem) => $this->microMapper->map($invoiceItem, InvoiceItemDto::class),
+            fn ($invoiceItem) => $this->microMapper->map($invoiceItem, InvoiceItemDto::class, [
+                MicroMapperInterface::MAX_DEPTH => 0,
+            ]),
             $entity->getInvoiceItems()->toArray()
         );
 
