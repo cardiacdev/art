@@ -64,10 +64,6 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
         hide();
         toast.success(`Benutzer ${user.username} erfolgreich bearbeitet!`);
       },
-      onError: (error) => {
-        hide();
-        toast.error(error.message, { duration: 7000 });
-      },
     });
   };
 
