@@ -19,7 +19,6 @@ export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionRes
   const isSuccess = userCollectionResponseSchema.safeParse(obj).success;
 
   if (!isSuccess) {
-    console.warn("Invalid user collection response");
     return false;
   }
   return true;
@@ -34,7 +33,6 @@ export const isUserMember = (obj: unknown): obj is UserMember => {
   const isSuccess = userMemberSchema.safeParse(obj).success;
 
   if (!isSuccess) {
-    console.warn("Invalid user member");
     return false;
   }
   return true;
@@ -51,7 +49,6 @@ export const isSingleUserResponse = (obj: unknown): obj is SingleUserResponse =>
   const isSuccess = singleUserResponseSchema.safeParse(obj).success;
 
   if (!isSuccess) {
-    console.warn("Invalid single user response");
     return false;
   }
   return true;
@@ -71,7 +68,6 @@ export const isMeResponse = (obj: unknown): obj is MeResponse => {
   const isSuccess = meResponseSchema.safeParse(obj).success;
 
   if (!isSuccess) {
-    console.warn("Invalid response", obj);
     return false;
   }
   return true;
