@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\User;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use App\Validator\AssertUnique;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -27,7 +28,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
             security: 'is_granted("PUBLIC_ACCESS")',
             validationContext: ['groups' => ['Default', 'postValidation']]
         ),
-        new Patch(),
+        new Patch(
+            validationContext: ['groups' => ['Default', 'patchValidation']]
+        ),
         new Delete(),
     ],
     stateOptions: new Options(
@@ -45,9 +48,19 @@ class UserDto
 
     #[NotBlank]
     #[Email]
+    #[AssertUnique(
+        entityClass: User::class,
+        field: 'email',
+        groups: ['postValidation', 'patchValidation'],
+    )]
     public ?string $email = null;
 
     #[NotBlank]
+    #[AssertUnique(
+        entityClass: User::class,
+        field: 'username',
+        groups: ['postValidation', 'patchValidation'],
+    )]
     public ?string $username = null;
 
     /**
