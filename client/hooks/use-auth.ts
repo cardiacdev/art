@@ -7,11 +7,7 @@ export const useAuth = () => {
 
   return {
     isAuthenticated: !!data,
-    user: {
-      id: data?.id,
-      email: data?.email,
-      name: data?.username,
-    },
+    user: data,
     isGranted: (role: string) => {
       if (!data) return false;
 

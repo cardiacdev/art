@@ -59,7 +59,7 @@ export const isSingleUserResponse = (obj: unknown): obj is SingleUserResponse =>
 
 // ----- CUSTOM RESPONSE FROM /api/me ROUTE FOR AUTH CHECK -----
 export const meResponseSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   email: z.string(),
   username: z.string(),
   roles: z.array(z.string()),

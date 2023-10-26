@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use ApiPlatform\Api\IriConverterInterface;
+use App\ApiResource\UserDto;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfonycasts\MicroMapper\MicroMapperInterface;
 
 class SecurityController extends AbstractController
 {
@@ -41,8 +43,11 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/api/me', name: 'app_me', methods: ['GET'])]
-    public function me(#[CurrentUser] $user = null): Response
-    {
+    public function me(
+        IriConverterInterface $iriConverter,
+        MicroMapperInterface $microMapper,
+        #[CurrentUser] $user = null
+    ): Response {
         if (!$user) {
             return $this->json([
                 'error' => 'You are currently not logged in.',
@@ -50,7 +55,10 @@ class SecurityController extends AbstractController
         }
 
         return $this->json([
-            'id' => $user->getId(),
+            'id' => $iriConverter->getIriFromResource($microMapper->map(
+                $user,
+                UserDto::class
+            )),
             'email' => $user->getEmail(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
