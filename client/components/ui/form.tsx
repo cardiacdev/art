@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { Violation } from "@/hooks/use-handle-mutation-errors";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import {
@@ -148,4 +149,37 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 );
 FormMessage.displayName = "FormMessage";
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+interface FormServerMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  violations: Array<Violation>;
+}
+
+const FormServerMessage = ({ className, children, violations, ...props }: FormServerMessageProps) => {
+  if (!violations?.length) {
+    return null;
+  }
+
+  return (
+    <>
+      {violations.map((violation, i) => {
+        return (
+          <p key={i} className={cn("text-[0.8rem] font-medium text-destructive", className)} {...props}>
+            {violation.message}
+          </p>
+        );
+      })}
+    </>
+  );
+};
+FormServerMessage.displayName = "FormServerMessage";
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormServerMessage,
+  FormField,
+};
