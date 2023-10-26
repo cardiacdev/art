@@ -3,10 +3,10 @@
 import { useAuth } from "@/hooks/use-auth";
 
 import { Login } from "./login";
-import { Logout } from "./logout";
+import { UserNav } from "./user-nav";
 
 export const AuthButton = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  return isAuthenticated ? <Logout /> : <Login />;
+  return isAuthenticated && user ? <UserNav user={user} /> : <Login />;
 };

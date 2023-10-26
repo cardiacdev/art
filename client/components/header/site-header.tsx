@@ -18,7 +18,6 @@ export function SiteHeader({ appName }: { appName: string }) {
         <MainNav items={siteConfig.mainNav} appName={appName} />
         <div className="flex flex-1 items-center justify-end space-x-4 ">
           <nav className="flex items-center space-x-1">
-            <AuthButton />
             <Link
               href={siteConfig.links.gitlab}
               target="_blank"
@@ -29,6 +28,7 @@ export function SiteHeader({ appName }: { appName: string }) {
               </Button>
             </Link>
             <ThemeToggle />
+            <AuthButton />
           </nav>
         </div>
       </div>
