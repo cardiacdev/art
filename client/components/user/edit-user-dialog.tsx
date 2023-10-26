@@ -10,7 +10,16 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormServerMessage,
+} from "../ui/form";
+import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
 
 const editUserFormSchema = z.object({
   email: z.string().email("Ungültige Email-Adresse"),
@@ -39,7 +48,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
    */
   const { isDirty, dirtyFields, isValid } = form.formState;
 
-  const { mutate, isPending } = useEditUserMutation(user["@id"]);
+  const { mutate, isPending, violations } = useEditUserMutation(user["@id"]);
   const { visible, show, hide } = useModal();
 
   const onSubmit = (data: EditUserFormValues) => {
@@ -81,6 +90,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
                     <Input placeholder={user.email} {...field} />
                   </FormControl>
                   <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
               )}
             />
@@ -94,12 +104,14 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
                     <Input placeholder={user.username} {...field} />
                   </FormControl>
                   <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
               )}
             />
             <Button type="submit" disabled={isPending || !isValid}>
               Speichern
             </Button>
+            <GlobalViolationAlerts violations={violations.global} />
           </form>
         </Form>
       </DialogContent>

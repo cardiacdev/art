@@ -8,7 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormServerMessage,
+} from "../ui/form";
+import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
 
 const createUserFormSchema = z.object({
   email: z.string().email("Ungültige Email-Adresse"),
@@ -26,7 +35,7 @@ export const CreateUserDialog = NiceModal.create(() => {
   });
   const { isValid } = form.formState;
 
-  const { mutate, isPending } = useCreateUserMutation();
+  const { mutate, isPending, violations } = useCreateUserMutation();
   const { visible, show, hide } = useModal();
 
   const hideAndReset = () => {
@@ -39,10 +48,6 @@ export const CreateUserDialog = NiceModal.create(() => {
       onSuccess: (returnData) => {
         hideAndReset();
         toast.success(`Benutzer ${returnData.username} erfolgreich erstellt!`);
-      },
-      onError: (error) => {
-        hideAndReset();
-        toast.error(error.message, { duration: 7000 });
       },
     });
   };
@@ -66,6 +71,7 @@ export const CreateUserDialog = NiceModal.create(() => {
                     <Input {...field} />
                   </FormControl>
                   <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
               )}
             />
@@ -79,6 +85,7 @@ export const CreateUserDialog = NiceModal.create(() => {
                     <Input {...field} />
                   </FormControl>
                   <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
               )}
             />
@@ -92,12 +99,14 @@ export const CreateUserDialog = NiceModal.create(() => {
                     <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
               )}
             />
             <Button type="submit" disabled={isPending || !isValid}>
               Speichern
             </Button>
+            <GlobalViolationAlerts violations={violations.global} />
           </form>
         </Form>
       </DialogContent>

@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { buttonVariants } from "../ui/button";
+import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
 
 interface DeleteUserDialogWithButtonProps {
   user: UserMember;
@@ -26,7 +27,7 @@ interface DeleteUserDialogWithButtonProps {
 
 export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogWithButtonProps) => {
   const { visible, show, hide } = useModal();
-  const { mutate } = useDeleteUserMutation(user["@id"]);
+  const { mutate, violations } = useDeleteUserMutation(user["@id"]);
 
   const handleDeleteClick = useCallback(() => {
     mutate(undefined, {
@@ -56,6 +57,7 @@ export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogWith
             onClick={handleDeleteClick}>
             Löschen
           </AlertDialogAction>
+          <GlobalViolationAlerts violations={violations.global} />
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
