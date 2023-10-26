@@ -83,7 +83,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder={user.email} {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                   <FormServerMessage violations={violations[field.name]} />
@@ -97,7 +97,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder={user.username} {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                   <FormServerMessage violations={violations[field.name]} />
