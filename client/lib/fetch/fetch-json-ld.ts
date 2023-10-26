@@ -1,5 +1,3 @@
-import { handleError } from "./handle-error";
-
 export const fetchJsonLd = async (url: string, init?: RequestInit | undefined) => {
   const res = await fetch(url, {
     ...init,
@@ -9,7 +7,6 @@ export const fetchJsonLd = async (url: string, init?: RequestInit | undefined) =
       Credentials: "include",
     },
   });
-  await handleError(res);
 
-  return res.json();
+  return await res.json();
 };
