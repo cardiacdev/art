@@ -33,3 +33,26 @@ export function createHydraCollectionSchema<T extends AnyZodObject>(schema: T) {
     "hydra:view": hydraViewSchema.optional(),
   });
 }
+
+export const constraintViolationListResponseSchema = z.object({
+  "@id": z.string(),
+  "@type": z.string(),
+  status: z.number(),
+  detail: z.string(),
+  type: z.string(),
+  title: z.string(),
+  "hydra:title": z.string(),
+  "hydra:description": z.string(),
+  violations: z.array(
+    z.object({
+      propertyPath: z.string().optional(),
+      message: z.string(),
+      code: z.string().nullable(),
+    }),
+  ),
+});
+
+export type ConstraintViolationListResponse = z.infer<typeof constraintViolationListResponseSchema>;
+
+export const isConstraintViolationListResponse = (obj: any): obj is ConstraintViolationListResponse =>
+  constraintViolationListResponseSchema.safeParse(obj).success;
