@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
+use App\ApiResource\InvoiceDto;
 use App\ApiResource\InvoiceItemDto;
+use App\ApiResource\TaskDto;
 use App\Entity\InvoiceItem;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
