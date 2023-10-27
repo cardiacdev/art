@@ -30,3 +30,7 @@ export function getDirtyFormValues<
 
   return dirtyValues;
 }
+
+export function iriToId(iri: string) {
+  return iri.split("/").pop();
+}
