@@ -22,6 +22,8 @@ CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
+    // Content is added by children
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     <h3 ref={ref} className={cn("font-semibold leading-none tracking-tight", className)} {...props} />
   ),
 );
