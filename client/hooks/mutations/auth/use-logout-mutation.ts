@@ -22,7 +22,7 @@ export const useLogoutMutation = () => {
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      toast.success("Erfolgreich abgemeldet")
+      toast.success("Erfolgreich abgemeldet");
       queryClient.resetQueries();
     },
     onError: (error) => toast.error(error.message, { duration: 7000 }),
