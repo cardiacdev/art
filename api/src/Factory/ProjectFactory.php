@@ -50,7 +50,7 @@ final class ProjectFactory extends ModelFactory
     {
         return [
             'client' => ClientFactory::new(),
-            'name' => self::faker()->text(255),
+            'name' => self::faker()->jobTitle(),
             'hourlyRate' => self::faker()->boolean(60) ? (string) self::faker()->randomFloat(2, 100, 200) : null,
         ];
     }
