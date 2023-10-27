@@ -28,8 +28,11 @@ export const useEditUserMutation = (iri: string) => {
       return res;
     },
     onSuccess: () => {
-      queryClient.resetQueries({
+      queryClient.invalidateQueries({
         queryKey: usersKeys.all,
+      });
+      queryClient.invalidateQueries({
+        queryKey: usersKeys.me,
       });
     },
   });
