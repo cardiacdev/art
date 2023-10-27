@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { isSingleUserResponse } from "@/types/users";
 import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
-import { EditMeFormValues } from "@/components/user/edit-me-dialog";
+import { EditMeFormValues } from "@/components/users/edit-me-dialog";
 
 export const useEditMeMutation = (iri: string) => {
   const queryClient = useQueryClient();

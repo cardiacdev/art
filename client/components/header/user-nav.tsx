@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { EditMeDialog } from "../user/edit-me-dialog";
+import { EditMeDialog } from "../users/edit-me-dialog";
 
 interface UserNavProps {
   user: MeResponse;
