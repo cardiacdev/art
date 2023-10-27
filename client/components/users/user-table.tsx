@@ -6,7 +6,6 @@ import { useUsersQuery } from "@/hooks/queries/users/use-users-query";
 import { useModal } from "@ebay/nice-modal-react";
 import { PaginationState } from "@tanstack/react-table";
 
-import { UserTableSkeleton } from "../skeleton/user-table-skeleton";
 import { Button } from "../ui/button";
 import { DataTable } from "../ui/data-table";
 import { CreateUserDialog } from "./create-user-dialog";
@@ -23,7 +22,7 @@ export const UserTable = () => {
 
   const createModal = useModal(CreateUserDialog);
 
-  if (!data) return <UserTableSkeleton />;
+  if (!data) return null;
 
   return (
     <>
