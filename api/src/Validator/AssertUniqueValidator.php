@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -12,7 +15,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class AssertUniqueValidator extends ConstraintValidator
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private PropertyAccessorInterface $propertyAccessor
     ) {
     }
 
@@ -26,19 +30,26 @@ class AssertUniqueValidator extends ConstraintValidator
             return;
         }
 
+        /** @var UserRepository */
         $repository = $this->entityManager->getRepository($constraint->entityClass);
 
-        $result = $repository->findOneBy([
-            $constraint->field => $value,
-        ]);
+        foreach ($constraint->fields as $field) {
+            $id = $this->propertyAccessor->getValue($value, 'id');
+            $fieldValue = $this->propertyAccessor->getValue($value, $field);
 
-        if (null === $result) {
-            return;
+            $criteria = new Criteria();
+            $criteria->where(
+                Criteria::expr()->eq($field, $fieldValue))
+                    ->andWhere(Criteria::expr()->neq('id', $id));
+
+            $resultIsEmpty = $repository->matching($criteria)->isEmpty();
+
+            if (!$resultIsEmpty) {
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ value }}', $fieldValue)
+                    ->setParameter('{{ field }}', $field)
+                    ->addViolation();
+            }
         }
-
-        $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value)
-            ->setParameter('{{ field }}', $constraint->field)
-            ->addViolation();
     }
 }

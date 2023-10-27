@@ -41,6 +41,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     processor: DtoToEntityStateProcessor::class,
     paginationItemsPerPage: 10,
 )]
+#[AssertUnique(
+    entityClass: User::class,
+    fields: ['email', 'username'],
+    groups: ['postValidation', 'patchValidation'],
+)]
 class UserDto
 {
     #[ApiProperty(identifier: true, writable: false, readable: false)]
@@ -48,19 +53,9 @@ class UserDto
 
     #[NotBlank]
     #[Email]
-    #[AssertUnique(
-        entityClass: User::class,
-        field: 'email',
-        groups: ['postValidation', 'patchValidation'],
-    )]
     public ?string $email = null;
 
     #[NotBlank]
-    #[AssertUnique(
-        entityClass: User::class,
-        field: 'username',
-        groups: ['postValidation', 'patchValidation'],
-    )]
     public ?string $username = null;
 
     /**

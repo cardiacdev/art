@@ -16,7 +16,7 @@ class AssertUnique extends Constraint
     #[HasNamedArguments]
     public function __construct(
         array $groups = null,
-        public string $field,
+        public array $fields,
         public string $entityClass,
     ) {
         parent::__construct([], $groups, null);
@@ -24,6 +24,6 @@ class AssertUnique extends Constraint
 
     public function getTargets(): string
     {
-        return self::PROPERTY_CONSTRAINT;
+        return self::CLASS_CONSTRAINT;
     }
 }
