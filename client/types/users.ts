@@ -15,28 +15,15 @@ export const userCollectionResponseSchema = createHydraCollectionSchema(userResp
 
 export type UserCollectionResponse = z.infer<typeof userCollectionResponseSchema>;
 
-export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionResponse => {
-  const isSuccess = userCollectionResponseSchema.safeParse(obj).success;
-
-  if (!isSuccess) {
-    return false;
-  }
-  return true;
-};
+export const isUserCollectionResponse = (obj: unknown): obj is UserCollectionResponse =>
+  userCollectionResponseSchema.safeParse(obj).success;
 
 // ----- COLLECTION  MEMBERS -----
 export const userMemberSchema = createHydraMemberSchema(userResponseSchema);
 
 export type UserMember = z.infer<typeof userMemberSchema>;
 
-export const isUserMember = (obj: unknown): obj is UserMember => {
-  const isSuccess = userMemberSchema.safeParse(obj).success;
-
-  if (!isSuccess) {
-    return false;
-  }
-  return true;
-};
+export const isUserMember = (obj: unknown): obj is UserMember => userMemberSchema.safeParse(obj).success;
 
 // ----- SINGLE RESPONSES (/entity/{id}) -----
 export const singleUserResponseSchema = userMemberSchema.extend({
@@ -45,14 +32,8 @@ export const singleUserResponseSchema = userMemberSchema.extend({
 
 export type SingleUserResponse = z.infer<typeof singleUserResponseSchema>;
 
-export const isSingleUserResponse = (obj: unknown): obj is SingleUserResponse => {
-  const isSuccess = singleUserResponseSchema.safeParse(obj).success;
-
-  if (!isSuccess) {
-    return false;
-  }
-  return true;
-};
+export const isSingleUserResponse = (obj: unknown): obj is SingleUserResponse =>
+  singleUserResponseSchema.safeParse(obj).success;
 
 // ----- CUSTOM RESPONSE FROM /api/me ROUTE FOR AUTH CHECK -----
 export const meResponseSchema = z.object({
@@ -64,11 +45,4 @@ export const meResponseSchema = z.object({
 
 export type MeResponse = z.infer<typeof meResponseSchema>;
 
-export const isMeResponse = (obj: unknown): obj is MeResponse => {
-  const isSuccess = meResponseSchema.safeParse(obj).success;
-
-  if (!isSuccess) {
-    return false;
-  }
-  return true;
-};
+export const isMeResponse = (obj: unknown): obj is MeResponse => meResponseSchema.safeParse(obj).success;
