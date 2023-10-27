@@ -39,10 +39,10 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
       {isAuthenticated && (
         <nav className="hidden gap-6 md:flex">
           {items?.map(
-            (item, index) =>
+            (item) =>
               item.href && (
                 <Link
-                  key={index}
+                  key={item.title}
                   href={item.href}
                   className={cn(
                     "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
@@ -57,6 +57,7 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
       )}
       <button
         className="flex items-center space-x-2 md:hidden"
+        type="button"
         onClick={() => setShowMobileMenu(!showMobileMenu)}>
         {showMobileMenu ? <Cross1Icon /> : <HamburgerMenuIcon />}
         <span className="font-bold">Menu</span>

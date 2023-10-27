@@ -20,9 +20,9 @@ export const MobileNav = ({ items, children }: MobileNavProps) => {
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
         <nav className="grid grid-flow-row auto-rows-max text-sm">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <Link
-              key={index}
+              key={item.title}
               href={item.disabled || !item.href ? "#" : item.href}
               className={cn(
                 "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",

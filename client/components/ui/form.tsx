@@ -160,9 +160,12 @@ const FormServerMessage = ({ className, children, violations, ...props }: FormSe
 
   return (
     <>
-      {violations.map((violation, i) => {
+      {violations.map((violation) => {
         return (
-          <p key={i} className={cn("text-[0.8rem] font-medium text-destructive", className)} {...props}>
+          <p
+            key={violation.message}
+            className={cn("text-[0.8rem] font-medium text-destructive", className)}
+            {...props}>
             {violation.message}
           </p>
         );
