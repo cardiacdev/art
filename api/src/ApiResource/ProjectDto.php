@@ -16,6 +16,7 @@ use App\Entity\Project;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ApiResource(
     shortName: 'Project',
@@ -44,5 +45,6 @@ class ProjectDto
 
     public ?string $hourlyRate = null;
 
+    #[NotNull]
     public ?ClientDto $client = null;
 }

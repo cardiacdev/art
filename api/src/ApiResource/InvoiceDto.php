@@ -16,6 +16,7 @@ use App\Entity\Invoice;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertDeletable;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ApiResource(
     shortName: 'Invoice',
@@ -57,6 +58,7 @@ class InvoiceDto
 
     public ?string $remarks = null;
 
+    #[NotNull]
     public ?ClientDto $client = null;
 
     /**

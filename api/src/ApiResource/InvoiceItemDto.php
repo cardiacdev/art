@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\InvoiceItem;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ApiResource(
     shortName: 'InvoiceItem',
@@ -40,7 +41,9 @@ class InvoiceItemDto
 
     public ?string $euroAmount = null;
 
+    #[NotNull]
     public ?TaskDto $task = null;
 
+    #[NotNull]
     public ?InvoiceDto $invoice = null;
 }
