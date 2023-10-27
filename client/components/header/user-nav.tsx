@@ -1,4 +1,5 @@
 import { useLogoutMutation } from "@/hooks/mutations/auth/use-logout-mutation";
+import { useModal } from "@ebay/nice-modal-react";
 
 import { MeResponse } from "@/types/users";
 
@@ -13,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { EditMeDialog } from "../user/edit-me-dialog";
 
 interface UserNavProps {
   user: MeResponse;
@@ -20,6 +22,7 @@ interface UserNavProps {
 
 export const UserNav = ({ user }: UserNavProps) => {
   const { mutate } = useLogoutMutation();
+  const modal = useModal(EditMeDialog, { user });
 
   return (
     <DropdownMenu>
@@ -44,7 +47,9 @@ export const UserNav = ({ user }: UserNavProps) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">Einstellungen</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => modal.show({ user })}>
+            Einstellungen
+          </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer" onClick={() => mutate()}>
             Abmelden
           </DropdownMenuItem>
