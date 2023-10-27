@@ -43,6 +43,9 @@ class ProjectEntityToDtoMapper implements MapperInterface
         $dto->hourlyRate = $entity->getHourlyRate();
         $dto->client = $this->microMapper->map($entity->getClient(), ClientDto::class);
 
+        // readonly fields
+        $dto->clientName = $entity->getClient()->getName();
+
         return $dto;
     }
 }

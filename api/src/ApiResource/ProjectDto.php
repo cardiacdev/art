@@ -47,4 +47,7 @@ class ProjectDto
 
     #[NotNull]
     public ?ClientDto $client = null;
+
+    #[ApiProperty(writable: false)]
+    public ?string $clientName = null;
 }
