@@ -33,7 +33,7 @@ $ bin/console do:fi:lo
 ```bash
 $ make client-bash
 $ npm i
-$ npm run dev # oder 'npm run turbo' für Turbopack
+$ npm run dev # oder 'npm run dev:legacy' mit Webpack anstatt Turbopack
 ```
 
 Die Applikation ist nun unter [http://localhost](http://localhost) erreichbar.
