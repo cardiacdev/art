@@ -82,6 +82,22 @@ class UserResourceTest extends ApiTestCase
             ->assertStatus(200);
     }
 
+    public function testPatchToUpdateUserWithNonUniqueEmail(): void
+    {
+        $user = UserFactory::createOne();
+        UserFactory::createOne(['email' => 'test@example.com']);
+
+        $this->browser()
+            ->actingAs($user)
+            ->patch('/api/users/'.$user->getId(), [
+                'json' => [
+                    'email' => 'test@example.com',
+                ],
+                'headers' => ['Content-Type' => 'application/merge-patch+json'],
+            ])
+            ->assertStatus(422);
+    }
+
     public function testDeleteUser(): void
     {
         $user = UserFactory::createOne();
