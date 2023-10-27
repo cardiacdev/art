@@ -1,17 +1,28 @@
+import { env } from "@/env.mjs";
 import { usersKeys } from "@/hooks/queries/users/users-query-key-factory";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-import { fetchUsers } from "@/lib/fetch/users/fetch-users";
+import { isUserCollectionResponse } from "@/types/users";
+import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 import { createQueryClient } from "@/lib/query-client";
 import { UserTable } from "@/components/users/user-table";
 
+const fetchUsers = async () => {
+  const searchParams = new URLSearchParams({ page: "1" });
+
+  const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/users?${searchParams.toString()}`);
+
+  if (!isUserCollectionResponse(data)) throw new Error("Invalid response");
+
+  return data;
+};
+
 export default async function Page() {
   const queryClient = createQueryClient();
-  const defaultPageParam = "1";
 
   await queryClient.prefetchQuery({
-    queryKey: usersKeys.allWithPage(defaultPageParam),
-    queryFn: () => fetchUsers(defaultPageParam),
+    queryKey: usersKeys.allWithPage(),
+    queryFn: fetchUsers,
   });
 
   return (
