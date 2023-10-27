@@ -98,6 +98,31 @@ class UserResourceTest extends ApiTestCase
             ->assertStatus(422);
     }
 
+    public function testCanOnlyChangeOwnPassword(): void
+    {
+        $user = UserFactory::createOne();
+
+        $this->browser()
+            ->actingAs($user)
+            ->patch('/api/users/'.$user->getId(), [
+                'json' => [
+                    'password' => 'changed',
+                ],
+                'headers' => ['Content-Type' => 'application/merge-patch+json'],
+            ])
+            ->assertStatus(200);
+
+        $this->browser()
+            ->actingAs(UserFactory::createOne())
+            ->patch('/api/users/'.$user->getId(), [
+                'json' => [
+                    'password' => 'changed',
+                ],
+                'headers' => ['Content-Type' => 'application/merge-patch+json'],
+            ])
+            ->assertStatus(403);
+    }
+
     public function testDeleteUser(): void
     {
         $user = UserFactory::createOne();
