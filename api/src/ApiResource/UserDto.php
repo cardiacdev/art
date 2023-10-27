@@ -29,7 +29,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
             validationContext: ['groups' => ['Default', 'postValidation']]
         ),
         new Patch(
-            validationContext: ['groups' => ['Default', 'patchValidation']]
+            validationContext: ['groups' => ['Default', 'patchValidation']],
+            securityPostDenormalize: 'object.password === null or is_granted("EDIT_PASSWORD", object)',
         ),
         new Delete(),
     ],
