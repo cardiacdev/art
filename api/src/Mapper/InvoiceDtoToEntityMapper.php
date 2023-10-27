@@ -8,6 +8,7 @@ use App\ApiResource\InvoiceDto;
 use App\Entity\Client;
 use App\Entity\Invoice;
 use App\Repository\InvoiceRepository;
+use DateTimeImmutable;
 use Exception;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
@@ -45,7 +46,9 @@ class InvoiceDtoToEntityMapper implements MapperInterface
         assert($entity instanceof Invoice);
 
         $entity->setInvoiceNumber($dto->invoiceNumber);
-        $entity->setBillingDate($dto->billingDate);
+        if ($dto->billingDate) {
+            $entity->setBillingDate(new DateTimeImmutable($dto->billingDate));
+        }
         $entity->setRemarks($dto->remarks);
 
         $entity->setClient($this->microMapper->map($dto->client, Client::class));

@@ -7,6 +7,7 @@ namespace App\Mapper;
 use App\ApiResource\TaskDto;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
+use DateTimeImmutable;
 use Exception;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
@@ -48,11 +49,20 @@ class TaskDtoToEntityMapper implements MapperInterface
         $entity->setEuroAmount($dto->euroAmount);
         $entity->setExternalHours($dto->externalHours);
         $entity->setRemarks($dto->remarks);
-        $entity->setPlannedCompletionDate($dto->plannedCompletionDate);
-        $entity->setFirstSandboxDeploymentDate($dto->firstSandboxDeploymentDate);
-        $entity->setFirstLiveDeploymentDate($dto->firstLiveDeploymentDate);
+
+        if ($dto->plannedCompletionDate) {
+            $entity->setPlannedCompletionDate(new DateTimeImmutable($dto->plannedCompletionDate));
+        }
+        if ($dto->firstSandboxDeploymentDate) {
+            $entity->setFirstSandboxDeploymentDate(new DateTimeImmutable($dto->firstSandboxDeploymentDate));
+        }
+        if ($dto->firstLiveDeploymentDate) {
+            $entity->setFirstLiveDeploymentDate(new DateTimeImmutable($dto->firstLiveDeploymentDate));
+        }
+        if ($dto->orderConfirmationDate) {
+            $entity->setOrderConfirmationDate(new DateTimeImmutable($dto->orderConfirmationDate));
+        }
         $entity->setOrderNumber($dto->orderNumber);
-        $entity->setOrderConfirmationDate($dto->orderConfirmationDate);
 
         return $entity;
     }
