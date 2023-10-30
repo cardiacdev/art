@@ -1,9 +1,9 @@
 import { useLogoutMutation } from "@/hooks/mutations/auth/use-logout-mutation";
 import { useModal } from "@ebay/nice-modal-react";
+import Avatar from "boring-avatars";
 
 import { MeResponse } from "@/types/users";
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -28,14 +28,7 @@ export const UserNav = ({ user }: UserNavProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size={"icon"}>
-          <Avatar className="h-6 w-6">
-            <AvatarImage
-              src={`https://avatar.vercel.sh/${user.username}`}
-              alt={`@${user.username}`}
-              title={user.email}
-            />
-            <AvatarFallback>{user.username[0]}</AvatarFallback>
-          </Avatar>
+          <Avatar size={25} name={user.username} variant="marble" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
