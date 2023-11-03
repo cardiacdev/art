@@ -14,11 +14,9 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (!isAuthenticated && !isPending && pathname !== "/") {
-      router.replace("/");
-    }
-  }, [pathname, router, isAuthenticated, isPending]);
+  if (!isAuthenticated && !isPending && pathname !== "/") {
+    router.replace("/");
+  }
 
   return <>{children}</>;
 };
