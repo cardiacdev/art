@@ -31,9 +31,7 @@ export const CreateUserDialog = NiceModal.create(() => {
   const form = useZodForm({
     schema: createUserFormSchema,
     defaultValues: { email: "", username: "", password: "" },
-    mode: "onTouched",
   });
-  const { isValid } = form.formState;
 
   const { mutate, isPending, violations } = useCreateUserMutation();
   const { visible, show, hide } = useModal();
@@ -103,7 +101,7 @@ export const CreateUserDialog = NiceModal.create(() => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending || !isValid}>
+            <Button type="submit" disabled={isPending}>
               Speichern
             </Button>
             <GlobalViolationAlerts violations={violations.global} />

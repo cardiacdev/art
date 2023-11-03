@@ -4,7 +4,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { MeResponse, UserMember } from "@/types/users";
+import { MeResponse } from "@/types/users";
 import { getDirtyFormValues } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -39,7 +39,6 @@ export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
     schema: editMeFormSchema,
     defaultValues: formValues,
     values: formValues,
-    mode: "onTouched",
   });
 
   /**
@@ -48,7 +47,7 @@ export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
    * By reading all the values we need, we can properly subscribe to changes.
    * See: https://react-hook-form.com/docs/useform/formstate
    */
-  const { isDirty, dirtyFields, isValid } = form.formState;
+  const { isDirty, dirtyFields } = form.formState;
 
   const { mutate, isPending, violations } = useEditMeMutation(user.id);
   const { visible, show, hide } = useModal();
@@ -121,7 +120,7 @@ export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending || !isValid}>
+            <Button type="submit" disabled={isPending}>
               Speichern
             </Button>
             <GlobalViolationAlerts violations={violations.global} />
