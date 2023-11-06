@@ -18,6 +18,7 @@ import {
   FormServerMessage,
 } from "../ui/form";
 import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
+import { RequiredAsterisk } from "../ui/required-asterisk";
 
 const createUserFormSchema = z.object({
   email: z.string().email("Ungültige Email-Adresse"),
@@ -64,7 +65,10 @@ export const CreateUserDialog = NiceModal.create(() => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>
+                    Email
+                    <RequiredAsterisk />
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -78,7 +82,10 @@ export const CreateUserDialog = NiceModal.create(() => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>
+                    Username
+                    <RequiredAsterisk />
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -92,7 +99,10 @@ export const CreateUserDialog = NiceModal.create(() => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Passwort</FormLabel>
+                  <FormLabel>
+                    Passwort
+                    <RequiredAsterisk />
+                  </FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
