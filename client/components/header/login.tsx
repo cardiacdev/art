@@ -17,7 +17,7 @@ export const Login = () => {
           Login
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="mb-3">
           <DialogTitle>Login</DialogTitle>
         </DialogHeader>
