@@ -32,11 +32,15 @@ class EntityToDtoStateProvider implements ProviderInterface
 
         if ($operation instanceof CollectionOperationInterface) {
             $entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
-            assert($entities instanceof Paginator);
+            assert($entities instanceof Paginator || is_array($entities));
 
             $dtos = [];
             foreach ($entities as $entity) {
                 $dtos[] = $this->mapEntityToDto($entity, $dtoClass);
+            }
+
+            if(is_array($entities)) {
+                return $dtos;
             }
 
             return new TraversablePaginator(
