@@ -27,6 +27,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { PaginationControls } from "./pagination-controls";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -119,37 +120,14 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}>
-          <DoubleArrowLeftIcon />
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}>
-          <CaretLeftIcon />
-        </Button>
-        <span>{`Seite ${pagination.pageIndex + 1} von ${pageCount}`}</span>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}>
-          <CaretRightIcon />
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          disabled={!table.getCanNextPage()}>
-          <DoubleArrowRightIcon />
-        </Button>
-      </div>
+      <PaginationControls
+        page={pagination.pageIndex + 1}
+        pageCount={pageCount}
+        first={() => table.setPageIndex(0)}
+        previous={() => table.previousPage()}
+        next={() => table.nextPage()}
+        last={() => table.setPageIndex(table.getPageCount() - 1)}
+      />
     </>
   );
 }
