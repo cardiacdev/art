@@ -41,8 +41,8 @@ class TaskEntityToDtoMapper implements MapperInterface
 
         $dto->title = $entity->getTitle();
         $dto->reference = $entity->getReference();
-        $dto->euroAmount = $entity->getEuroAmount();
-        $dto->externalHours = $entity->getExternalHours();
+        $dto->euroAmount = $entity->getEuroAmount()?->getValue();
+        $dto->externalHours = $entity->getExternalHours()?->getValue();
         $dto->remarks = $entity->getRemarks();
         $dto->plannedCompletionDate = $entity->getPlannedCompletionDate()?->format('d.m.Y');
         $dto->firstSandboxDeploymentDate = $entity->getFirstSandboxDeploymentDate()?->format('d.m.Y');

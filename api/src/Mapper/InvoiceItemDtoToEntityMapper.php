@@ -8,6 +8,7 @@ use App\ApiResource\InvoiceItemDto;
 use App\Entity\Invoice;
 use App\Entity\InvoiceItem;
 use App\Entity\Task;
+use App\Model\Decimal;
 use App\Repository\InvoiceItemRepository;
 use Exception;
 use Symfonycasts\MicroMapper\AsMapper;
@@ -45,7 +46,7 @@ class InvoiceItemDtoToEntityMapper implements MapperInterface
         $entity = $to;
         assert($entity instanceof InvoiceItem);
 
-        $entity->setEuroAmount($dto->euroAmount);
+        $entity->setEuroAmount($dto->euroAmount ? new Decimal($dto->euroAmount) : null);
         $entity->setTask($this->microMapper->map($dto->task, Task::class));
         $entity->setInvoice($this->microMapper->map($dto->invoice, Invoice::class));
 

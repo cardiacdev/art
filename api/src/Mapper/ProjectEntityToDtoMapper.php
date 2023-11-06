@@ -40,7 +40,7 @@ class ProjectEntityToDtoMapper implements MapperInterface
         assert($dto instanceof ProjectDto);
 
         $dto->name = $entity->getName();
-        $dto->hourlyRate = $entity->getHourlyRate();
+        $dto->hourlyRate = $entity->getHourlyRate()?->getValue();
         $dto->client = $this->microMapper->map($entity->getClient(), ClientDto::class);
 
         // readonly fields

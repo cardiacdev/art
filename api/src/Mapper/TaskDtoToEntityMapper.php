@@ -6,6 +6,7 @@ namespace App\Mapper;
 
 use App\ApiResource\TaskDto;
 use App\Entity\Task;
+use App\Model\Decimal;
 use App\Repository\TaskRepository;
 use DateTimeImmutable;
 use Exception;
@@ -46,8 +47,8 @@ class TaskDtoToEntityMapper implements MapperInterface
 
         $entity->setTitle($dto->title);
         $entity->setReference($dto->reference);
-        $entity->setEuroAmount($dto->euroAmount);
-        $entity->setExternalHours($dto->externalHours);
+        $entity->setEuroAmount($dto->euroAmount ? new Decimal($dto->euroAmount) : null);
+        $entity->setExternalHours($dto->externalHours ? new Decimal($dto->externalHours) : null);
         $entity->setRemarks($dto->remarks);
 
         if ($dto->plannedCompletionDate) {

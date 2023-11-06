@@ -7,6 +7,7 @@ namespace App\Mapper;
 use App\ApiResource\ProjectDto;
 use App\Entity\Client;
 use App\Entity\Project;
+use App\Model\Decimal;
 use App\Repository\ProjectRepository;
 use Exception;
 use Symfonycasts\MicroMapper\AsMapper;
@@ -45,7 +46,7 @@ class ProjectDtoToEntityMapper implements MapperInterface
         assert($entity instanceof Project);
 
         $entity->setName($dto->name);
-        $entity->setHourlyRate($dto->hourlyRate);
+        $entity->setHourlyRate($dto->hourlyRate ? new Decimal($dto->hourlyRate) : null);
 
         $entity->setClient($this->microMapper->map($dto->client, Client::class));
 

@@ -40,7 +40,7 @@ class InvoiceItemEntityToDtoMapper implements MapperInterface
         $dto = $to;
         assert($dto instanceof InvoiceItemDto);
 
-        $dto->euroAmount = $entity->getEuroAmount();
+        $dto->euroAmount = $entity->getEuroAmount()?->getValue();
         $dto->task = $this->microMapper->map($entity->getTask(), TaskDto::class);
         $dto->invoice = $this->microMapper->map($entity->getInvoice(), InvoiceDto::class);
 
