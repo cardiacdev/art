@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -30,7 +29,6 @@ class AssertUniqueValidator extends ConstraintValidator
             return;
         }
 
-        /** @var UserRepository */
         $repository = $this->entityManager->getRepository($constraint->entityClass);
 
         foreach ($constraint->fields as $field) {
