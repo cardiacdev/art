@@ -1,3 +1,5 @@
+"use client";
+
 import { useCreateUserMutation } from "@/hooks/mutations/users/use-create-user-mutation";
 import { useZodForm } from "@/hooks/use-zod-form";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
