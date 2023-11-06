@@ -33,6 +33,10 @@ export function getDirtyFormValues<
   return dirtyValues;
 }
 
+export function commaToDot(str: string) {
+  return str.replace(",", ".");
+}
+
 export function iriToId(iri: string) {
   return iri.split("/").pop();
 }
