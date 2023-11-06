@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Model\Decimal;
 use App\Repository\InvoiceItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,8 +16,8 @@ class InvoiceItem
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private ?string $euroAmount = null;
+    #[ORM\Column(type: 'amount', precision: 10, scale: 2)]
+    private ?Decimal $euroAmount = null;
 
     #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,12 +32,12 @@ class InvoiceItem
         return $this->id;
     }
 
-    public function getEuroAmount(): ?string
+    public function getEuroAmount(): ?Decimal
     {
         return $this->euroAmount;
     }
 
-    public function setEuroAmount(string $euroAmount): static
+    public function setEuroAmount(Decimal $euroAmount): static
     {
         $this->euroAmount = $euroAmount;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Model\Decimal;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,8 +19,8 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true, type: 'decimal', precision: 10, scale: 2)]
-    private ?string $hourlyRate = null;
+    #[ORM\Column(nullable: true, type: 'amount', precision: 10, scale: 2)]
+    private ?Decimal $hourlyRate = null;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
     #[ORM\JoinColumn(nullable: false)]
@@ -42,12 +43,12 @@ class Project
         return $this;
     }
 
-    public function getHourlyRate(): ?string
+    public function getHourlyRate(): ?Decimal
     {
         return $this->hourlyRate;
     }
 
-    public function setHourlyRate(?string $hourlyRate): static
+    public function setHourlyRate(?Decimal $hourlyRate): static
     {
         $this->hourlyRate = $hourlyRate;
 

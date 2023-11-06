@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Model\Decimal;
 use App\Repository\TaskRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,11 +25,11 @@ class Task
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reference = null;
 
-    #[ORM\Column(nullable: true, type: 'decimal', precision: 10, scale: 2)]
-    private ?string $euroAmount = null;
+    #[ORM\Column(nullable: true, type: 'amount', precision: 10, scale: 2)]
+    private ?Decimal $euroAmount = null;
 
-    #[ORM\Column(nullable: true, type: 'decimal', precision: 10, scale: 2)]
-    private ?string $externalHours = null;
+    #[ORM\Column(nullable: true, type: 'amount', precision: 10, scale: 2)]
+    private ?Decimal $externalHours = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remarks = null;
@@ -85,24 +86,24 @@ class Task
         return $this;
     }
 
-    public function getEuroAmount(): ?string
+    public function getEuroAmount(): ?Decimal
     {
         return $this->euroAmount;
     }
 
-    public function setEuroAmount(?string $euroAmount): static
+    public function setEuroAmount(?Decimal $euroAmount): static
     {
         $this->euroAmount = $euroAmount;
 
         return $this;
     }
 
-    public function getExternalHours(): ?string
+    public function getExternalHours(): ?Decimal
     {
         return $this->externalHours;
     }
 
-    public function setExternalHours(?string $externalHours): static
+    public function setExternalHours(?Decimal $externalHours): static
     {
         $this->externalHours = $externalHours;
 
