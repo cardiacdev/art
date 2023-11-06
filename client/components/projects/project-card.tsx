@@ -13,19 +13,19 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   const hourlyRateString = project?.hourlyRate ? `€${project?.hourlyRate}/h` : "Kein Stundensatz";
   return (
     <Card className="flex flex-col justify-between">
-      <Link href={`/projects/${iriToId(project["@id"])}`}>
-        <CardHeader>
+      <CardHeader>
+        <Link href={`/projects/${iriToId(project["@id"])}`} className="hover:text-accent">
           <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
-          <CardDescription>
-            <Link href={`/clients/${iriToId(project.client)}`} className="hover:underline">
-              {project.clientName}
-            </Link>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-xs text-muted-foreground">{hourlyRateString}</p>
-        </CardContent>
-      </Link>
+        </Link>
+        <CardDescription>
+          <Link href={`/clients/${iriToId(project.client)}`} className="hover:underline">
+            {project.clientName}
+          </Link>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className="text-xs text-muted-foreground">{hourlyRateString}</p>
+      </CardContent>
     </Card>
   );
 };
