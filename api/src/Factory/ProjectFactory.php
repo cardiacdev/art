@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Entity\Project;
+use App\Model\Decimal;
 use App\Repository\ProjectRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -51,7 +52,7 @@ final class ProjectFactory extends ModelFactory
         return [
             'client' => ClientFactory::new(),
             'name' => self::faker()->jobTitle(),
-            'hourlyRate' => self::faker()->boolean(60) ? (string) self::faker()->randomFloat(2, 100, 200) : null,
+            'hourlyRate' => self::faker()->boolean(60) ? new Decimal((string) self::faker()->randomFloat(2, 100, 200)) : null,
         ];
     }
 

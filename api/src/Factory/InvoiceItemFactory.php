@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Entity\InvoiceItem;
+use App\Model\Decimal;
 use App\Repository\InvoiceItemRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -49,7 +50,7 @@ final class InvoiceItemFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'euroAmount' => self::faker()->randomFloat(2, 0, 8000),
+            'euroAmount' => new Decimal((string) self::faker()->randomFloat(2, 0, 8000)),
             'invoice' => InvoiceFactory::new(),
             'task' => TaskFactory::new(),
         ];

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Entity\Task;
+use App\Model\Decimal;
 use App\Repository\TaskRepository;
 use DateTimeImmutable;
 use Zenstruck\Foundry\ModelFactory;
@@ -55,8 +56,8 @@ final class TaskFactory extends ModelFactory
         return [
             'title' => self::faker()->text(255),
             'reference' => self::faker()->boolean(60) ? self::faker()->numerify('ref-####') : null,
-            'euroAmount' => self::faker()->boolean(60) ? (string) self::faker()->randomFloat(2, 0, 40000) : null,
-            'externalHours' => self::faker()->boolean(60) ? (string) self::faker()->randomFloat(2, 0, 200) : null,
+            'euroAmount' => self::faker()->boolean(60) ? new Decimal((string) self::faker()->randomFloat(2, 0, 40000)) : null,
+            'externalHours' => self::faker()->boolean(60) ? new Decimal((string) self::faker()->randomFloat(2, 0, 200)) : null,
             'remarks' => self::faker()->boolean(60) ? self::faker()->text(random_int(64, 255)) : null,
             'plannedCompletionDate' => self::faker()->boolean(80) ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 month', '+1 year')) : null,
             'firstSandboxDeploymentDate' => $hasSandBoxDeployment ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 year', '-2 months')) : null,
