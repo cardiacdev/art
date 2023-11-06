@@ -11,7 +11,6 @@ import { clientsKeys } from "./clients-query-key-factory";
 
 const fetchClients = async (params: SearchParams) => {
   const searchParams = new URLSearchParams(params);
-  searchParams.get("page") || searchParams.append("page", "1");
 
   const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/clients?${searchParams.toString()}`);
 

@@ -11,7 +11,6 @@ import { projectsKeys } from "./projects-query-key-factory";
 
 const fetchProjects = async (params: SearchParams) => {
   const searchParams = new URLSearchParams(params);
-  searchParams.get("page") || searchParams.append("page", "1");
 
   const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/projects?${searchParams.toString()}`);
 
@@ -20,7 +19,7 @@ const fetchProjects = async (params: SearchParams) => {
   return data;
 };
 
-export const useProjectsQuery = (params?: SearchParams) => {
+export const useProjectsQuery = (params: SearchParams) => {
   return useQuery({
     queryKey: projectsKeys.allWithParams(params),
     queryFn: () => fetchProjects(params),
