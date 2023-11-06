@@ -11,8 +11,14 @@ api_platform:
             rfc_7807_compliant_errors: true
         pagination_items_per_page: 10
         pagination_maximum_items_per_page: 50
+        pagination_client_items_per_page: true
+        pagination_client_enabled: true
     event_listeners_backward_compatibility_layer: false
     keep_legacy_inflector: false
+    collection:
+        pagination:
+            items_per_page_parameter_name: 'itemsPerPage'
+            enabled_parameter_name: pagination # default value
 
 when@prod:
     api_platform:
