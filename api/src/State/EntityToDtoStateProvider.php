@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
 
 use function assert;
+use function is_array;
 
 class EntityToDtoStateProvider implements ProviderInterface
 {
@@ -39,7 +40,7 @@ class EntityToDtoStateProvider implements ProviderInterface
                 $dtos[] = $this->mapEntityToDto($entity, $dtoClass);
             }
 
-            if(is_array($entities)) {
+            if (is_array($entities)) {
                 return $dtos;
             }
 
