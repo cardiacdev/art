@@ -11,7 +11,6 @@ import { ProjectCards } from "@/components/projects/project-cards";
 
 const fetchProjects = async (params: SearchParams) => {
   const searchParams = new URLSearchParams(params);
-  searchParams.get("page") || searchParams.append("page", "1");
 
   const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/projects?${searchParams.toString()}`);
 
@@ -21,11 +20,13 @@ const fetchProjects = async (params: SearchParams) => {
 };
 export default function Page() {
   const queryClient = createQueryClient();
-  const defaultParams = { page: "1" };
+  const searchParams = new URLSearchParams();
+  searchParams.get("page") || searchParams.append("page", "1");
+  searchParams.get("itemsPerPage") || searchParams.append("itemsPerPage", "12");
 
   queryClient.prefetchQuery({
-    queryKey: projectsKeys.allWithParams(defaultParams),
-    queryFn: () => fetchProjects(defaultParams),
+    queryKey: projectsKeys.allWithParams(searchParams),
+    queryFn: () => fetchProjects(searchParams),
   });
 
   return (

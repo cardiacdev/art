@@ -16,9 +16,9 @@ export const UserTable = () => {
     pageIndex: 0,
     pageSize: 10,
   });
-  const { data } = useUsersQuery({
-    page: `${pagination.pageIndex + 1}`,
-  });
+  const searchParams = new URLSearchParams();
+  searchParams.append("page", `${pagination.pageIndex + 1}`);
+  const { data } = useUsersQuery(searchParams);
 
   const createModal = useModal(CreateUserDialog);
 

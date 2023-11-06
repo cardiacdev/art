@@ -3,14 +3,14 @@ import { usersKeys } from "@/hooks/queries/users/users-query-key-factory";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { isUserCollectionResponse } from "@/types/users";
+import { SearchParams } from "@/types/utils";
 import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 import { createQueryClient } from "@/lib/query-client";
 import { UserTable } from "@/components/users/user-table";
 
-const fetchUsers = async () => {
-  const searchParams = new URLSearchParams({ page: "1" });
-
-  const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/users?${searchParams.toString()}`);
+const fetchUsers = async (params: SearchParams) => {
+  const searchParams = new URLSearchParams(params);
+  const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/users${searchParams.toString()}`);
 
   if (!isUserCollectionResponse(data)) throw new Error("Invalid response");
 
@@ -19,10 +19,12 @@ const fetchUsers = async () => {
 
 export default async function Page() {
   const queryClient = createQueryClient();
+  const searchParams = new URLSearchParams();
+  searchParams.append("page", "1");
 
   await queryClient.prefetchQuery({
-    queryKey: usersKeys.allWithPage(),
-    queryFn: fetchUsers,
+    queryKey: usersKeys.allWithParams(searchParams),
+    queryFn: () => fetchUsers(searchParams),
   });
 
   return (
