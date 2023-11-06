@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
 
         UserFactory::createMany(25);
 
-        ClientFactory::createMany(13);
+        ClientFactory::createMany(25);
 
         InvoiceFactory::createMany(150, function () {
             return [
