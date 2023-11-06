@@ -29,9 +29,11 @@ export const isProjectMember = (obj: unknown): obj is ProjectMember =>
   projectMemberSchema.safeParse(obj).success;
 
 // ----- SINGLE RESPONSES (/entity/{id}) -----
-export const singleProjectResponseSchema = projectMemberSchema.extend({
-  "@context": z.string(),
-});
+export const singleProjectResponseSchema = projectMemberSchema
+  .extend({
+    "@context": z.string(),
+  })
+  .omit({ clientName: true });
 
 export type SingleProjectResponse = z.infer<typeof singleProjectResponseSchema>;
 
