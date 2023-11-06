@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\Project;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use App\Validator\AssertUnique;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -26,14 +27,23 @@ use Symfony\Component\Validator\Constraints\NotNull;
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(),
-        new Patch(),
+        new Post(
+            validationContext: ['groups' => ['Default', 'postValidation']]
+        ),
+        new Patch(
+            validationContext: ['groups' => ['Default', 'patchValidation']],
+        ),
         new Delete(),
     ],
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
     paginationItemsPerPage: 10,
+)]
+#[AssertUnique(
+    entityClass: Project::class,
+    fields: ['name'],
+    groups: ['postValidation', 'patchValidation'],
 )]
 class ProjectDto
 {
