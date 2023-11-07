@@ -26,7 +26,7 @@ class InvoiceItemResourceTest extends ApiTestCase
             ->get('/api/invoice_items/'.$invoiceItem->getId())
             ->assertStatus(200)
             ->assertJsonMatches('"@id"', '/api/invoice_items/'.$invoiceItem->getId())
-            ->assertJsonMatches('euroAmount', $invoiceItem->getEuroAmount());
+            ->assertJsonMatches('euroAmount', $invoiceItem->getEuroAmount()->getValue());
     }
 
     public function testGetInvoiceItems(): void
