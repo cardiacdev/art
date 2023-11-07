@@ -58,6 +58,21 @@ class ProjectResourceTest extends ApiTestCase
             ->assertJsonMatches('name', 'Project Name');
     }
 
+    public function testPostProjectWithNonUniqueName(): void
+    {
+        $user = UserFactory::createOne();
+        $project = ProjectFactory::createOne();
+
+        $this->browser()
+            ->actingAs($user)
+            ->post('/api/projects', [
+                'json' => [
+                    'name' => $project->getName(),
+                ],
+            ])
+            ->assertStatus(422);
+    }
+
     public function testPatchProject(): void
     {
         $user = UserFactory::createOne();
