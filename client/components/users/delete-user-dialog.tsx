@@ -21,11 +21,11 @@ import {
 import { buttonVariants } from "../ui/button";
 import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
 
-interface DeleteUserDialogWithButtonProps {
+interface DeleteUserDialogProps {
   user: UserMember;
 }
 
-export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogWithButtonProps) => {
+export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogProps) => {
   const { visible, show, hide } = useModal();
   const { mutate, violations } = useDeleteUserMutation(user["@id"]);
 
