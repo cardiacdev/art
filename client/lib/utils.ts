@@ -38,7 +38,7 @@ export function commaToDot(str: string) {
 }
 
 export function iriToId(iri: string) {
-  return iri.split("/").pop();
+  return iri.split("/").pop() ?? "";
 }
 
 export function URLSearchParamsToObj(searchParams: SearchParams) {
