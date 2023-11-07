@@ -17,6 +17,7 @@ use App\Entity\Client;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertDeletable;
+use App\Validator\AssertUnique;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -28,8 +29,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(),
-        new Patch(),
+        new Post(
+            validationContext: ['groups' => ['Default', 'postValidation']]
+        ),
+        new Patch(
+            validationContext: ['groups' => ['Default', 'patchValidation']],
+        ),
         new Delete(
             validate: true,
             validationContext: [
@@ -51,6 +56,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[AssertDeletable(
     fields: ['projects', 'invoices'],
     groups: ['deleteValidation']
+)]
+#[AssertUnique(
+    entityClass: Client::class,
+    fields: ['name'],
+    groups: ['postValidation', 'patchValidation']
 )]
 class ClientDto
 {
