@@ -5,7 +5,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { isSingleProjectResponse } from "@/types/projects";
 import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 import { createQueryClient } from "@/lib/query-client";
-import { ProjectHeading } from "@/components/projects/id/project-heading";
+import { ProjectHeader } from "@/components/projects/id/project-header";
 
 const fetchProject = async (id: string) => {
   const data = await fetchJsonLd(`${env.NEXT_PUBLIC_API_URL}/api/projects/${id}`);
@@ -30,7 +30,7 @@ export default function Page({ params: { id } }: PageProps) {
   return (
     <main className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ProjectHeading id={id} />
+        <ProjectHeader id={id} />
       </HydrationBoundary>
     </main>
   );
