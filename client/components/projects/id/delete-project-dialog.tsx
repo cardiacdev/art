@@ -34,8 +34,6 @@ export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectD
     });
   }, [project, mutate]);
 
-  console.log(status, error);
-
   return (
     <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
       <AlertDialogContent>
