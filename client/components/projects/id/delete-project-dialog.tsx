@@ -26,7 +26,7 @@ interface DeleteProjectDialogProps {
 
 export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectDialogProps) => {
   const { visible, show, hide } = useModal();
-  const { mutate, status, error, violations } = useDeleteProjectMutation(project["@id"]);
+  const { mutate, violations } = useDeleteProjectMutation(project["@id"]);
 
   const handleDeleteClick = useCallback(() => {
     mutate(undefined, {
