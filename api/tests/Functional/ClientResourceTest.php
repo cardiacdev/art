@@ -68,7 +68,7 @@ class ClientResourceTest extends ApiTestCase
     public function testPostClient(): void
     {
         $user = UserFactory::createOne();
-        $client = ClientFactory::createOne();
+        $client = ClientFactory::new()->withoutPersisting()->create();
 
         $this->browser()
             ->actingAs($user)
@@ -79,6 +79,31 @@ class ClientResourceTest extends ApiTestCase
             ])
             ->assertStatus(201)
             ->assertJsonMatches('name', $client->getName());
+    }
+
+    public function testPostClientWithNonUniqueName(): void
+    {
+        $user = UserFactory::createOne();
+        $client = ClientFactory::new()->withoutPersisting()->create();
+
+        $this->browser()
+            ->actingAs($user)
+            ->post('/api/clients', [
+                'json' => [
+                    'name' => $client->getName(),
+                ],
+            ])
+            ->assertStatus(201)
+            ->assertJsonMatches('name', $client->getName());
+
+        $this->browser()
+            ->actingAs($user)
+            ->post('/api/clients', [
+                'json' => [
+                    'name' => $client->getName(),
+                ],
+            ])
+            ->assertStatus(422);
     }
 
     public function testPatchClient(): void
