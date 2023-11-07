@@ -7,7 +7,5 @@ describe("Hero", () => {
     render(<Hero />);
     const main = within(screen.getByRole("main"));
     expect(main.getByRole("heading", { name: /BART/i })).toBeDefined();
-
-    expect(main.getByRole("link", { name: /Gitlab/i })).toBeDefined();
   });
 });

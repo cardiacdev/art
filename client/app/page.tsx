@@ -1,8 +1,3 @@
-import Link from "next/link";
-
-import { siteConfig } from "@/config/site";
-import { buttonVariants } from "@/components/ui/button";
-
 export default function Hero() {
   return (
     <main className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -17,15 +12,6 @@ export default function Hero() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae voluptatem adipisci quia
           doloremque dolorem delectus optio enim odio beatae nemo sint nihil accusantium.
         </p>
-      </div>
-      <div className="flex gap-4">
-        <Link
-          href={siteConfig.links.gitlab}
-          target="_blank"
-          rel="noreferrer"
-          className={buttonVariants({ size: "lg" })}>
-          Gitlab
-        </Link>
       </div>
     </main>
   );

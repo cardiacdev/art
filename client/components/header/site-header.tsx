@@ -20,6 +20,7 @@ export function SiteHeader({ appName }: { appName: string }) {
           <nav className="flex items-center space-x-1">
             <Link
               href={siteConfig.links.gitlab}
+              title="Einen Bug melden"
               target="_blank"
               rel="noreferrer"
               className="flex items-center">
