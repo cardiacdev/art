@@ -33,10 +33,14 @@ interface EditUserDialogProps {
 }
 
 export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) => {
+  const stateValues = {
+    email: user.email,
+    username: user.username,
+  };
   const form = useZodForm({
     schema: editUserFormSchema,
-    defaultValues: { email: user.email, username: user.username },
-    values: { email: user.email, username: user.username },
+    defaultValues: stateValues,
+    values: stateValues,
   });
 
   /**
@@ -49,6 +53,11 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
 
   const { mutate, isPending, violations } = useEditUserMutation(user["@id"]);
   const { visible, show, hide } = useModal();
+
+  const hideAndReset = () => {
+    hide();
+    form.reset(stateValues);
+  };
 
   const onSubmit = (data: EditUserFormValues) => {
     if (!isDirty) {
@@ -67,7 +76,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
   };
 
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hideAndReset())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Benutzer bearbeiten</DialogTitle>
