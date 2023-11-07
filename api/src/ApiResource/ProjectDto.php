@@ -16,6 +16,7 @@ use App\Entity\Project;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertUnique;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -39,6 +40,9 @@ use Symfony\Component\Validator\Constraints\NotNull;
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
     paginationItemsPerPage: 10,
+    normalizationContext: [
+        'groups' => ['project:read'],
+    ],
 )]
 #[AssertUnique(
     entityClass: Project::class,
@@ -51,13 +55,13 @@ class ProjectDto
     public ?int $id = null;
 
     #[NotBlank]
+    #[Groups(['project:read', 'client:read'])]
     public ?string $name = null;
 
+    #[Groups(['project:read'])]
     public ?string $hourlyRate = null;
 
     #[NotNull]
+    #[Groups(['project:read'])]
     public ?ClientDto $client = null;
-
-    #[ApiProperty(writable: false)]
-    public ?string $clientName = null;
 }

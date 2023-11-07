@@ -43,7 +43,7 @@ class ClientEntityToDtoMapper implements MapperInterface
         $dto->name = $entity->getName();
         $dto->projects = array_map(
             fn (object $project) => $this->microMapper->map($project, ProjectDto::class, [
-                MicroMapperInterface::MAX_DEPTH => 0,
+                MicroMapperInterface::MAX_DEPTH => 1,
             ]),
             $entity->getProjects()->toArray()
         );

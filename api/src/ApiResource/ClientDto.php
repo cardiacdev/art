@@ -17,6 +17,7 @@ use App\Entity\Client;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertDeletable;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
@@ -43,6 +44,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
     paginationItemsPerPage: 10,
+    normalizationContext: [
+        'groups' => ['client:read'],
+    ],
 )]
 #[AssertDeletable(
     fields: ['projects', 'invoices'],
@@ -54,17 +58,20 @@ class ClientDto
     public ?int $id = null;
 
     #[NotBlank]
+    #[Groups(['client:read', 'project:read'])]
     public ?string $name = null;
 
     /**
      * @var array<int, ProjectDto>
      */
     #[ApiProperty(writable: false)]
+    #[Groups(['client:read'])]
     public array $projects = [];
 
     /**
      * @var array<int, InvoiceDto>
      */
     #[ApiProperty(writable: false)]
+    #[Groups(['client:read'])]
     public array $invoices = [];
 }
