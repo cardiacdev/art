@@ -8,5 +8,10 @@ export const fetchJsonLd = async (url: string, init?: RequestInit | undefined) =
     },
   });
 
-  return await res.json();
+  try {
+    const json = await res.json();
+    return json;
+  } catch (e) {
+    return res.status;
+  }
 };
