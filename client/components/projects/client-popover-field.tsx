@@ -53,7 +53,7 @@ export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldPr
                   value={client.name}
                   key={client["@id"]}
                   onSelect={() => {
-                    setFormValue("client", client["@id"]);
+                    setFormValue("client", client["@id"], { shouldDirty: true });
                     setOpen(false);
                   }}>
                   {client.name}
