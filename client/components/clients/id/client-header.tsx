@@ -6,7 +6,7 @@ interface ClientHeadingProps {
   id: string;
 }
 
-export const ClientHeading = ({ id }: ClientHeadingProps) => {
+export const ClientHeader = ({ id }: ClientHeadingProps) => {
   const { data } = useSingleClientQuery(id);
 
   return (
