@@ -7,7 +7,7 @@ import { useProjectsQuery } from "@/hooks/queries/projects/use-projects-query";
 import { PaginationControls } from "../ui/pagination-controls";
 import { ProjectCard } from "./project-card";
 
-export const ProjectCards = () => {
+export const ProjectCardsContainer = () => {
   const [page, setPage] = useState(1);
   const searchParams = new URLSearchParams();
 

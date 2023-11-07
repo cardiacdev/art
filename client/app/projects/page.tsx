@@ -7,7 +7,7 @@ import { SearchParams } from "@/types/utils";
 import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 import { createQueryClient } from "@/lib/query-client";
 import { CreateProjectButton } from "@/components/projects/create-project-button";
-import { ProjectCards } from "@/components/projects/project-cards";
+import { ProjectCardsContainer } from "@/components/projects/project-cards-container";
 
 const fetchProjects = async (params: SearchParams) => {
   const searchParams = new URLSearchParams(params);
@@ -36,7 +36,7 @@ export default function Page() {
       </h1>
       <CreateProjectButton />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ProjectCards />
+        <ProjectCardsContainer />
       </HydrationBoundary>
     </main>
   );
