@@ -12,6 +12,6 @@ export const fetchJsonLd = async (url: string, init?: RequestInit | undefined) =
     const json = await res.json();
     return json;
   } catch (e) {
-    return res.status;
+    return true;
   }
 };
