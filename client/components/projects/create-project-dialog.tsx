@@ -3,6 +3,7 @@
 import { useCreateProjectMutation } from "@/hooks/mutations/projects/use-create-project-mutation";
 import { useZodForm } from "@/hooks/use-zod-form";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
+import { CurrencyPopover } from "../ui/currency-popover";
 import {
   Form,
   FormControl,
@@ -21,6 +23,7 @@ import {
   FormServerMessage,
 } from "../ui/form";
 import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { RequiredAsterisk } from "../ui/required-asterisk";
 import { ClientPopoverField } from "./client-popover-field";
 
@@ -105,9 +108,12 @@ export const CreateProjectDialog = NiceModal.create(() => {
               name="hourlyRate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Stundensatz</FormLabel>
+                  <FormLabel className="flex items-center gap-2">
+                    <span>Stundensatz</span>
+                    <CurrencyPopover />
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="0.00" />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                   <FormServerMessage violations={violations[field.name]} />
