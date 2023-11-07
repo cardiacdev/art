@@ -2,11 +2,17 @@ import { z } from "zod";
 
 import { createHydraCollectionSchema, createHydraMemberSchema } from "./hydra";
 
+const embeddedProjectSchema = createHydraMemberSchema(
+  z.object({
+    name: z.string(),
+  }),
+);
+
 // ----- STANDARD FIELDS -----
 export const clientResponseSchema = z.object({
   name: z.string(),
-  projects: z.array(z.string()).optional(),
-  invoices: z.array(z.string()).optional(),
+  projects: z.array(embeddedProjectSchema),
+  invoices: z.array(z.string()),
 });
 
 export type ClientResponse = z.infer<typeof clientResponseSchema>;

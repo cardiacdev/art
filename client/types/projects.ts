@@ -2,12 +2,17 @@ import { z } from "zod";
 
 import { createHydraCollectionSchema, createHydraMemberSchema } from "./hydra";
 
+const embeddedClientSchema = createHydraMemberSchema(
+  z.object({
+    name: z.string(),
+  }),
+);
+
 // ----- STANDARD FIELDS -----
 export const projectResponseSchema = z.object({
   name: z.string(),
   hourlyRate: z.string().optional(),
-  client: z.string(),
-  clientName: z.string(),
+  client: embeddedClientSchema,
 });
 
 export type ProjectResponse = z.infer<typeof projectResponseSchema>;
@@ -29,11 +34,9 @@ export const isProjectMember = (obj: unknown): obj is ProjectMember =>
   projectMemberSchema.safeParse(obj).success;
 
 // ----- SINGLE RESPONSES (/entity/{id}) -----
-export const singleProjectResponseSchema = projectMemberSchema
-  .extend({
-    "@context": z.string(),
-  })
-  .omit({ clientName: true });
+export const singleProjectResponseSchema = projectMemberSchema.extend({
+  "@context": z.string(),
+});
 
 export type SingleProjectResponse = z.infer<typeof singleProjectResponseSchema>;
 

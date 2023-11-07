@@ -18,8 +18,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
         </Link>
         <CardDescription>
-          <Link href={`/clients/${iriToId(project.client)}`} className="hover:underline">
-            {project.clientName}
+          <Link href={`/clients/${iriToId(project.client?.["@id"])}`} className="hover:underline">
+            {project.client.name}
           </Link>
         </CardDescription>
       </CardHeader>
