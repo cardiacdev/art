@@ -3,7 +3,6 @@
 import { useCreateProjectMutation } from "@/hooks/mutations/projects/use-create-project-mutation";
 import { useZodForm } from "@/hooks/use-zod-form";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -23,7 +22,6 @@ import {
   FormServerMessage,
 } from "../ui/form";
 import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { RequiredAsterisk } from "../ui/required-asterisk";
 import { ClientPopoverField } from "./client-popover-field";
 
