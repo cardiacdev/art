@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { MouseEventHandler, useCallback } from "react";
 
 import { useDeleteUserMutation } from "@/hooks/mutations/users/use-delete-user-mutation";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
@@ -29,11 +29,14 @@ export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogProp
   const { visible, show, hide } = useModal();
   const { mutate, violations } = useDeleteUserMutation(user["@id"]);
 
-  const handleDeleteClick = useCallback(() => {
+  const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     mutate(undefined, {
-      onSuccess: () => toast.success(`Benutzer ${user.username} erfolgreich gelöscht`),
+      onSuccess: () => {
+        hide();
+        toast.success(`Benutzer ${user.username} erfolgreich gelöscht`);
+      },
     });
-  }, [user, mutate]);
+  }, [user, mutate, hide]);
 
   return (
     <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
@@ -54,8 +57,8 @@ export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogProp
             onClick={handleDeleteClick}>
             Löschen
           </AlertDialogAction>
-          <GlobalViolationAlerts violations={violations.global} />
         </AlertDialogFooter>
+        <GlobalViolationAlerts violations={violations.global} />
       </AlertDialogContent>
     </AlertDialog>
   );

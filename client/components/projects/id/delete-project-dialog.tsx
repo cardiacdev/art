@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { MouseEventHandler, useCallback } from "react";
 
 import { useDeleteProjectMutation } from "@/hooks/mutations/projects/use-delete-project-mutation";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
@@ -28,11 +28,18 @@ export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectD
   const { visible, show, hide } = useModal();
   const { mutate, violations } = useDeleteProjectMutation(project["@id"]);
 
-  const handleDeleteClick = useCallback(() => {
-    mutate(undefined, {
-      onSuccess: () => toast.success(`Projekt ${project.name} erfolgreich gelöscht`),
-    });
-  }, [project, mutate]);
+  const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.preventDefault();
+      mutate(undefined, {
+        onSuccess: () => {
+          hide();
+          toast.success(`Projekt ${project.name} erfolgreich gelöscht`);
+        },
+      });
+    },
+    [project, mutate, hide],
+  );
 
   return (
     <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
@@ -53,8 +60,8 @@ export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectD
             onClick={handleDeleteClick}>
             Löschen
           </AlertDialogAction>
-          <GlobalViolationAlerts violations={violations.global} />
         </AlertDialogFooter>
+        <GlobalViolationAlerts violations={violations.global} />
       </AlertDialogContent>
     </AlertDialog>
   );
