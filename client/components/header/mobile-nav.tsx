@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { NavItem } from "@/types/nav";
@@ -6,10 +8,11 @@ import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   items: NavItem[];
+  handleClose: () => void;
   children?: React.ReactNode;
 }
 
-export const MobileNav = ({ items, children }: MobileNavProps) => {
+export const MobileNav = ({ items, handleClose, children }: MobileNavProps) => {
   return (
     <div
       className={
@@ -23,6 +26,7 @@ export const MobileNav = ({ items, children }: MobileNavProps) => {
           {items.map((item) => (
             <Link
               key={item.title}
+              onClick={handleClose}
               href={item.disabled || !item.href ? "#" : item.href}
               className={cn(
                 "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",

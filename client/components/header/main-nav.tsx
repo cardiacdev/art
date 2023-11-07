@@ -23,7 +23,7 @@ const Home = ({ appName }: { appName: string }) => {
 
 interface MainNavProps {
   appName: string;
-  items?: NavItem[];
+  items: NavItem[];
 }
 
 export const MainNav = ({ appName, items }: MainNavProps) => {
@@ -38,7 +38,7 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
       </Link>
       {isAuthenticated && (
         <nav className="hidden gap-6 md:flex">
-          {items?.map(
+          {items.map(
             (item) =>
               item.href && (
                 <Link
@@ -62,7 +62,7 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
         {showMobileMenu ? <Cross1Icon /> : <HamburgerMenuIcon />}
         <span className="font-bold">Menu</span>
       </button>
-      {showMobileMenu && items && <MobileNav items={items} />}
+      {showMobileMenu && <MobileNav items={items} handleClose={() => setShowMobileMenu(false)} />}
     </div>
   );
 };
