@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use BCMathExtended\BC;
 use Doctrine\Common\Comparable;
 use Stringable;
+
+use const STR_PAD_RIGHT;
 
 use function str_contains;
 
@@ -17,9 +20,22 @@ class Decimal implements Comparable, Stringable
 
     public function __construct(string $value = '0.0')
     {
-        $this->value = str_contains($value, 'E')
-            ? self::floatFromScientificFormat($value)
-            : $value;
+        if (str_contains($value, 'E')) {
+            $value = self::floatFromScientificFormat($value);
+        }
+
+        /**
+         * If it contains a dot, pad with '0' until it has 2 digits after the dot
+         * If it does not contain a dot, append '.00'.
+         */
+        if (str_contains($value, '.')) {
+            $parts = explode('.', $value);
+            $value = $parts[0].'.'.str_pad($parts[1], 2, '0', STR_PAD_RIGHT);
+        } else {
+            $value .= '.00';
+        }
+
+        $this->value = $value;
     }
 
     public function __toString(): string
@@ -96,15 +112,16 @@ class Decimal implements Comparable, Stringable
 
     public static function round(self $decimal, int $scale = self::SCALE_CURRENCY_RESULT): self
     {
-        $rounding_increment = new self(bcdiv('1', bcpow('10', (string) $scale), $scale));
+        return new self(BC::round($decimal->getValue(), $scale));
+    }
 
-        if ($decimal->isNegative()) {
-            $number = self::sub($decimal, $rounding_increment, $scale);
-        } else {
-            $number = self::add($decimal, $rounding_increment, $scale);
-        }
-
-        return $number;
+    public static function sum(array $decimals, int $scale = self::SCALE_MAX): self
+    {
+        return array_reduce(
+            $decimals,
+            fn (self $carry, self $decimal) => self::add($carry, $decimal, $scale),
+            new self('0.0')
+        );
     }
 
     public static function add(self $left, self $right, int $scale = self::SCALE_MAX): self
