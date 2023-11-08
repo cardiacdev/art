@@ -58,8 +58,13 @@ export const useHandleMutationErrors = () => {
     throw new Error("Ein unbekannter Fehler ist aufgetreten.");
   };
 
+  const resetViolations = () => {
+    setViolations({ global: [] });
+  };
+
   return {
     violations,
+    resetViolations,
     processResponse,
   };
 };
