@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\InvoiceItem;
+use App\Model\Decimal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,28 +24,44 @@ class InvoiceItemRepository extends ServiceEntityRepository
         parent::__construct($registry, InvoiceItem::class);
     }
 
-    //    /**
-    //     * @return InvoiceItem[] Returns an array of InvoiceItem objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return array<int, Decimal>
+     */
+    public function getInvoiceItemEuroAmountsByProject(int $projectId): array
+    {
+        $entityManager = $this->getEntityManager();
 
-    //    public function findOneBySomeField($value): ?InvoiceItem
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // get all task ids for a given project
+        $subQuery = $entityManager->createQueryBuilder()
+            ->select('t.id')
+            ->from('App\Entity\Task', 't')
+            ->where('t.project = :projectId')
+            ->getDQL();
+
+        // get all invoice_item euroAmounts for a given project
+        $qb = $this->createQueryBuilder('ii')->select('ii.euroAmount');
+
+        $query = $qb
+            ->where($qb->expr()->in('ii.task', $subQuery))
+            ->andWhere('ii.euroAmount IS NOT NULL')
+            ->setParameter('projectId', $projectId)
+            ->getQuery();
+
+        return $query
+            ->getArrayResult();
+    }
+
+    public function getInvoiceItemEuroAmountsByTask(int $taskId): array
+    {
+        $qb = $this->createQueryBuilder('ii')->select('ii.euroAmount');
+
+        $query = $qb
+            ->where('ii.task = :taskId')
+            ->andWhere('ii.euroAmount IS NOT NULL')
+            ->setParameter('taskId', $taskId)
+            ->getQuery();
+
+        return $query
+            ->getArrayResult();
+    }
 }
