@@ -6,6 +6,7 @@ namespace App\Tests\Functional;
 
 use App\Factory\ClientFactory;
 use App\Factory\ProjectFactory;
+use App\Factory\TaskFactory;
 use App\Factory\UserFactory;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
@@ -99,5 +100,17 @@ class ProjectResourceTest extends ApiTestCase
             ->actingAs($user)
             ->delete('/api/projects/'.$project->getId())
             ->assertStatus(204);
+    }
+
+    public function testDeleteProjectWithTasks(): void
+    {
+        $user = UserFactory::createOne();
+        $project = ProjectFactory::createOne();
+        TaskFactory::createMany(2, ['project' => $project]);
+
+        $this->browser()
+            ->actingAs($user)
+            ->delete('/api/projects/'.$project->getId())
+            ->assertStatus(422);
     }
 }
