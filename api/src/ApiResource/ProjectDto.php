@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\Project;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use App\Validator\AssertDeletable;
 use App\Validator\AssertUnique;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -34,7 +35,15 @@ use Symfony\Component\Validator\Constraints\NotNull;
         new Patch(
             validationContext: ['groups' => ['Default', 'patchValidation']],
         ),
-        new Delete(),
+        new Delete(
+            validate: true,
+            validationContext: [
+                'groups' => ['deleteValidation'],
+            ],
+            exceptionToStatus: [
+                ValidationException::class => 422,
+            ],
+        ),
     ],
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
@@ -48,6 +57,10 @@ use Symfony\Component\Validator\Constraints\NotNull;
     entityClass: Project::class,
     fields: ['name'],
     groups: ['postValidation', 'patchValidation'],
+)]
+#[AssertDeletable(
+    fields: ['tasks'],
+    groups: ['deleteValidation']
 )]
 class ProjectDto
 {
@@ -64,4 +77,14 @@ class ProjectDto
     #[NotNull]
     #[Groups(['project:read'])]
     public ?ClientDto $client = null;
+
+    /**
+     * @var array<int, TaskDto>
+     */
+    #[ApiProperty(writable: false)]
+    public array $tasks = [];
+
+    #[Groups(['project:read'])]
+    #[ApiProperty(writable: false)]
+    public ?int $openTasks = null;
 }

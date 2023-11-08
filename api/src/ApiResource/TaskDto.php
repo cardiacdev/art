@@ -17,6 +17,7 @@ use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertDeletable;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[ApiResource(
     shortName: 'Task',
@@ -72,6 +73,9 @@ class TaskDto
     public ?string $orderNumber = null;
 
     public ?string $orderConfirmationDate = null;
+
+    #[NotNull]
+    public ?ProjectDto $project = null;
 
     /**
      * @var array<int, InvoiceItemDto>
