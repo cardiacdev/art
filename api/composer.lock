@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea803dca37cde6e00c5c751e3343e9d1",
+    "content-hash": "5c0221d379555877c207da3864ef428b",
     "packages": [
         {
             "name": "api-platform/core",
@@ -1559,6 +1559,68 @@
                 "source": "https://github.com/doctrine/sql-formatter/tree/1.1.3"
             },
             "time": "2022-05-23T21:33:49+00:00"
+        },
+        {
+            "name": "krowinski/bcmath-extended",
+            "version": "7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krowinski/bcmath-extended.git",
+                "reference": "e961cb1a7b15b02cf00bbf91ec1a13b48253cfaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/e961cb1a7b15b02cf00bbf91ec1a13b48253cfaf",
+                "reference": "e961cb1a7b15b02cf00bbf91ec1a13b48253cfaf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.0",
+                "symplify/easy-coding-standard": "^11.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BCMathExtended\\": "src/BCMathExtended/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kacper Rowiński",
+                    "email": "kacper.rowinski@gmail.com"
+                }
+            ],
+            "description": "Extends php BCMath lib for missing functions like floor, ceil, round, abs, min, max, rand for big numbers. Also wraps existing BCMath functions. (more http://php.net/manual/en/book.bc.php) Supports scientific notations",
+            "keywords": [
+                "Arbitrary-precision",
+                "abs",
+                "bc",
+                "bcmath",
+                "bignumber",
+                "ceil",
+                "complex-numbers",
+                "floor",
+                "math",
+                "php",
+                "precision",
+                "rand",
+                "round",
+                "scientific-notation"
+            ],
+            "support": {
+                "issues": "https://github.com/krowinski/bcmath-extended/issues",
+                "source": "https://github.com/krowinski/bcmath-extended/tree/7.0.0"
+            },
+            "time": "2023-01-25T21:31:14+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
