@@ -7,6 +7,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { toast } from "sonner";
 
 import { ClientMember } from "@/types/clients";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +28,9 @@ interface DeleteClientDialogProps {
 export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDialogProps) => {
   const { visible, show, hide } = useModal();
   const { mutate, violations } = useDeleteClientMutation(client["@id"]);
+
+  const hasInvoices = client.invoices.length > 0;
+  const hasProjects = client.projects.length > 0;
 
   const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
@@ -57,11 +61,28 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
           <AlertDialogCancel>Abbrechen</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: "destructive" })}
-            onClick={handleDeleteClick}>
+            onClick={handleDeleteClick}
+            disabled={hasInvoices || hasProjects}>
             Löschen
           </AlertDialogAction>
         </AlertDialogFooter>
         <GlobalViolationAlerts violations={violations.global} />
+        {
+          <Alert variant={"destructive"} className="">
+            <AlertDescription>
+              {hasInvoices && (
+                <p>
+                  Der Kunde hat noch Rechnungen. Bitte löschen Sie diese zuerst bevor Sie den Kunden löschen.
+                </p>
+              )}
+              {hasProjects && (
+                <p>
+                  Der Kunde hat noch Projekte. Bitte löschen Sie diese zuerst bevor Sie den Kunden löschen.
+                </p>
+              )}
+            </AlertDescription>
+          </Alert>
+        }
       </AlertDialogContent>
     </AlertDialog>
   );
