@@ -33,7 +33,25 @@ $ bin/console do:fi:lo
 ```bash
 $ make client-bash
 $ npm i
-$ npm run dev # oder 'npm run dev:legacy' mit Webpack anstatt Turbopack
+$ npm run dev
 ```
 
 Die Applikation ist nun unter [http://localhost](http://localhost) erreichbar.
+
+### Dev Infos
+
+#### Next.js Dev Server:
+
+Der Dev Server kann im Client Container durch `npm run dev` oder `npm run dev:legacy` gestartet werden.
+
+Der Command mit `legacy` Suffix benutzt Webpack anstatt das schnellere Rust-basierte Turbopack.
+
+#### Next.js Prod Build:
+
+Der Prod Build kann im Client Container durch `npm run build` gebaut werden.
+
+Getestet werden kann anschließend mit `npm run start`.
+
+#### Makefile
+
+Weitere Commands für QoL können der [Makefile](Makefile) entnommen werden.
