@@ -23,28 +23,17 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    //    /**
-    //     * @return Task[] Returns an array of Task objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getEuroAmountsByProject(int $projectId): array
+    {
+        $qb = $this->createQueryBuilder('t')->select('t.euroAmount');
 
-    //    public function findOneBySomeField($value): ?Task
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $query = $qb
+            ->where('t.project = :projectId')
+            ->andWhere('t.euroAmount IS NOT NULL')
+            ->setParameter('projectId', $projectId)
+            ->getQuery();
+
+        return $query
+            ->getArrayResult();
+    }
 }
