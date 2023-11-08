@@ -90,4 +90,26 @@ class ProjectDto
     #[Groups(['project:read'])]
     #[ApiProperty(writable: false)]
     public ?int $openTasks = null;
+
+    /**
+     * Sum of all euro amounts of all tasks.
+     */
+    #[Groups(['project:read'])]
+    #[ApiProperty(writable: false)]
+    public ?string $euroAmount = null;
+
+    /**
+     * Sum of all billed amounts of all tasks.
+     */
+    #[Groups(['project:read'])]
+    #[ApiProperty(writable: false)]
+    public ?string $billedAmount = null;
+
+    /**
+     *  Sum of all not yet billed amounts of all tasks.
+     *  Calculated by subtracting the sum of all billed amounts from the sum of all euro amounts.
+     */
+    #[Groups(['project:read'])]
+    #[ApiProperty(writable: false)]
+    public ?string $notBilledAmount = null;
 }
