@@ -13,7 +13,7 @@ import { iriToId } from "@/lib/utils";
 export const useDeleteProjectMutation = (iri: string) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { violations, processResponse } = useHandleMutationErrors();
+  const { violations, resetViolations, processResponse } = useHandleMutationErrors();
 
   const mutationReturnValue = useMutation({
     mutationFn: async () => {
@@ -36,5 +36,6 @@ export const useDeleteProjectMutation = (iri: string) => {
   return {
     ...mutationReturnValue,
     violations,
+    resetViolations,
   };
 };

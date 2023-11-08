@@ -51,12 +51,13 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
    */
   const { isDirty, dirtyFields } = form.formState;
 
-  const { mutate, isPending, violations } = useEditUserMutation(user["@id"]);
+  const { mutate, isPending, violations, resetViolations } = useEditUserMutation(user["@id"]);
   const { visible, show, hide } = useModal();
 
-  const hideAndReset = () => {
+  const resetDialog = () => {
     hide();
     form.reset(stateValues);
+    resetViolations();
   };
 
   const onSubmit = (data: EditUserFormValues) => {
@@ -76,7 +77,7 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
   };
 
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hideAndReset())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Benutzer bearbeiten</DialogTitle>

@@ -11,7 +11,7 @@ import { EditProjectFormValues } from "@/components/projects/id/edit-project-dia
 
 export const useEditProjectMutation = (iri: string) => {
   const queryClient = useQueryClient();
-  const { violations, processResponse } = useHandleMutationErrors();
+  const { violations, resetViolations, processResponse } = useHandleMutationErrors();
 
   const mutationReturnValue = useMutation({
     mutationFn: async (data: Partial<EditProjectFormValues>) => {
@@ -37,5 +37,6 @@ export const useEditProjectMutation = (iri: string) => {
   return {
     ...mutationReturnValue,
     violations,
+    resetViolations,
   };
 };

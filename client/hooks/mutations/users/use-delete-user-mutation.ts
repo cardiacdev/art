@@ -9,7 +9,7 @@ import { fetchJsonLd } from "@/lib/fetch/fetch-json-ld";
 
 export const useDeleteUserMutation = (iri: string) => {
   const queryClient = useQueryClient();
-  const { violations, processResponse } = useHandleMutationErrors();
+  const { violations, resetViolations, processResponse } = useHandleMutationErrors();
 
   const mutationReturnValue = useMutation({
     mutationFn: async () => {
@@ -27,5 +27,6 @@ export const useDeleteUserMutation = (iri: string) => {
   return {
     ...mutationReturnValue,
     violations,
+    resetViolations,
   };
 };

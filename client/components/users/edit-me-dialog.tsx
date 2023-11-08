@@ -49,7 +49,7 @@ export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
    */
   const { isDirty, dirtyFields } = form.formState;
 
-  const { mutate, isPending, violations } = useEditMeMutation(user.id);
+  const { mutate, isPending, violations, resetViolations } = useEditMeMutation(user.id);
   const { visible, show, hide } = useModal();
 
   const onSubmit = (data: EditMeFormValues) => {
@@ -69,8 +69,14 @@ export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
     });
   };
 
+  const resetDialog = () => {
+    hide();
+    form.reset(formValues);
+    resetViolations();
+  };
+
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Einstellungen</DialogTitle>

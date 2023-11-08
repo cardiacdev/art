@@ -11,7 +11,7 @@ import { EditMeFormValues } from "@/components/users/edit-me-dialog";
 
 export const useEditMeMutation = (iri: string) => {
   const queryClient = useQueryClient();
-  const { violations, processResponse } = useHandleMutationErrors();
+  const { violations, resetViolations, processResponse } = useHandleMutationErrors();
 
   const mutationReturnValue = useMutation({
     mutationFn: async (data: Partial<EditMeFormValues>) => {
@@ -40,5 +40,6 @@ export const useEditMeMutation = (iri: string) => {
   return {
     ...mutationReturnValue,
     violations,
+    resetViolations,
   };
 };

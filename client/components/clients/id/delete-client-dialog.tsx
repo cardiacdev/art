@@ -27,7 +27,7 @@ interface DeleteClientDialogProps {
 
 export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDialogProps) => {
   const { visible, show, hide } = useModal();
-  const { mutate, violations } = useDeleteClientMutation(client["@id"]);
+  const { mutate, violations, resetViolations } = useDeleteClientMutation(client["@id"]);
 
   const hasInvoices = client.invoices.length > 0;
   const hasProjects = client.projects.length > 0;
@@ -45,8 +45,13 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
     [client, mutate, hide],
   );
 
+  const resetDialog = useCallback(() => {
+    hide();
+    resetViolations();
+  }, [hide, resetViolations]);
+
   return (
-    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Sind Sie Sicher dass Sie diesen Kunden löschen wollen?</AlertDialogTitle>
@@ -61,8 +66,7 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
           <AlertDialogCancel>Abbrechen</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: "destructive" })}
-            onClick={handleDeleteClick}
-            disabled={hasInvoices || hasProjects}>
+            onClick={handleDeleteClick}>
             Löschen
           </AlertDialogAction>
         </AlertDialogFooter>

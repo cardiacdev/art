@@ -27,7 +27,7 @@ interface DeleteUserDialogProps {
 
 export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogProps) => {
   const { visible, show, hide } = useModal();
-  const { mutate, violations } = useDeleteUserMutation(user["@id"]);
+  const { mutate, violations, resetViolations } = useDeleteUserMutation(user["@id"]);
 
   const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     mutate(undefined, {
@@ -38,8 +38,13 @@ export const DeleteUserDialog = NiceModal.create(({ user }: DeleteUserDialogProp
     });
   }, [user, mutate, hide]);
 
+  const resetDialog = useCallback(() => {
+    hide();
+    resetViolations();
+  }, [hide, resetViolations]);
+
   return (
-    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Sind Sie Sicher dass Sie diesen Benutzer löschen wollen?</AlertDialogTitle>

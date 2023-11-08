@@ -11,7 +11,7 @@ import { EditUserFormValues } from "@/components/users/edit-user-dialog";
 
 export const useEditUserMutation = (iri: string) => {
   const queryClient = useQueryClient();
-  const { violations, processResponse } = useHandleMutationErrors();
+  const { violations, resetViolations, processResponse } = useHandleMutationErrors();
 
   const mutationReturnValue = useMutation({
     mutationFn: async (data: Partial<EditUserFormValues>) => {
@@ -40,5 +40,6 @@ export const useEditUserMutation = (iri: string) => {
   return {
     ...mutationReturnValue,
     violations,
+    resetViolations,
   };
 };

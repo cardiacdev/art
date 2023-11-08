@@ -58,12 +58,13 @@ export const EditProjectDialog = NiceModal.create(({ project }: EditProjectDialo
    */
   const { isDirty, dirtyFields } = form.formState;
 
-  const { mutate, isPending, violations } = useEditProjectMutation(project["@id"]);
+  const { mutate, isPending, violations, resetViolations } = useEditProjectMutation(project["@id"]);
   const { visible, show, hide } = useModal();
 
-  const hideAndReset = () => {
+  const resetDialog = () => {
     hide();
     form.reset(stateValues);
+    resetViolations();
   };
 
   const onSubmit = (data: EditProjectFormValues) => {
@@ -87,7 +88,7 @@ export const EditProjectDialog = NiceModal.create(({ project }: EditProjectDialo
   };
 
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hideAndReset())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Projekt bearbeiten</DialogTitle>

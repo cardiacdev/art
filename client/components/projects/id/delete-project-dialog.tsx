@@ -26,7 +26,7 @@ interface DeleteProjectDialogProps {
 
 export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectDialogProps) => {
   const { visible, show, hide } = useModal();
-  const { mutate, violations } = useDeleteProjectMutation(project["@id"]);
+  const { mutate, violations, resetViolations } = useDeleteProjectMutation(project["@id"]);
 
   const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
@@ -41,8 +41,13 @@ export const DeleteProjectDialog = NiceModal.create(({ project }: DeleteProjectD
     [project, mutate, hide],
   );
 
+  const resetDialog = useCallback(() => {
+    hide();
+    resetViolations();
+  }, [hide, resetViolations]);
+
   return (
-    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : hide())}>
+    <AlertDialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Sind Sie Sicher dass Sie dieses Projekt löschen wollen?</AlertDialogTitle>
