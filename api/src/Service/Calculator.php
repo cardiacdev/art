@@ -6,11 +6,13 @@ namespace App\Service;
 
 use App\Model\Decimal;
 use App\Repository\InvoiceItemRepository;
+use App\Repository\TaskRepository;
 
 class Calculator
 {
     public function __construct(
         private InvoiceItemRepository $invoiceItemRepository,
+        private TaskRepository $taskRepository,
     ) {
     }
 
@@ -21,5 +23,34 @@ class Calculator
         $sumOfInvoiceItemEuroAmounts = Decimal::sum($invoiceItemEuroAmounts);
 
         return $sumOfInvoiceItemEuroAmounts;
+    }
+
+    public function calculateBilledAmountOfProject(int $projectId): Decimal
+    {
+        $invoiceItemEuroAmounts = array_column($this->invoiceItemRepository->getInvoiceItemEuroAmountsByProject($projectId), 'euroAmount');
+        dump('invoiceItemEuroAmounts', $invoiceItemEuroAmounts);
+        $sumOfInvoiceItemEuroAmounts = Decimal::sum($invoiceItemEuroAmounts);
+
+        return $sumOfInvoiceItemEuroAmounts;
+    }
+
+    public function calculateTaskEuroAmountOfProject(int $projectId): Decimal
+    {
+        $taskEuroAmounts = array_column($this->taskRepository->getEuroAmountsByProject($projectId), 'euroAmount');
+
+        dump('taskEuroAmounts', $taskEuroAmounts);
+        $sumOfTaskEuroAmounts = Decimal::sum($taskEuroAmounts);
+
+        return $sumOfTaskEuroAmounts;
+    }
+
+    public function calculateNotBilledAmountOfProject(int $projectId): Decimal
+    {
+        $taskEuroAmountOfProject = $this->calculateTaskEuroAmountOfProject($projectId);
+        $billedAmountOfProject = $this->calculateBilledAmountOfProject($projectId);
+
+        $notBilledAmountOfProject = Decimal::sub($taskEuroAmountOfProject, $billedAmountOfProject);
+
+        return $notBilledAmountOfProject;
     }
 }
