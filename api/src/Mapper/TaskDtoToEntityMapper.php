@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mapper;
 
 use App\ApiResource\TaskDto;
+use App\Entity\Project;
 use App\Entity\Task;
 use App\Model\Decimal;
 use App\Repository\TaskRepository;
@@ -64,6 +65,8 @@ class TaskDtoToEntityMapper implements MapperInterface
             $entity->setOrderConfirmationDate(new DateTimeImmutable($dto->orderConfirmationDate));
         }
         $entity->setOrderNumber($dto->orderNumber);
+
+        $entity->setProject($this->microMapper->map($dto->project, Project::class));
 
         return $entity;
     }

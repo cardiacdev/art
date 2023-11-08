@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mapper;
 
 use App\ApiResource\InvoiceItemDto;
+use App\ApiResource\ProjectDto;
 use App\ApiResource\TaskDto;
 use App\Entity\Task;
 use Symfonycasts\MicroMapper\AsMapper;
@@ -49,6 +50,9 @@ class TaskEntityToDtoMapper implements MapperInterface
         $dto->firstLiveDeploymentDate = $entity->getFirstLiveDeploymentDate()?->format('d.m.Y');
         $dto->orderNumber = $entity->getOrderNumber();
         $dto->orderConfirmationDate = $entity->getOrderConfirmationDate()?->format('d.m.Y');
+        $dto->project = $this->microMapper->map($entity->getProject(), ProjectDto::class, [
+            MicroMapperInterface::MAX_DEPTH => 1,
+        ]);
 
         $dto->invoiceItems = array_map(
             fn ($invoiceItem) => $this->microMapper->map($invoiceItem, InvoiceItemDto::class, [
