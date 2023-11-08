@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
+use App\Factory\ClientFactory;
 use App\Factory\InvoiceFactory;
 use App\Factory\InvoiceItemFactory;
+use App\Factory\ProjectFactory;
 use App\Factory\TaskFactory;
 use App\Factory\UserFactory;
 use Zenstruck\Foundry\Test\Factories;
@@ -19,7 +21,9 @@ class TaskResourceTest extends ApiTestCase
     public function testGetTask(): void
     {
         $user = UserFactory::createOne();
-        $task = TaskFactory::createOne();
+        $client = ClientFactory::createOne();
+        $project = ProjectFactory::createOne(['client' => $client]);
+        $task = TaskFactory::createOne(['project' => $project]);
 
         $this->browser()
             ->actingAs($user)
@@ -32,7 +36,9 @@ class TaskResourceTest extends ApiTestCase
     public function testGetTasks(): void
     {
         $user = UserFactory::createOne();
-        TaskFactory::createMany(6);
+        $client = ClientFactory::createOne();
+        $project = ProjectFactory::createOne(['client' => $client]);
+        TaskFactory::createMany(6, ['project' => $project]);
 
         $this->browser()
             ->actingAs($user)
@@ -45,14 +51,15 @@ class TaskResourceTest extends ApiTestCase
     public function testPostTask(): void
     {
         $user = UserFactory::createOne();
-        $invoice = InvoiceFactory::createOne();
+        $client = ClientFactory::createOne();
+        $project = ProjectFactory::createOne(['client' => $client]);
 
         $this->browser()
             ->actingAs($user)
             ->post('/api/tasks', [
                 'json' => [
                     'title' => 'Task title',
-                    'invoice' => '/api/invoices/'.$invoice->getId(),
+                    'project' => '/api/projects/'.$project->getId(),
                 ],
             ])
             ->assertStatus(201)
@@ -62,7 +69,9 @@ class TaskResourceTest extends ApiTestCase
     public function testPatchTask(): void
     {
         $user = UserFactory::createOne();
-        $task = TaskFactory::createOne();
+        $client = ClientFactory::createOne();
+        $project = ProjectFactory::createOne(['client' => $client]);
+        $task = TaskFactory::createOne(['project' => $project]);
 
         $this->browser()
             ->actingAs($user)
@@ -81,7 +90,8 @@ class TaskResourceTest extends ApiTestCase
     public function testDeleteOrphanedTask(): void
     {
         $user = UserFactory::createOne();
-        $task = TaskFactory::createOne();
+        $project = ProjectFactory::createOne();
+        $task = TaskFactory::createOne(['project' => $project]);
 
         $this->browser()
             ->actingAs($user)
@@ -92,8 +102,11 @@ class TaskResourceTest extends ApiTestCase
     public function testDeleteTaskWithInvoiceItem(): void
     {
         $user = UserFactory::createOne();
-        $task = TaskFactory::createOne();
-        InvoiceItemFactory::createOne(['task' => $task]);
+        $client = ClientFactory::createOne();
+        $project = ProjectFactory::createOne(['client' => $client]);
+        $invoice = InvoiceFactory::createOne(['client' => $client]);
+        $task = TaskFactory::createOne(['project' => $project]);
+        $invoiceItem = InvoiceItemFactory::createOne(['invoice' => $invoice, 'task' => $task]);
 
         $this->browser()
             ->actingAs($user)
