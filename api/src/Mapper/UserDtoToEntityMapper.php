@@ -43,11 +43,9 @@ class UserDtoToEntityMapper implements MapperInterface
         $entity = $to;
         assert($entity instanceof User);
 
-        $entity->setEmail($dto->email);
-        $entity->setUsername($dto->username);
-        if ($dto->password) {
-            $entity->setPassword($this->passwordHasher->hashPassword($entity, $dto->password));
-        }
+        $dto->email && $entity->setEmail($dto->email);
+        $dto->username && $entity->setUsername($dto->username);
+        $dto->password && $entity->setPassword($this->passwordHasher->hashPassword($entity, $dto->password));
 
         return $entity;
     }

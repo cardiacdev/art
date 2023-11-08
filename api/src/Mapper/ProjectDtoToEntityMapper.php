@@ -45,7 +45,7 @@ class ProjectDtoToEntityMapper implements MapperInterface
         $entity = $to;
         assert($entity instanceof Project);
 
-        $entity->setName($dto->name);
+        $dto->name && $entity->setName($dto->name);
         $entity->setHourlyRate($dto->hourlyRate ? new Decimal($dto->hourlyRate) : null);
 
         $entity->setClient($this->microMapper->map($dto->client, Client::class));
