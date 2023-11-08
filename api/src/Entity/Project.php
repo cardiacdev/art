@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Model\Decimal;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -25,6 +27,14 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
+
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class)]
+    private Collection $Tasks;
+
+    public function __construct()
+    {
+        $this->Tasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,6 +73,36 @@ class Project
     public function setClient(?Client $client): static
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Task>
+     */
+    public function getTasks(): Collection
+    {
+        return $this->Tasks;
+    }
+
+    public function addTask(Task $task): static
+    {
+        if (!$this->Tasks->contains($task)) {
+            $this->Tasks->add($task);
+            $task->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): static
+    {
+        if ($this->Tasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getProject() === $this) {
+                $task->setProject(null);
+            }
+        }
 
         return $this;
     }

@@ -52,6 +52,10 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: InvoiceItem::class)]
     private Collection $invoiceItems;
 
+    #[ORM\ManyToOne(inversedBy: 'Tasks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Project $project = null;
+
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();
@@ -210,5 +214,22 @@ class Task
         }
 
         return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): static
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->project?->getClient();
     }
 }
