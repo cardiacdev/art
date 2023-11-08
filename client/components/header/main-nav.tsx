@@ -47,7 +47,7 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
                   className={cn(
                     "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
                     item.disabled && "cursor-not-allowed opacity-80",
-                    pathname === item.href && "text-secondary-foreground",
+                    pathname.includes(item.href) && "text-secondary-foreground",
                   )}>
                   {item.title}
                 </Link>
