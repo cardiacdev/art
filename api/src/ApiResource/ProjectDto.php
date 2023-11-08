@@ -84,6 +84,9 @@ class ProjectDto
     #[ApiProperty(writable: false)]
     public array $tasks = [];
 
+    /**
+     *  Count of tasks that aren't fully billed yet.
+     */
     #[Groups(['project:read'])]
     #[ApiProperty(writable: false)]
     public ?int $openTasks = null;
