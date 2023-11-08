@@ -64,6 +64,7 @@ final class TaskFactory extends ModelFactory
             'firstLiveDeploymentDate' => $hasSandBoxDeployment && self::faker()->boolean(70) ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-6 months', 'now')) : null,
             'orderNumber' => $hasOrderNumber ? self::faker()->numerify('order-####') : null,
             'orderConfirmationDate' => $hasOrderNumber ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 year', '-2 months')) : null,
+            'project' => ProjectFactory::new(),
         ];
     }
 
