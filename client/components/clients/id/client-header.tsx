@@ -7,6 +7,7 @@ import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 
 import { DeleteClientDialog } from "./delete-client-dialog";
+import { EditClientDialog } from "./edit-client-dialog";
 
 interface ClientHeadingProps {
   id: string;
@@ -14,6 +15,7 @@ interface ClientHeadingProps {
 
 export const ClientHeader = ({ id }: ClientHeadingProps) => {
   const { data: client } = useSingleClientQuery(id);
+  const editModal = useModal(EditClientDialog, { client });
   const deleteModal = useModal(DeleteClientDialog, { client });
 
   if (!client) return null;
@@ -24,7 +26,7 @@ export const ClientHeader = ({ id }: ClientHeadingProps) => {
         {client.name}
       </h1>
       <div className="flex gap-2">
-        <Button variant="ghost" size="icon" className="ml-auto" onClick={() => null}>
+        <Button variant="ghost" size="icon" className="ml-auto" onClick={() => editModal.show({ client })}>
           <Pencil1Icon className="h-7 w-7" />
         </Button>
         <Button
