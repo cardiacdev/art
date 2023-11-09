@@ -33,8 +33,14 @@ export function getDirtyFormValues<
   return dirtyValues;
 }
 
-export function commaToDot(str: string) {
+export function commaToDot(str?: string) {
+  if (!str) return "";
   return str.replace(",", ".");
+}
+
+export function dotToComma(str?: string) {
+  if (!str) return "";
+  return str.replace(".", ",");
 }
 
 export function iriToId(iri: string) {
