@@ -6,6 +6,8 @@ import * as SwitchPrimitives from "@radix-ui/react-switch";
 
 import { cn } from "@/lib/utils";
 
+// TODO - colorful switch variant "data-[state=checked]:bg-purple-500 data-[state=unchecked]:bg-indigo-500"
+
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
