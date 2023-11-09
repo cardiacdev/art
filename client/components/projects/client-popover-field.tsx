@@ -24,8 +24,6 @@ export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldPr
   params.append("pagination", "false");
   const { data } = useClientsQuery(params);
 
-  if (!data) return null;
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -34,7 +32,7 @@ export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldPr
             variant="outline"
             role="combobox"
             className={cn("h-auto w-[250px] justify-between", !field.value && "text-muted-foreground")}>
-            {field.value
+            {field.value && data
               ? data["hydra:member"].find((client) => client["@id"] === field.value)?.name
               : "Kunde auswählen"}
             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -47,24 +45,25 @@ export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldPr
           <ScrollArea className="h-72">
             <CommandEmpty>Kein Kunde gefunden.</CommandEmpty>
             <CommandGroup>
-              {data["hydra:member"].map((client) => (
-                <CommandItem
-                  className="cursor-pointer"
-                  value={client.name}
-                  key={client["@id"]}
-                  onSelect={() => {
-                    setFormValue("client", client["@id"], { shouldDirty: true });
-                    setOpen(false);
-                  }}>
-                  {client.name}
-                  <CheckIcon
-                    className={cn(
-                      "ml-auto h-4 w-4",
-                      client["@id"] === field.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                </CommandItem>
-              ))}
+              {data &&
+                data["hydra:member"].map((client) => (
+                  <CommandItem
+                    className="cursor-pointer"
+                    value={client.name}
+                    key={client["@id"]}
+                    onSelect={() => {
+                      setFormValue("client", client["@id"], { shouldDirty: true });
+                      setOpen(false);
+                    }}>
+                    {client.name}
+                    <CheckIcon
+                      className={cn(
+                        "ml-auto h-4 w-4",
+                        client["@id"] === field.value ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  </CommandItem>
+                ))}
             </CommandGroup>
           </ScrollArea>
         </Command>
