@@ -54,7 +54,7 @@ final class TaskFactory extends ModelFactory
         $hasOrderNumber = self::faker()->boolean(80);
 
         return [
-            'title' => self::faker()->text(255),
+            'title' => ucfirst(self::faker()->word()),
             'reference' => self::faker()->boolean(60) ? self::faker()->numerify('ref-####') : null,
             'euroAmount' => self::faker()->boolean(60) ? new Decimal((string) self::faker()->randomFloat(2, 0, 40000)) : null,
             'externalHours' => self::faker()->boolean(60) ? new Decimal((string) self::faker()->randomFloat(2, 0, 200)) : null,
