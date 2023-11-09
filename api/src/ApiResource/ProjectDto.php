@@ -34,10 +34,16 @@ use Symfony\Component\Validator\Constraints\NotNull;
         ),
         new GetCollection(),
         new Post(
-            validationContext: ['groups' => ['Default', 'postValidation']]
+            validationContext: ['groups' => ['Default', 'postValidation']],
+            normalizationContext: [
+                'groups' => ['project:read', 'project:item:get'],
+            ],
         ),
         new Patch(
             validationContext: ['groups' => ['Default', 'patchValidation']],
+            normalizationContext: [
+                'groups' => ['project:read', 'project:item:get'],
+            ],
         ),
         new Delete(
             validate: true,
