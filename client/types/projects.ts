@@ -36,6 +36,10 @@ export const isProjectMember = (obj: unknown): obj is ProjectMember =>
 // ----- SINGLE RESPONSES (/entity/{id}) -----
 export const singleProjectResponseSchema = projectMemberSchema.extend({
   "@context": z.string(),
+  openTasks: z.number(),
+  euroAmount: z.string(),
+  billedAmount: z.string(),
+  notBilledAmount: z.string(),
 });
 
 export type SingleProjectResponse = z.infer<typeof singleProjectResponseSchema>;
