@@ -30,13 +30,13 @@ export const ProjectHeader = ({ id }: ProjectHeadingProps) => {
 
   return (
     <>
-      <div className="flex items-end justify-between border-2 border-x-0 border-t-0 border-muted-foreground pb-1">
+      <div className="flex flex-wrap items-end justify-between gap-y-2 border-2 border-x-0 border-t-0 border-muted-foreground pb-1 sm:gap-y-0 md:flex-nowrap">
         <h1 className="flex items-end gap-4">
           <span className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
             {project.name}
           </span>
           <Link
-            className="text-md pt-2 text-muted-foreground hover:underline sm:text-lg md:text-xl lg:text-2xl"
+            className="text-md hidden pt-2 text-muted-foreground hover:underline sm:text-lg md:block md:text-xl lg:text-2xl"
             href={`/clients/${iriToId(project.client["@id"])}`}>
             ({project.client.name})
           </Link>
