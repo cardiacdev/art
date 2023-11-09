@@ -81,6 +81,7 @@ class ProjectDto
     /**
      * @var array<int, TaskDto>
      */
+    #[Groups(['project:read'])]
     #[ApiProperty(writable: false)]
     public array $tasks = [];
 

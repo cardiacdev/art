@@ -52,7 +52,7 @@ class ProjectEntityToDtoMapper implements MapperInterface
 
         $dto->tasks = array_map(
             fn ($task) => $this->microMapper->map($task, TaskDto::class, [
-                MicroMapperInterface::MAX_DEPTH => 1,
+                MicroMapperInterface::MAX_DEPTH => 0,
             ]),
             $taskEntities
         );
