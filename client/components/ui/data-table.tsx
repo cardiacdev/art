@@ -2,13 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 
-import {
-  CaretLeftIcon,
-  CaretRightIcon,
-  DoubleArrowLeftIcon,
-  DoubleArrowRightIcon,
-  MixerHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   flexRender,
@@ -35,6 +29,7 @@ interface DataTableProps<TData, TValue> {
   pagination: PaginationState;
   pageCount: number;
   onPaginationChange: Dispatch<SetStateAction<PaginationState>>;
+  initialColumns?: VisibilityState;
 }
 
 export function DataTable<TData, TValue>({
@@ -43,8 +38,9 @@ export function DataTable<TData, TValue>({
   pagination,
   pageCount,
   onPaginationChange,
+  initialColumns = {},
 }: DataTableProps<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialColumns);
   const table = useReactTable({
     columns,
     data,
