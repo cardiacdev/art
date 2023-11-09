@@ -27,7 +27,11 @@ use Symfony\Component\Validator\Constraints\NotNull;
         entityClass: Project::class,
     ),
     operations: [
-        new Get(),
+        new Get(
+            normalizationContext: [
+                'groups' => ['project:read', 'project:item:get'],
+            ],
+        ),
         new GetCollection(),
         new Post(
             validationContext: ['groups' => ['Default', 'postValidation']]
@@ -87,21 +91,21 @@ class ProjectDto
     /**
      *  Count of tasks that aren't fully billed yet.
      */
-    #[Groups(['project:read'])]
+    #[Groups(['project:item:get'])]
     #[ApiProperty(writable: false)]
     public ?int $openTasks = null;
 
     /**
      * Sum of all euro amounts of all tasks.
      */
-    #[Groups(['project:read'])]
+    #[Groups(['project:item:get'])]
     #[ApiProperty(writable: false)]
     public ?string $euroAmount = null;
 
     /**
      * Sum of all billed amounts of all tasks.
      */
-    #[Groups(['project:read'])]
+    #[Groups(['project:item:get'])]
     #[ApiProperty(writable: false)]
     public ?string $billedAmount = null;
 
@@ -109,7 +113,7 @@ class ProjectDto
      *  Sum of all not yet billed amounts of all tasks.
      *  Calculated by subtracting the sum of all billed amounts from the sum of all euro amounts.
      */
-    #[Groups(['project:read'])]
+    #[Groups(['project:item:get'])]
     #[ApiProperty(writable: false)]
     public ?string $notBilledAmount = null;
 }
