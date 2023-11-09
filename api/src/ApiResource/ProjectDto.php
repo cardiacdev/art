@@ -77,7 +77,7 @@ class ProjectDto
     public ?int $id = null;
 
     #[NotBlank]
-    #[Groups(['project:read', 'client:read'])]
+    #[Groups(['project:read', 'client:read', 'task:read'])]
     public ?string $name = null;
 
     #[Groups(['project:read'])]

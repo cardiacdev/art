@@ -51,7 +51,7 @@ class TaskEntityToDtoMapper implements MapperInterface
         $dto->orderNumber = $entity->getOrderNumber();
         $dto->orderConfirmationDate = $entity->getOrderConfirmationDate()?->format('d.m.Y');
         $dto->project = $this->microMapper->map($entity->getProject(), ProjectDto::class, [
-            MicroMapperInterface::MAX_DEPTH => 0,
+            MicroMapperInterface::MAX_DEPTH => 1,
         ]);
 
         $dto->invoiceItems = array_map(

@@ -17,6 +17,7 @@ use App\Entity\Task;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\AssertDeletable;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -43,6 +44,9 @@ use Symfony\Component\Validator\Constraints\NotNull;
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
+    normalizationContext: [
+        'groups' => ['task:read'],
+    ],
 )]
 #[ApiResource(
     uriTemplate: '/projects/{projectId}/tasks',
@@ -63,6 +67,9 @@ use Symfony\Component\Validator\Constraints\NotNull;
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
+    normalizationContext: [
+        'groups' => ['task:read'],
+    ],
 )]
 #[AssertDeletable(
     fields: ['invoiceItems'],
@@ -74,32 +81,44 @@ class TaskDto
     public ?int $id = null;
 
     #[NotBlank]
+    #[Groups(['task:read'])]
     public ?string $title = null;
 
+    #[Groups(['task:read'])]
     public ?string $reference = null;
 
+    #[Groups(['task:read'])]
     public ?string $euroAmount = null;
 
+    #[Groups(['task:read'])]
     public ?string $externalHours = null;
 
+    #[Groups(['task:read'])]
     public ?string $remarks = null;
 
+    #[Groups(['task:read'])]
     public ?string $plannedCompletionDate = null;
 
+    #[Groups(['task:read'])]
     public ?string $firstSandboxDeploymentDate = null;
 
+    #[Groups(['task:read'])]
     public ?string $firstLiveDeploymentDate = null;
 
+    #[Groups(['task:read'])]
     public ?string $orderNumber = null;
 
+    #[Groups(['task:read'])]
     public ?string $orderConfirmationDate = null;
 
     #[NotNull]
+    #[Groups(['task:read'])]
     public ?ProjectDto $project = null;
 
     /**
      * @var array<int, InvoiceItemDto>
      */
     #[ApiProperty(writable: false)]
+    #[Groups(['task:read'])]
     public array $invoiceItems = [];
 }
