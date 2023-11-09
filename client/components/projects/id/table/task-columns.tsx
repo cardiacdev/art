@@ -89,22 +89,16 @@ export const columns: ColumnDef<TaskMember>[] = [
   },
 ];
 
-export const orderColumnIds = [
-  "Referenz",
-  "Titel",
-  "Std.",
-  "Betrag",
-  "Bestellnr.",
-  "Bestelldatum",
-  "Zugesagt",
-];
+export const hiddenOrderColumns = {
+  Zugesagt: false,
+  Sandbox: false,
+  Produktiv: false,
+  Bemerkungen: false,
+};
 
-export const taskColumnIds = [
-  "Referenz",
-  "Titel",
-  "Zugesagt",
-  "Sandbox",
-  "Produktiv",
-  "Bemerkungen",
-  "Aktionen",
-];
+export const hiddenTaskColumns = {
+  Betrag: false,
+  "Bestellnr.": false,
+  Bestelldatum: false,
+  Zugesagt: false,
+};
