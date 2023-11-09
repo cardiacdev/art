@@ -21,7 +21,7 @@ export const ProjectCardsContainer = () => {
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
         {data["hydra:member"].map((project) => (
           <ProjectCard key={project["@id"]} project={project} />
         ))}
