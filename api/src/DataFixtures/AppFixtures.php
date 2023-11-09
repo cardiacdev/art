@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
             ];
         });
 
-        TaskFactory::createMany(300, function () {
+        TaskFactory::createMany(600, function () {
             return [
                 'project' => ProjectFactory::random(),
             ];
