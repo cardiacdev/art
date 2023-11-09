@@ -48,7 +48,6 @@ use Symfony\Component\Validator\Constraints\NotNull;
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
-    paginationItemsPerPage: 10,
     normalizationContext: [
         'groups' => ['project:read'],
     ],
