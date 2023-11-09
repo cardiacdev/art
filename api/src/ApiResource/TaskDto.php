@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Task;
@@ -42,7 +43,26 @@ use Symfony\Component\Validator\Constraints\NotNull;
     security: 'is_granted("ROLE_USER")',
     provider: EntityToDtoStateProvider::class,
     processor: DtoToEntityStateProcessor::class,
-    paginationItemsPerPage: 10,
+)]
+#[ApiResource(
+    uriTemplate: '/projects/{projectId}/tasks',
+    stateOptions: new Options(
+        entityClass: Task::class,
+    ),
+    shortName: 'Project',
+    openapiContext: [
+        'summary' => 'Retrieve all tasks for a project',
+    ],
+    uriVariables: [
+        'projectId' => new Link(
+            fromClass: ProjectDto::class,
+            fromProperty: 'tasks'
+        ),
+    ],
+    operations: [new GetCollection()],
+    security: 'is_granted("ROLE_USER")',
+    provider: EntityToDtoStateProvider::class,
+    processor: DtoToEntityStateProcessor::class,
 )]
 #[AssertDeletable(
     fields: ['invoiceItems'],
