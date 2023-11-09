@@ -29,11 +29,11 @@ class Project
     private ?Client $client = null;
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class)]
-    private Collection $Tasks;
+    private Collection $tasks;
 
     public function __construct()
     {
-        $this->Tasks = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,13 +82,13 @@ class Project
      */
     public function getTasks(): Collection
     {
-        return $this->Tasks;
+        return $this->tasks;
     }
 
     public function addTask(Task $task): static
     {
-        if (!$this->Tasks->contains($task)) {
-            $this->Tasks->add($task);
+        if (!$this->tasks->contains($task)) {
+            $this->tasks->add($task);
             $task->setProject($this);
         }
 
@@ -97,7 +97,7 @@ class Project
 
     public function removeTask(Task $task): static
     {
-        if ($this->Tasks->removeElement($task)) {
+        if ($this->tasks->removeElement($task)) {
             // set the owning side to null (unless already changed)
             if ($task->getProject() === $this) {
                 $task->setProject(null);
