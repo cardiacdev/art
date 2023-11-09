@@ -47,6 +47,12 @@ export function iriToId(iri: string) {
   return iri.split("/").pop() ?? "";
 }
 
+export function trimString(str?: string, maxLength = 50) {
+  if (!str) return "";
+  if (str.length <= maxLength) return str;
+  return `${str.slice(0, maxLength)}...`;
+}
+
 export function URLSearchParamsToObj(searchParams: SearchParams) {
   if (!searchParams) return {};
 
