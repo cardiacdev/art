@@ -7,6 +7,8 @@ import { dotToComma } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
 
+import { ProjectStatsCard } from "./project-stats-card";
+
 interface ProjectStatsProps {
   id: string;
 }
@@ -16,48 +18,30 @@ export const ProjectStats = ({ id }: ProjectStatsProps) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Stundensatz</CardTitle>
-          <ClockIcon className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {project?.hourlyRate ? `€${dotToComma(project?.hourlyRate)}/h` : "-"}
-          </div>
-          <p className="text-xs text-muted-foreground">Editierbar in Einstellungen</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Offene Aufgaben</CardTitle>
-          <EyeOpenIcon className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{project?.openTasks}</div>
-          <p className="text-xs text-muted-foreground">Nicht vollständig abgerechnet</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Noch nicht abgerechnet</CardTitle>
-          <Icons.euro className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">€{dotToComma(project?.notBilledAmount)}</div>
-          <p className="text-xs text-muted-foreground">Aus Rechnungsposten</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Abgerechnet</CardTitle>
-          <Icons.euro className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">€{dotToComma(project?.billedAmount)}</div>
-          <p className="text-xs text-muted-foreground">Aus Rechnungsposten</p>
-        </CardContent>
-      </Card>
+      <ProjectStatsCard
+        title="Stundensatz"
+        icon={<ClockIcon className="h-4 w-4 text-muted-foreground" />}
+        content={project?.hourlyRate ? `€${dotToComma(project?.hourlyRate)}/h` : "-"}
+        description="Editierbar in Einstellungen"
+      />
+      <ProjectStatsCard
+        title="Offene Aufgaben"
+        icon={<EyeOpenIcon className="h-4 w-4 text-muted-foreground" />}
+        content={`${project?.openTasks}`}
+        description="Nicht vollständig abgerechnet"
+      />
+      <ProjectStatsCard
+        title="Noch nicht abgerechnet"
+        icon={<Icons.euro className="h-4 w-4 text-muted-foreground" />}
+        content={`€${dotToComma(project?.notBilledAmount)}`}
+        description="Aus Rechnungsposten"
+      />
+      <ProjectStatsCard
+        title="Abgerechnet"
+        icon={<Icons.euro className="h-4 w-4 text-muted-foreground" />}
+        content={`€${dotToComma(project?.billedAmount)}`}
+        description="Aus Rechnungsposten"
+      />
     </div>
   );
 };
