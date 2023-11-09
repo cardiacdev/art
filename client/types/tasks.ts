@@ -31,7 +31,8 @@ export const taskCollectionResponseSchema = createHydraCollectionSchema(taskResp
 
 export type TaskCollectionResponse = z.infer<typeof taskCollectionResponseSchema>;
 
-export const isTaskCollectionResponse = (obj: unknown): obj is TaskCollectionResponse => taskCollectionResponseSchema.safeParse(obj).success;
+export const isTaskCollectionResponse = (obj: unknown): obj is TaskCollectionResponse =>
+  taskCollectionResponseSchema.safeParse(obj).success;
 
 // ----- COLLECTION  MEMBERS -----
 export const taskMemberSchema = createHydraMemberSchema(taskResponseSchema);

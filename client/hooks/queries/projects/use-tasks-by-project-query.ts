@@ -16,11 +16,7 @@ const fetchTasksByProject = async (id: string, params: SearchParams) => {
     `${env.NEXT_PUBLIC_API_URL}/api/projects/${id}/tasks?${searchParams.toString()}`,
   );
 
-  console.log(data)
-
   if (!isTaskCollectionResponse(data)) throw new Error("Invalid response");
-
-  console.log('wtf')
 
   return data;
 };
