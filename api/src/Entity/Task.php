@@ -52,7 +52,7 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: InvoiceItem::class)]
     private Collection $invoiceItems;
 
-    #[ORM\ManyToOne(inversedBy: 'Tasks')]
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
