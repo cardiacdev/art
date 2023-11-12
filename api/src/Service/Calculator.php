@@ -28,7 +28,6 @@ class Calculator
     public function calculateBilledAmountOfProject(int $projectId): Decimal
     {
         $invoiceItemEuroAmounts = array_column($this->invoiceItemRepository->getInvoiceItemEuroAmountsByProject($projectId), 'euroAmount');
-        dump('invoiceItemEuroAmounts', $invoiceItemEuroAmounts);
         $sumOfInvoiceItemEuroAmounts = Decimal::sum($invoiceItemEuroAmounts);
 
         return $sumOfInvoiceItemEuroAmounts;
@@ -38,7 +37,6 @@ class Calculator
     {
         $taskEuroAmounts = array_column($this->taskRepository->getEuroAmountsByProject($projectId), 'euroAmount');
 
-        dump('taskEuroAmounts', $taskEuroAmounts);
         $sumOfTaskEuroAmounts = Decimal::sum($taskEuroAmounts);
 
         return $sumOfTaskEuroAmounts;
