@@ -18,7 +18,7 @@ export const UserTable = () => {
     <>
       <div className="flex justify-between">
         <TableViewOptions table={table} />
-        <Button variant="default" className="ml-auto" onClick={() => createModal.show()}>
+        <Button variant="default" onClick={() => createModal.show()}>
           Benutzer anlegen
         </Button>
       </div>
