@@ -43,6 +43,11 @@ export function dotToComma(str?: string) {
   return str.replace(".", ",");
 }
 
+export function isIri(str?: string) {
+  if (!str) return false;
+  return str.startsWith("/");
+}
+
 export function iriToId(iri: string) {
   return iri.split("/").pop() ?? "";
 }
