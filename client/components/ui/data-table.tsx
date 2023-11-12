@@ -1,83 +1,16 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
-
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  PaginationState,
-  useReactTable,
-  VisibilityState,
-} from "@tanstack/react-table";
+import { flexRender, useReactTable } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-import { Button } from "./button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
-import { PaginationControls } from "./pagination-controls";
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  pagination: PaginationState;
-  pageCount: number;
-  onPaginationChange: Dispatch<SetStateAction<PaginationState>>;
-  initialColumns?: VisibilityState;
+interface DataTableProps<TData> {
+  table: ReturnType<typeof useReactTable<TData>>;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-  pagination,
-  pageCount,
-  onPaginationChange,
-  initialColumns = {},
-}: DataTableProps<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialColumns);
-  const table = useReactTable({
-    columns,
-    data,
-    state: { pagination, columnVisibility },
-    pageCount,
-    onPaginationChange,
-    getCoreRowModel: getCoreRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    manualPagination: true,
-  });
-
+export function DataTable<TData>({ table }: DataTableProps<TData>) {
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="mr-auto">
-            <MixerHorizontalIcon className="mr-2 h-4 w-4" />
-            Anzeige
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          {table
-            .getAllColumns()
-            .filter((column) => column.getCanHide())
-            .map((column) => {
-              return (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className="pr-3 capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}>
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              );
-            })}
-        </DropdownMenuContent>
-      </DropdownMenu>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -108,7 +41,7 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -116,14 +49,6 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <PaginationControls
-        page={pagination.pageIndex + 1}
-        pageCount={pageCount}
-        first={() => table.setPageIndex(0)}
-        previous={() => table.previousPage()}
-        next={() => table.nextPage()}
-        last={() => table.setPageIndex(table.getPageCount() - 1)}
-      />
     </>
   );
 }
