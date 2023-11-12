@@ -30,7 +30,7 @@ export const ProjectHeader = ({ id }: ProjectHeadingProps) => {
 
   return (
     <>
-      <div className="flex flex-wrap items-end justify-between gap-y-2 border-2 border-x-0 border-t-0 border-muted-foreground pb-1 sm:gap-y-0 md:flex-nowrap">
+      <div className="flex flex-wrap items-end justify-between gap-y-2 border-2 border-x-0 border-t-0 border-muted pb-1 sm:gap-y-0 md:flex-nowrap">
         <h1 className="flex items-end gap-4">
           <span className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
             {project.name}

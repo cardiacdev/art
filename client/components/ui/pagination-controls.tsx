@@ -27,7 +27,7 @@ export const PaginationControls = ({
   last,
 }: PaginationControlsProps) => {
   return (
-    <div className="absolute inset-x-0 bottom-[10vh] z-50 flex items-center justify-center space-x-2 py-4">
+    <div className="absolute inset-x-0 bottom-[5vh] z-50 flex items-center justify-center space-x-2 py-4">
       <Button variant="outline" size="sm" onClick={first} disabled={page === 1}>
         <DoubleArrowLeftIcon />
       </Button>
