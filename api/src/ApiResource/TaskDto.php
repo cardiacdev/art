@@ -70,6 +70,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
     normalizationContext: [
         'groups' => ['task:read'],
     ],
+    order: ['orderConfirmationDate' => 'DESC'],
 )]
 #[AssertDeletable(
     fields: ['invoiceItems'],
