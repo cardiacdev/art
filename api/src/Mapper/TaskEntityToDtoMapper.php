@@ -8,6 +8,7 @@ use App\ApiResource\InvoiceItemDto;
 use App\ApiResource\ProjectDto;
 use App\ApiResource\TaskDto;
 use App\Entity\Task;
+use DateTime;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
@@ -45,11 +46,11 @@ class TaskEntityToDtoMapper implements MapperInterface
         $dto->euroAmount = $entity->getEuroAmount()?->getValue();
         $dto->externalHours = $entity->getExternalHours()?->getValue();
         $dto->remarks = $entity->getRemarks();
-        $dto->plannedCompletionDate = $entity->getPlannedCompletionDate()?->format('d.m.Y');
-        $dto->firstSandboxDeploymentDate = $entity->getFirstSandboxDeploymentDate()?->format('d.m.Y');
-        $dto->firstLiveDeploymentDate = $entity->getFirstLiveDeploymentDate()?->format('d.m.Y');
+        $dto->plannedCompletionDate = $entity->getPlannedCompletionDate()?->format(DateTime::ATOM);
+        $dto->firstSandboxDeploymentDate = $entity->getFirstSandboxDeploymentDate()?->format(DateTime::ATOM);
+        $dto->firstLiveDeploymentDate = $entity->getFirstLiveDeploymentDate()?->format(DateTime::ATOM);
         $dto->orderNumber = $entity->getOrderNumber();
-        $dto->orderConfirmationDate = $entity->getOrderConfirmationDate()?->format('d.m.Y');
+        $dto->orderConfirmationDate = $entity->getOrderConfirmationDate()?->format(DateTime::ATOM);
         $dto->project = $this->microMapper->map($entity->getProject(), ProjectDto::class, [
             MicroMapperInterface::MAX_DEPTH => 1,
         ]);

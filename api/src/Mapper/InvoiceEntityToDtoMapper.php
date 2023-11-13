@@ -8,6 +8,7 @@ use App\ApiResource\ClientDto;
 use App\ApiResource\InvoiceDto;
 use App\ApiResource\InvoiceItemDto;
 use App\Entity\Invoice;
+use DateTime;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
@@ -41,7 +42,7 @@ class InvoiceEntityToDtoMapper implements MapperInterface
         assert($dto instanceof InvoiceDto);
 
         $dto->invoiceNumber = $entity->getInvoiceNumber();
-        $dto->billingDate = $entity->getBillingDate()?->format('d.m.Y');
+        $dto->billingDate = $entity->getBillingDate()?->format(DateTime::ATOM);
         $dto->remarks = $entity->getRemarks();
 
         $dto->client = $this->microMapper->map($entity->getClient(), ClientDto::class);
