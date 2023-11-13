@@ -12,10 +12,14 @@ import { FormControl } from "../ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { ScrollArea } from "../ui/scroll-area";
 import { CreateProjectFormValues } from "./create-project-dialog";
+import { EditProjectFormValues } from "./id/edit-project-dialog";
+
+// TODO - find a way to generically type this
+type FormValues = CreateProjectFormValues | EditProjectFormValues;
 
 interface ClientPopoverFieldProps {
-  field: ControllerRenderProps<CreateProjectFormValues, "client">;
-  setFormValue: UseFormSetValue<CreateProjectFormValues>;
+  field: ControllerRenderProps<FormValues, "client">;
+  setFormValue: UseFormSetValue<FormValues>;
 }
 
 export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldProps) => {
