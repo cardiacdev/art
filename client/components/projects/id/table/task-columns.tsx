@@ -112,10 +112,12 @@ export const hiddenOrderColumns = {
   Sandbox: false,
   Produktiv: false,
   Bemerkungen: false,
+  Projekt: false,
 };
 
 export const hiddenTaskColumns = {
   Betrag: false,
   "Bestellnr.": false,
   Bestelldatum: false,
+  Projekt: false,
 };
