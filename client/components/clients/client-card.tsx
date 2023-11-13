@@ -18,13 +18,15 @@ export const ClientCard = ({ client }: ClientCardProps) => {
         </Link>
         <CardDescription>
           {client.projects?.map((project, idx) => (
-            <Link
-              key={project["@id"]}
-              href={`/projects/${iriToId(project["@id"])}`}
-              className="hover:underline">
+            <>
+              <Link
+                key={project["@id"]}
+                href={`/projects/${iriToId(project["@id"])}`}
+                className="hover:underline">
+                {project.name}
+              </Link>
               {idx !== 0 && " / "}
-              {project.name}
-            </Link>
+            </>
           ))}
         </CardDescription>
       </CardHeader>
