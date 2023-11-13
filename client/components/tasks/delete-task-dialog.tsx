@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 import { TaskMember } from "@/types/tasks";
 
+import { Alert, AlertDescription } from "../ui/alert";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,14 +30,20 @@ export const DeleteTaskDialog = NiceModal.create(({ task }: DeleteTaskDialogProp
   const { visible, show, hide } = useModal();
   const { mutate, violations, resetViolations } = useDeleteTaskMutation(task["@id"]);
 
-  const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    mutate(undefined, {
-      onSuccess: () => {
-        hide();
-        toast.success(`Task ${task.title} erfolgreich gelöscht`);
-      },
-    });
-  }, [task, mutate, hide]);
+  const hasInvoiceItems = task.invoiceItems.length > 0;
+
+  const handleDeleteClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.preventDefault();
+      mutate(undefined, {
+        onSuccess: () => {
+          hide();
+          toast.success(`Task ${task.title} erfolgreich gelöscht`);
+        },
+      });
+    },
+    [task, mutate, hide],
+  );
 
   const resetDialog = useCallback(() => {
     hide();
@@ -64,6 +71,15 @@ export const DeleteTaskDialog = NiceModal.create(({ task }: DeleteTaskDialogProp
           </AlertDialogAction>
         </AlertDialogFooter>
         <GlobalViolationAlerts violations={violations.global} />
+        {hasInvoiceItems && (
+          <Alert variant={"destructive"} className="">
+            <AlertDescription>
+              <p>
+                Der Task hat noch Rechnungsposten. Bitte löschen Sie diese zuerst bevor Sie den Task löschen.
+              </p>
+            </AlertDescription>
+          </Alert>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
