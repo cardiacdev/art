@@ -4,11 +4,10 @@ import { useCreateTaskMutation } from "@/hooks/mutations/tasks/use-create-task-m
 import { useZodForm } from "@/hooks/use-zod-form";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { cn, commaToDot } from "@/lib/utils";
+import { cn, commaToDot, dateToFormat } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -18,7 +17,6 @@ import { CurrencyPopover } from "../ui/currency-popover";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -190,7 +188,7 @@ export const CreateTaskDialog = NiceModal.create(({ projectId }: CreateTaskDialo
                             "w-[240px] pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}>
-                          {field.value ? format(field.value, "PPP") : <span>Datum auswählen..</span>}
+                          {field.value ? dateToFormat(field.value, "PPP") : <span>Datum auswählen..</span>}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>

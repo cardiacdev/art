@@ -77,6 +77,10 @@ export function URLSearchParamsToObj(searchParams: SearchParams) {
   return searchParams;
 }
 
-export function isoToFormat(iso: string, formatString: string = "dd.MM.yyyy") {
+export function dateToFormat(date: Date, formatString: string = "PP") {
+  return format(date, formatString);
+}
+
+export function isoToFormat(iso: string, formatString: string = "PP") {
   return format(parseISO(iso), formatString);
 }
