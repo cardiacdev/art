@@ -37,8 +37,6 @@ const createTaskFormSchema = z.object({
   externalHours: z.union([z.string().min(1), z.literal("")]),
   remarks: z.union([z.string().min(1), z.literal("")]),
   plannedCompletionDate: z.date().optional(),
-  firstSandboxDeploymentDate: z.date().optional(),
-  firstLiveDeploymentDate: z.date().optional(),
 });
 
 export type CreateTaskFormValues = z.infer<typeof createTaskFormSchema>;
@@ -50,8 +48,6 @@ const emptyFormValues = {
   externalHours: "",
   remarks: "",
   plannedCompletionDate: undefined,
-  firstSandboxDeploymentDate: undefined,
-  firstLiveDeploymentDate: undefined,
 };
 
 interface CreateTaskDialogProps {
