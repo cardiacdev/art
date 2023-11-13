@@ -118,5 +118,4 @@ export const hiddenTaskColumns = {
   Betrag: false,
   "Bestellnr.": false,
   Bestelldatum: false,
-  Zugesagt: false,
 };
