@@ -33,9 +33,9 @@ const createTaskFormSchema = z.object({
   reference: z.union([z.string().min(1), z.literal("")]),
   euroAmount: z.union([z.string().min(1), z.literal("")]),
   externalHours: z.union([z.string().min(1), z.literal("")]),
-  remarks: z.union([z.string().min(1), z.literal("")]),
   orderConfirmationDate: z.date().optional(),
   plannedCompletionDate: z.date().optional(),
+  remarks: z.union([z.string().min(1), z.literal("")]),
 });
 
 export type CreateTaskFormValues = z.infer<typeof createTaskFormSchema>;
@@ -45,8 +45,9 @@ const emptyFormValues = {
   reference: "",
   euroAmount: "",
   externalHours: "",
-  remarks: "",
+  orderConfirmationDate: undefined,
   plannedCompletionDate: undefined,
+  remarks: "",
 };
 
 interface CreateTaskDialogProps {
@@ -160,22 +161,6 @@ export const CreateTaskDialog = NiceModal.create(({ projectId }: CreateTaskDialo
             />
             <FormField
               control={form.control}
-              name="remarks"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">
-                    <span>Bemerkungen</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                  <FormServerMessage violations={violations[field.name]} />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="orderConfirmationDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
@@ -227,6 +212,22 @@ export const CreateTaskDialog = NiceModal.create(({ projectId }: CreateTaskDialo
                       <Calendar mode="single" selected={field.value} onSelect={field.onChange} initialFocus />
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                  <FormServerMessage violations={violations[field.name]} />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="remarks"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">
+                    <span>Bemerkungen</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
                   <FormMessage />
                   <FormServerMessage violations={violations[field.name]} />
                 </FormItem>
