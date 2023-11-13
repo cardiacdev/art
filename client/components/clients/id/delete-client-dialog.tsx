@@ -71,7 +71,7 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
           </AlertDialogAction>
         </AlertDialogFooter>
         <GlobalViolationAlerts violations={violations.global} />
-        {
+        {(hasInvoices || hasProjects) && (
           <Alert variant={"destructive"} className="">
             <AlertDescription>
               {hasInvoices && (
@@ -86,7 +86,7 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
               )}
             </AlertDescription>
           </Alert>
-        }
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
