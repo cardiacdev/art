@@ -7,6 +7,8 @@ import { TaskMember } from "@/types/tasks";
 import { trimString } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+import { TaskActionsMenu } from "./task-actions-menu";
+
 export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "reference",
@@ -79,12 +81,7 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     id: "Aktionen",
     cell: ({ row }) => {
-      return (
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Menü öffnen</span>
-          <DotsHorizontalIcon className="h-5 w-5" />
-        </Button>
-      );
+      return <TaskActionsMenu task={row.original} />;
     },
   },
 ];
