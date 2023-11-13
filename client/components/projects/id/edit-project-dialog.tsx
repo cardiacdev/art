@@ -29,7 +29,7 @@ import { ClientPopoverField } from "../client-popover-field";
 const editProjectFormSchema = z.object({
   name: z.string().min(2, "Der Projektname muss mindestens 2 Zeichen lang sein"),
   client: z.string().min(1, "Der Kunde darf nicht leer sein"),
-  hourlyRate: z.union([z.string().min(1), z.literal("")]),
+  hourlyRate: z.string().min(1).optional(),
 });
 
 export type EditProjectFormValues = z.infer<typeof editProjectFormSchema>;
@@ -42,7 +42,7 @@ export const EditProjectDialog = NiceModal.create(({ project }: EditProjectDialo
   const stateValues = {
     name: project.name,
     client: project.client["@id"],
-    hourlyRate: project.hourlyRate ?? "",
+    hourlyRate: project.hourlyRate,
   };
   const form = useZodForm({
     schema: editProjectFormSchema,
@@ -73,13 +73,13 @@ export const EditProjectDialog = NiceModal.create(({ project }: EditProjectDialo
       return;
     }
 
-    const patchData = getDirtyFormValues(dirtyFields, data);
+    let patchData = getDirtyFormValues(dirtyFields, data);
 
-    const sanitizedData = patchData.hourlyRate
-      ? { ...patchData, hourlyRate: commaToDot(patchData.hourlyRate) }
-      : patchData;
+    if (patchData.hourlyRate) {
+      patchData = { ...patchData, hourlyRate: commaToDot(patchData.hourlyRate) };
+    }
 
-    mutate(sanitizedData, {
+    mutate(patchData, {
       onSuccess: () => {
         hide();
         toast.success(`Projekt ${project.name} erfolgreich bearbeitet!`);

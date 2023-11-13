@@ -24,7 +24,7 @@ import { GlobalViolationAlerts } from "../ui/global-violation-alerts";
 const editMeFormSchema = z.object({
   email: z.string().email("Ungültige Email-Adresse"),
   username: z.string().min(3, "Der Username muss mindestens 3 Zeichen lang sein"),
-  password: z.union([z.string().min(6, "Das Passwort muss mindestens 6 Zeichen lang sein"), z.literal("")]),
+  password: z.string().min(6, "Das Passwort muss mindestens 6 Zeichen lang sein").optional(),
 });
 
 export type EditMeFormValues = z.infer<typeof editMeFormSchema>;
@@ -34,7 +34,7 @@ interface EditMeDialogProps {
 }
 
 export const EditMeDialog = NiceModal.create(({ user }: EditMeDialogProps) => {
-  const formValues = { email: user.email, username: user.username, password: "" };
+  const formValues = { email: user.email, username: user.username };
   const form = useZodForm({
     schema: editMeFormSchema,
     defaultValues: formValues,

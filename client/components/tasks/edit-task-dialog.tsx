@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { TaskMember } from "@/types/tasks";
-import { cn, commaToDot, dateToFormat } from "@/lib/utils";
+import { cn, commaToDot, dateToFormat, getDirtyFormValues } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -34,10 +34,10 @@ import { Textarea } from "../ui/textarea";
 
 const editTaskFormSchema = z.object({
   title: z.string().min(2, "Der Taskname muss mindestens 2 Zeichen lang sein"),
-  reference: z.union([z.string().min(1), z.literal("")]),
-  euroAmount: z.union([z.string().min(1), z.literal("")]),
-  externalHours: z.union([z.string().min(1), z.literal("")]),
-  remarks: z.union([z.string().min(1), z.literal("")]),
+  reference: z.string().optional(),
+  euroAmount: z.string().optional(),
+  externalHours: z.string().optional(),
+  remarks: z.string().optional(),
   plannedCompletionDate: z.date().optional(),
   firstSandboxDeploymentDate: z.date().optional(),
   firstLiveDeploymentDate: z.date().optional(),
@@ -54,10 +54,10 @@ export const EditTaskDialog = NiceModal.create(({ task }: EditTaskDialogProps) =
   const stateValues = useMemo(() => {
     return {
       title: task.title,
-      reference: task.reference ?? "",
-      euroAmount: task.euroAmount ?? "",
-      externalHours: task.externalHours ?? "",
-      remarks: task.remarks ?? "",
+      reference: task.reference,
+      euroAmount: task.euroAmount,
+      externalHours: task.externalHours,
+      remarks: task.remarks,
       plannedCompletionDate: task.plannedCompletionDate ? parseISO(task.plannedCompletionDate) : undefined,
       firstSandboxDeploymentDate: task.firstSandboxDeploymentDate
         ? parseISO(task.firstSandboxDeploymentDate)
@@ -74,30 +74,47 @@ export const EditTaskDialog = NiceModal.create(({ task }: EditTaskDialogProps) =
     values: stateValues,
   });
 
-  const { mutate, isPending, violations } = useEditTaskMutation(task["@id"]);
+  /**
+   * formState is wrapped with a Proxy to improve render performance
+   * and skip extra logic if specific state is not subscribed to.
+   * By reading all the values we need, we can properly subscribe to changes.
+   * See: https://react-hook-form.com/docs/useform/formstate
+   */
+  const { isDirty, dirtyFields } = form.formState;
+
+  const { mutate, isPending, violations, resetViolations } = useEditTaskMutation(task["@id"]);
   const { visible, show, hide } = useModal();
 
-  const hideAndReset = () => {
+  const resetDialog = () => {
     hide();
     form.reset(stateValues);
+    resetViolations();
   };
 
   const onSubmit = (data: EditTaskFormValues) => {
-    const postData = {
-      ...data,
-      euroAmount: data.euroAmount === "" ? "" : commaToDot(data.euroAmount),
-      externalHours: data.externalHours === "" ? "" : commaToDot(data.externalHours),
-    };
-    mutate(postData, {
+    if (!isDirty) {
+      hide();
+      return;
+    }
+    let patchData = getDirtyFormValues(dirtyFields, data);
+
+    if (patchData.euroAmount) {
+      patchData = { ...patchData, euroAmount: commaToDot(patchData.euroAmount) };
+    }
+    if (patchData.externalHours) {
+      patchData = { ...patchData, externalHours: commaToDot(patchData.externalHours) };
+    }
+
+    mutate(patchData, {
       onSuccess: (returnData) => {
-        hideAndReset();
+        resetDialog();
         toast.success(`Task ${returnData.title} erfolgreich bearbeitet!`);
       },
     });
   };
 
   return (
-    <Dialog open={visible} onOpenChange={(open) => (open ? show() : hideAndReset())}>
+    <Dialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Task bearbeiten</DialogTitle>
