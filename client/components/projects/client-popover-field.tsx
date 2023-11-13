@@ -15,11 +15,17 @@ import { CreateProjectFormValues } from "./create-project-dialog";
 import { EditProjectFormValues } from "./id/edit-project-dialog";
 
 // TODO - find a way to generically type this
-type FormValues = CreateProjectFormValues | EditProjectFormValues;
+type ProjectControllerRenderProps =
+  | ControllerRenderProps<CreateProjectFormValues, "client">
+  | ControllerRenderProps<EditProjectFormValues, "client">;
+
+type ProjectUseFormSetValue =
+  | UseFormSetValue<CreateProjectFormValues>
+  | UseFormSetValue<EditProjectFormValues>;
 
 interface ClientPopoverFieldProps {
-  field: ControllerRenderProps<FormValues, "client">;
-  setFormValue: UseFormSetValue<FormValues>;
+  field: ProjectControllerRenderProps;
+  setFormValue: ProjectUseFormSetValue;
 }
 
 export const ClientPopoverField = ({ field, setFormValue }: ClientPopoverFieldProps) => {
