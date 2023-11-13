@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import { format, parseISO } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { SearchParams } from "@/types/utils";
@@ -74,4 +75,8 @@ export function URLSearchParamsToObj(searchParams: SearchParams) {
   }
 
   return searchParams;
+}
+
+export function isoToFormat(iso: string, formatString: string = "dd.MM.yyyy") {
+  return format(parseISO(iso), formatString);
 }

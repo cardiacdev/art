@@ -2,9 +2,10 @@
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
+import { format, parseISO } from "date-fns";
 
 import { TaskMember } from "@/types/tasks";
-import { trimString } from "@/lib/utils";
+import { isoToFormat, trimString } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import { TaskActionsMenu } from "./task-actions-menu";
@@ -52,21 +53,41 @@ export const columns: ColumnDef<TaskMember>[] = [
     accessorKey: "plannedCompletionDate",
     header: "Zugesagt",
     id: "Zugesagt",
+    cell: ({ row }) => {
+      const date = row.original.plannedCompletionDate;
+      if (!date) return null;
+      return isoToFormat(date);
+    },
   },
   {
     accessorKey: "firstSandboxDeploymentDate",
     header: "Sandbox",
     id: "Sandbox",
+    cell: ({ row }) => {
+      const date = row.original.firstSandboxDeploymentDate;
+      if (!date) return null;
+      return isoToFormat(date);
+    },
   },
   {
     accessorKey: "firstLiveDeploymentDate",
     header: "Produktiv",
     id: "Produktiv",
+    cell: ({ row }) => {
+      const date = row.original.firstLiveDeploymentDate;
+      if (!date) return null;
+      return isoToFormat(date);
+    },
   },
   {
     accessorKey: "orderConfirmationDate",
     header: "Bestelldatum",
     id: "Bestelldatum",
+    cell: ({ row }) => {
+      const date = row.original.orderConfirmationDate;
+      if (!date) return null;
+      return isoToFormat(date);
+    },
   },
   {
     accessorKey: "project.name",
