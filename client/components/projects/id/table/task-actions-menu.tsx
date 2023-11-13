@@ -12,13 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DeleteTaskDialog } from "@/components/tasks/delete-task-dialog";
+import { EditTaskDialog } from "@/components/tasks/edit-task-dialog";
 
 interface TaskActionsMenuProps {
   task: TaskMember;
 }
 
 export const TaskActionsMenu = ({ task }: TaskActionsMenuProps) => {
-  // const editModal = useModal(EditTaskDialog, { task });
+  const editModal = useModal(EditTaskDialog, { task });
   const deleteModal = useModal(DeleteTaskDialog, { task });
 
   return (
@@ -33,10 +34,7 @@ export const TaskActionsMenu = ({ task }: TaskActionsMenuProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Aktionen</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="cursor-pointer"
-            // onSelect={() => editModal.show({ task })}
-          >
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => editModal.show({ task })}>
             <Pencil1Icon className="mr-1 h-4 w-4" />
             Bearbeiten
           </DropdownMenuItem>
