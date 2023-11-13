@@ -93,7 +93,7 @@ export const EditTaskDialog = NiceModal.create(({ projectId, task }: EditTaskDia
     mutate(postData, {
       onSuccess: (returnData) => {
         hideAndReset();
-        toast.success(`Task ${returnData.title} erfolgreich erstellt!`);
+        toast.success(`Task ${returnData.title} erfolgreich bearbeitet!`);
       },
     });
   };
