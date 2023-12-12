@@ -1,6 +1,6 @@
 :80 {
-	reverse_proxy /bundles/apiplatform/* bart.api:80
-	reverse_proxy /_profiler* bart.api:80
-	reverse_proxy /api/* bart.api:80
-	reverse_proxy bart.client:3000
+	reverse_proxy /bundles/apiplatform/* art.api:80
+	reverse_proxy /_profiler* art.api:80
+	reverse_proxy /api/* art.api:80
+	reverse_proxy art.client:3000
 }

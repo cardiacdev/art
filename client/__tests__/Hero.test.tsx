@@ -6,6 +6,6 @@ describe("Hero", () => {
   test("1. The Hero component renders", () => {
     render(<Hero />);
     const main = within(screen.getByRole("main"));
-    expect(main.getByRole("heading", { name: /BART/i })).toBeDefined();
+    expect(main.getByRole("heading", { name: /ART/i })).toBeDefined();
   });
 });

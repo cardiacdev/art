@@ -3,13 +3,13 @@ version: '3'
 services:
   client:
     build: ./client
-    container_name: bart.client
+    container_name: art.client
     volumes:
       - ../../client:/var/www/app
 
   api:
     build: ./api
-    container_name: bart.api
+    container_name: art.api
     depends_on:
       - postgres
     volumes:
@@ -18,7 +18,7 @@ services:
 
   reverse_proxy:
     image: caddy:2.7-alpine
-    container_name: bart.caddy
+    container_name: art.caddy
     restart: unless-stopped
     ports:
       - 443:443
@@ -30,7 +30,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: bart.db
+    container_name: art.db
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
