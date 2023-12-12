@@ -4,7 +4,7 @@ Final Exam Project for the _Fachinformatiker Anwendungsentwicklung_ Apprenticesh
 
 ## Description 🌻
 
-ART is a web application for managing Clients, Projects, Tasks, Orders and Invoices.
+ART (Anwendungs- und Rechnungstracker) is a web application for managing Clients, Projects, Tasks/Orders and Invoices.
 
 <!-- ## Demo
 
