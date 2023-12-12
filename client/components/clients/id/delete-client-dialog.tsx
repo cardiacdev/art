@@ -58,7 +58,7 @@ export const DeleteClientDialog = NiceModal.create(({ client }: DeleteClientDial
           <AlertDialogDescription>
             <span className="mb-2 block">Diese Aktion kann nicht rückgängig gemacht werden.</span>
             <span>
-              Projekt <strong>{client.name}</strong> wird unwiderruflich gelöscht.
+              Kunde <strong>{client.name}</strong> wird unwiderruflich gelöscht.
             </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
