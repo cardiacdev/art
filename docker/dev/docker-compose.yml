@@ -29,7 +29,7 @@ services:
       - caddy_config:/config
 
   postgres:
-    image: docker.boewa-software.de/boewa-software/gitlab-ci/mirror/postgres:15
+    image: postgres:15
     container_name: bart.db
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
