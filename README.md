@@ -6,9 +6,9 @@ Final Exam Project for the _Fachinformatiker Anwendungsentwicklung_ Apprenticesh
 
 ART (Anwendungs- und Rechnungstracker) is a web application for managing Clients, Projects, Tasks/Orders and Invoices.
 
-<!-- ## Demo
+## Demo
 
-A demo of the application can be found [here](https://art.cardiacdev.tech/). -->
+A demo of the application can be found at [art.cardiacdev.tech](https://art.cardiacdev.tech/)
 
 ## Tech Stack 🥞
 
