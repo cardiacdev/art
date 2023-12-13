@@ -11,8 +11,8 @@ export default function Hero() {
           Die zentrale Auftrags- und Rechnungsverwaltung
         </h2>
         <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae voluptatem adipisci quia
-          doloremque dolorem delectus optio enim odio beatae nemo sint nihil accusantium.
+          Elevate your business management with ART, simplifying order and invoice tracking for
+          seamless control and real-time insights.
         </p>
       </div>
     </main>
