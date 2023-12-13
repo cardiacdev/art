@@ -47,6 +47,12 @@ export const LoginForm = ({ closeDialog }: LoginFormProps) => {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <button
+                type="button"
+                onClick={() => form.setValue(field.name, "admin@example.com")}
+                className="text-xs text-muted-foreground">
+                (try admin@example.com)
+              </button>
               <FormMessage />
             </FormItem>
           )}
@@ -60,6 +66,12 @@ export const LoginForm = ({ closeDialog }: LoginFormProps) => {
               <FormControl>
                 <Input type="password" {...field} />
               </FormControl>
+              <button
+                type="button"
+                onClick={() => form.setValue(field.name, "123456")}
+                className="text-xs text-muted-foreground">
+                (try 123456)
+              </button>
               <FormMessage />
             </FormItem>
           )}
