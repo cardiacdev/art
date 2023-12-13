@@ -17,7 +17,7 @@ A demo of the application can be found [here](https://art.cardiacdev.tech/). -->
 - [Next.js](https://nextjs.org/) (React) with TypeScript
 - [API Platform](https://api-platform.com/) (Symfony) with PHP
 
-#### DevOps
+#### DevOps & Infrastructure
 
 - [Docker](https://www.docker.com/) (Containerization)
 - [Nginx Proxy Manager](https://nginxproxymanager.com/) (Reverse Proxy)
@@ -31,7 +31,7 @@ A demo of the application can be found [here](https://art.cardiacdev.tech/). -->
 
 - [Tanstack React Query](https://react-query.tanstack.com/) (Data Fetching)
 - [Tailwind CSS](https://tailwindcss.com/) (Styling)
-- [React Hook Form](https://react-hook-form.com/) (Form Handling)
+- [React Hook Form](https://react-hook-form.com/) & [Zod](https://github.com/colinhacks/zod) (Form Handling)
 - [Tanstack React Table](https://react-table.tanstack.com/) (Data Tables)
 - [Nice Modal React](https://github.com/eBay/nice-modal-react) (Modals)
 - [shadcn/ui](https://ui.shadcn.com/) (Component Library)
