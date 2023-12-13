@@ -55,13 +55,15 @@ export const MainNav = ({ appName, items }: MainNavProps) => {
           )}
         </nav>
       )}
-      <button
-        className="flex items-center space-x-2 md:hidden"
-        type="button"
-        onClick={() => setShowMobileMenu(!showMobileMenu)}>
-        {showMobileMenu ? <Cross1Icon /> : <HamburgerMenuIcon />}
-        <span className="font-bold">Menu</span>
-      </button>
+      {isAuthenticated && (
+        <button
+          className="flex items-center space-x-2 md:hidden"
+          type="button"
+          onClick={() => setShowMobileMenu(!showMobileMenu)}>
+          {showMobileMenu ? <Cross1Icon /> : <HamburgerMenuIcon />}
+          <span className="font-bold">Menu</span>
+        </button>
+      )}
       {showMobileMenu && <MobileNav items={items} handleClose={() => setShowMobileMenu(false)} />}
     </div>
   );
