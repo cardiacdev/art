@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
+import { Alert, AlertDescription } from "../ui/alert";
 import {
   Form,
   FormControl,
@@ -76,6 +77,8 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
     });
   };
 
+  const isAdmin = user.email === "admin@example.com";
+
   return (
     <Dialog open={visible} onOpenChange={(open) => (open ? show() : resetDialog())}>
       <DialogContent className="sm:max-w-[425px]">
@@ -113,10 +116,15 @@ export const EditUserDialog = NiceModal.create(({ user }: EditUserDialogProps) =
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending}>
+            <Button type="submit" disabled={isPending || isAdmin}>
               Speichern
             </Button>
             <GlobalViolationAlerts violations={violations.global} />
+            {isAdmin && (
+              <Alert variant={"destructive"} className="">
+                <AlertDescription>Der Admin Nutzer darf nicht bearbeitet werden.</AlertDescription>
+              </Alert>
+            )}
           </form>
         </Form>
       </DialogContent>

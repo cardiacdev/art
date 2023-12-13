@@ -29,8 +29,12 @@ class UserDtoToEntityMapper implements MapperInterface
         assert($dto instanceof UserDto);
 
         $entity = $dto->id ? $this->userRepository->find($dto->id) : new User();
-        if (!$entity) {
+        if (!$entity || !$entity instanceof User) {
             throw new Exception(sprintf('Entity %d not found', $dto->id));
+        }
+
+        if ($entity->getEmail() === 'admin@example.com') {
+            throw new Exception('You cannot edit the admin user');
         }
 
         return $entity;
