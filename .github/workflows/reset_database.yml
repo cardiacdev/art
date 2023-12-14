@@ -1,0 +1,21 @@
+name: Reset database, migrate and load fixtures
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reset-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker exec art.api bin/console doctrine:database:drop --force
+            docker exec art.api bin/console doctrine:database:create
+            docker exec art.api bin/console doctrine:migrations:migrate --no-interaction
+            docker exec art.api bin/console doctrine:fixtures:load --no-interaction
+            docker exec art.api bin/console cache:clear
