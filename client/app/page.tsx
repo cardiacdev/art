@@ -11,8 +11,12 @@ export default function Hero() {
           Die zentrale Auftrags- und Rechnungsverwaltung
         </h2>
         <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-          Elevate your business management with ART, simplifying order and invoice tracking for
-          seamless control and real-time insights.
+          Optimieren Sie Ihr Geschäftsmanagement mit ART, um die Verfolgung von Bestellungen und Rechnungen zu
+          vereinfachen und so eine reibungslose Kontrolle sowie Echtzeit-Einblicke zu ermöglichen.
+        </p>
+        <p className="text-muted-foreground text-xs pt-6">
+          Dies ist eine Demo-Version. Bitte geben Sie keine sensiblen Daten ein. Die Datenbank wird alle 24
+          Stunden zurückgesetzt.{" "}
         </p>
       </div>
     </main>
