@@ -4,7 +4,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: env.NEXT_PUBLIC_APP_NAME,
-  description: "Managing orders and invoices made easy.",
+  description: "Vereinfachen Sie Ihre Auftrags- und Rechnungsverwaltung.",
   mainNav: [
     {
       title: "Projekte",
