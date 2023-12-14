@@ -2,6 +2,8 @@ name: Reset database, migrate and load fixtures
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   reset-db:
