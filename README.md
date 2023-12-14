@@ -26,6 +26,7 @@ A demo of the application can be found at [art.cardiacdev.tech](https://art.card
 - [Make](https://www.gnu.org/software/make/) (Task Runner)
 - [PostgreSQL](https://www.postgresql.org/) (Database)
 - [GitHub Actions](https://github.com/features/actions) (CI/CD)
+- [Watchtower](https://containrrr.dev/watchtower/) (Container Updater)
 
 #### Worth Mentioning
 
