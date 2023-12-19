@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Toaster } from "sonner";
 
 import { siteConfig } from "@/config/site";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import { MainNav } from "@/components/header/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -23,10 +24,10 @@ export function SiteHeader({ appName }: { appName: string }) {
               title="Einen Bug melden"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center">
-              <Button variant="ghost" size={"icon"}>
-                <Icons.bug className="absolute h-8 w-8" />
-              </Button>
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon", className: "flex items-center" }),
+              )}>
+              <Icons.bug className="absolute h-8 w-8" />
             </Link>
             <ThemeToggle />
             <AuthButton />
