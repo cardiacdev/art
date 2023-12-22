@@ -27,7 +27,7 @@ export const UserNav = ({ user }: UserNavProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size={"icon"}>
+        <Button variant="ghost" size={"icon"} title="Profileinstellungen">
           <Avatar size={25} name={user.username} variant="marble" />
         </Button>
       </DropdownMenuTrigger>
