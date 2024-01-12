@@ -4,7 +4,7 @@ const PlainTabsList = ({ className, ...props }: React.HTMLAttributes<HTMLDivElem
   return (
     <div
       className={cn(
-        "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
+        "inline-flex h-9 min-w-[18rem] items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
         className,
       )}
       {...props}
