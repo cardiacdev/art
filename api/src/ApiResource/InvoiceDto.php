@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Symfony\Validator\Exception\ValidationException;
 use App\Entity\Invoice;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;

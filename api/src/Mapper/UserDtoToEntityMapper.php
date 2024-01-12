@@ -33,7 +33,7 @@ class UserDtoToEntityMapper implements MapperInterface
             throw new Exception(sprintf('Entity %d not found', $dto->id));
         }
 
-        if ($entity->getEmail() === 'admin@example.com') {
+        if ('admin@example.com' === $entity->getEmail()) {
             throw new Exception('You cannot edit the admin user');
         }
 
