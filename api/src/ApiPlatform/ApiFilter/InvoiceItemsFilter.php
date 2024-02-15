@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ApiPlatform\CustomFilter;
+namespace App\ApiPlatform\ApiFilter;
 
 use ApiPlatform\Doctrine\Common\Filter\OrderFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
