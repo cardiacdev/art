@@ -16,6 +16,7 @@ api_platform:
     event_listeners_backward_compatibility_layer: false
     keep_legacy_inflector: false
     collection:
+        order_nulls_comparison: 'nulls_smallest'
         pagination:
             items_per_page_parameter_name: 'itemsPerPage'
             enabled_parameter_name: pagination # default value

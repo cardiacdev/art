@@ -14,7 +14,7 @@ export default function Hero() {
           Optimieren Sie Ihr Geschäftsmanagement mit ART, um die Verfolgung von Bestellungen und Rechnungen zu
           vereinfachen und so eine reibungslose Kontrolle sowie Echtzeit-Einblicke zu ermöglichen.
         </p>
-        <p className="text-muted-foreground text-xs pt-6">
+        <p className="pt-6 text-xs text-muted-foreground">
           Dies ist eine Demo-Version. Bitte geben Sie keine sensiblen Daten ein. Die Datenbank wird alle 24
           Stunden zurückgesetzt.{" "}
         </p>

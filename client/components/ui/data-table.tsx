@@ -1,5 +1,6 @@
 "use client";
 
+import { CaretDownIcon, CaretUpIcon } from "@radix-ui/react-icons";
 import { flexRender, useReactTable } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -15,13 +16,17 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="whitespace-nowrap">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    <TableHead key={header.id} onClick={header.column.getToggleSortingHandler()}>
+                      {header.isPlaceholder ? null : (
+                        <span className={header.column.getCanSort() ? "cursor-pointer hover:underline" : ""}>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </span>
+                      )}
+                      {header.column.getIsSorted() === "asc" && <CaretUpIcon className="inline" />}
+                      {header.column.getIsSorted() === "desc" && <CaretDownIcon className="inline" />}
                     </TableHead>
                   );
                 })}

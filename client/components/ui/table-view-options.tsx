@@ -33,7 +33,7 @@ export const TableViewOptions = <TData extends unknown>({ table }: TableViewOpti
                 className="pr-3 capitalize"
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}>
-                {column.id}
+                {typeof column.columnDef.header === "string" ? column.columnDef.header : column.id}
               </DropdownMenuCheckboxItem>
             );
           })}

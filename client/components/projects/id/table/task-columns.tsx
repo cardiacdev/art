@@ -11,12 +11,10 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "reference",
     header: "Referenz",
-    id: "Referenz",
   },
   {
     accessorKey: "title",
     header: "Titel",
-    id: "Titel",
     cell: ({ row }) => {
       const trimmedString = trimString(row.original.title, 20);
       return <span title={row.original.title}>{trimmedString}</span>;
@@ -25,17 +23,14 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "externalHours",
     header: "Std.",
-    id: "Std.",
   },
   {
     accessorKey: "euroAmount",
     header: "Betrag",
-    id: "Betrag",
   },
   {
     accessorKey: "remarks",
     header: "Bemerkungen",
-    id: "Bemerkungen",
     cell: ({ row }) => {
       const trimmedString = trimString(row.original.remarks, 20);
       return <span title={row.original.remarks}>{trimmedString}</span>;
@@ -44,12 +39,10 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "orderNumber",
     header: "Bestellnr.",
-    id: "Bestellnr.",
   },
   {
     accessorKey: "plannedCompletionDate",
     header: "Zugesagt",
-    id: "Zugesagt",
     cell: ({ row }) => {
       const date = row.original.plannedCompletionDate;
       if (!date) return null;
@@ -59,7 +52,6 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "firstSandboxDeploymentDate",
     header: "Sandbox",
-    id: "Sandbox",
     cell: ({ row }) => {
       const date = row.original.firstSandboxDeploymentDate;
       if (!date) return null;
@@ -69,7 +61,6 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "firstLiveDeploymentDate",
     header: "Produktiv",
-    id: "Produktiv",
     cell: ({ row }) => {
       const date = row.original.firstLiveDeploymentDate;
       if (!date) return null;
@@ -79,7 +70,6 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "orderConfirmationDate",
     header: "Bestelldatum",
-    id: "Bestelldatum",
     cell: ({ row }) => {
       const date = row.original.orderConfirmationDate;
       if (!date) return null;
@@ -89,15 +79,15 @@ export const columns: ColumnDef<TaskMember>[] = [
   {
     accessorKey: "project.name",
     header: "Projekt",
-    id: "Projekt",
   },
   {
     accessorKey: "invoiceItems.length",
     header: "Posten",
-    id: "Posten",
+    // enableSorting: true,
   },
   {
     id: "Aktionen",
+    enableSorting: false,
     cell: ({ row }) => {
       return <TaskActionsMenu task={row.original} />;
     },

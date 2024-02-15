@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\ApiResource;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\State\Options;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,6 +15,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Symfony\Validator\Exception\ValidationException;
+use App\ApiPlatform\CustomFilter\InvoiceItemsFilter;
 use App\Entity\Task;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
@@ -72,6 +76,13 @@ use Symfony\Component\Validator\Constraints\NotNull;
     ],
     order: ['orderConfirmationDate' => 'DESC'],
 )]
+#[
+    ApiFilter(
+        OrderFilter::class,
+        properties: ['title', 'reference', 'euroAmount', 'externalHours', 'plannedCompletionDate', 'firstSandboxDeploymentDate', 'firstLiveDeploymentDate', 'orderNumber', 'orderConfirmationDate', 'remarks'],
+    )
+]
+#[ApiFilter(InvoiceItemsFilter::class)]
 #[AssertDeletable(
     fields: ['invoiceItems'],
     groups: ['deleteValidation']

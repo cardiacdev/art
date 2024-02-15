@@ -45,6 +45,7 @@ export default function Page({ params: { id } }: PageProps) {
   // Prefetch tasks for project
   const params = new URLSearchParams();
   params.append("page", "1");
+  params.append("order[orderConfirmationDate]", "desc");
   queryClient.prefetchQuery({
     queryKey: projectsKeys.tasksWithParams(id, params),
     queryFn: () => fetchTasksByProject(id, params),
