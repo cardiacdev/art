@@ -16,7 +16,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Symfony\Validator\Exception\ValidationException;
-use App\ApiPlatform\CustomFilter\InvoiceItemsFilter;
+use App\ApiPlatform\ApiFilter\InvoiceItemsFilter;
 use App\Entity\Task;
 use App\State\DtoToEntityStateProcessor;
 use App\State\EntityToDtoStateProvider;
